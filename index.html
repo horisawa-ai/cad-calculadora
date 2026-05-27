@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0a5f3c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>CAD · Manejo</title>
+<style>
+  :root {
+    --green-900: #0a5f3c;
+    --green-700: #14794d;
+    --green-500: #1d9b63;
+    --green-200: #b8e0cc;
+    --green-100: #d6ecdd;
+    --green-50:  #ecf6f0;
+    --ink: #1a2520;
+    --ink-soft: #5a6a64;
+    --ink-light: #8a9690;
+    --bg: #fafaf7;
+    --paper: #ffffff;
+    --line: #e4e8e5;
+    --red: #b54545;
+    --red-soft: #fdeded;
+    --amber: #b07b1a;
+    --amber-soft: #fbf2dc;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  html { font-size: 16px; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    min-height: 100vh;
+    padding-bottom: 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--green-900);
+    color: white;
+    padding: 18px 20px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(10, 95, 60, 0.15);
+  }
+
+  header h1 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  header .sub {
+    font-size: 0.75rem;
+    opacity: 0.75;
+    margin-top: 2px;
+  }
+
+  /* NAV (bottom tab bar style) */
+  nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--paper);
+    border-top: 1px solid var(--line);
+    display: flex;
+    z-index: 100;
+    padding: 4px 0 max(4px, env(safe-area-inset-bottom));
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.04);
+  }
+
+  .nav-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: 8px 2px;
+    font-family: inherit;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--ink-light);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    transition: color 0.15s;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-btn svg {
+    width: 22px;
+    height: 22px;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .nav-btn.active {
+    color: var(--green-700);
+  }
+
+  /* CONTENT */
+  main {
+    padding: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .panel { display: none; animation: fadeIn 0.2s ease; }
+  .panel.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--green-900);
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 18px 0 10px;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+
+  .card-green {
+    background: var(--green-50);
+    border-color: var(--green-200);
+  }
+
+  .card-green-strong {
+    background: var(--green-100);
+    border-color: var(--green-500);
+  }
+
+  /* CRITERIA LIST */
+  .criteria {
+    list-style: none;
+  }
+
+  .criteria li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--green-200);
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .criteria li:last-child { border-bottom: none; }
+
+  .criteria .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green-500);
+    flex-shrink: 0;
+  }
+
+  /* INPUTS */
+  .field {
+    margin-bottom: 14px;
+  }
+
+  .field label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  input[type="number"],
+  select {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 1.05rem;
+    background: var(--paper);
+    color: var(--ink);
+    transition: border-color 0.15s, box-shadow 0.15s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  input[type="number"] {
+    padding-right: 60px;
+  }
+
+  input[type="number"]:focus,
+  select:focus {
+    outline: none;
+    border-color: var(--green-500);
+    box-shadow: 0 0 0 3px rgba(29, 155, 99, 0.12);
+  }
+
+  .input-unit {
+    position: absolute;
+    right: 16px;
+    font-size: 0.85rem;
+    color: var(--ink-light);
+    pointer-events: none;
+    font-weight: 500;
+  }
+
+  select {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3e%3cpath fill='none' stroke='%235a6a64' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' d='M3 4.5l3 3 3-3'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+  }
+
+  /* RESULT */
+  .result {
+    margin-top: 14px;
+    padding: 16px;
+    border-radius: 12px;
+    border-left: 4px solid;
+    animation: fadeIn 0.25s ease;
+  }
+
+  .result-pos {
+    background: var(--red-soft);
+    border-color: var(--red);
+    color: var(--red);
+  }
+
+  .result-neg {
+    background: var(--green-50);
+    border-color: var(--green-500);
+    color: var(--green-900);
+  }
+
+  .result-mid {
+    background: var(--amber-soft);
+    border-color: var(--amber);
+    color: var(--amber);
+  }
+
+  .result-info {
+    background: var(--green-50);
+    border-color: var(--green-500);
+    color: var(--green-900);
+  }
+
+  .result .label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+    opacity: 0.8;
+  }
+
+  .result .value {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .result .detail {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  .result .detail strong {
+    color: var(--ink);
+  }
+
+  /* SOLUTION BOX (HERO) */
+  .sol-hero {
+    background: linear-gradient(160deg, var(--green-700) 0%, var(--green-900) 100%);
+    color: white;
+    border-radius: 20px;
+    padding: 28px 20px;
+    margin-top: 16px;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(10, 95, 60, 0.18);
+    animation: fadeIn 0.3s ease;
+  }
+
+  .sol-hero .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(8px);
+    padding: 5px 14px;
+    border-radius: 100px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .sol-hero .num {
+    font-size: 4.5rem;
+    font-weight: 700;
+    line-height: 1;
+    margin: 4px 0;
+    letter-spacing: -0.04em;
+  }
+
+  .sol-hero .comp {
+    font-size: 0.95rem;
+    opacity: 0.92;
+    margin-top: 10px;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  .sol-path {
+    margin-top: 12px;
+    padding: 12px 16px;
+    background: var(--green-50);
+    border-radius: 10px;
+    font-size: 0.82rem;
+    color: var(--green-900);
+    text-align: center;
+    border: 1px solid var(--green-200);
+  }
+
+  .sol-path .arrow { color: var(--green-500); margin: 0 6px; }
+
+  /* STEPS */
+  .steps {
+    list-style: none;
+    counter-reset: step;
+  }
+
+  .steps li {
+    counter-increment: step;
+    padding: 14px 14px 14px 50px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    margin-bottom: 8px;
+    position: relative;
+    font-size: 0.95rem;
+  }
+
+  .steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 14px;
+    top: 14px;
+    width: 26px;
+    height: 26px;
+    background: var(--green-700);
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 26px;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+
+  .steps .step-note {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* VARIATION CARDS */
+  .var-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .var-card {
+    padding: 12px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 0.82rem;
+  }
+
+  .var-card.up {
+    background: var(--green-50);
+    border: 1px solid var(--green-200);
+  }
+
+  .var-card.down {
+    background: var(--amber-soft);
+    border: 1px solid #ebd9a8;
+  }
+
+  .var-card .arrow-icon {
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  .var-card.up .arrow-icon { color: var(--green-700); }
+  .var-card.down .arrow-icon { color: var(--amber); }
+
+  .var-card .var-action {
+    font-weight: 600;
+    margin-top: 4px;
+    color: var(--ink);
+  }
+
+  /* SOLUTIONS TABLE */
+  .sol-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .sol-item {
+    display: flex;
+    gap: 14px;
+    padding: 14px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    align-items: center;
+  }
+
+  .sol-item .sol-n {
+    width: 40px;
+    height: 40px;
+    background: var(--green-700);
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .sol-item .sol-c {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  /* LOGIC LIST */
+  .logic {
+    list-style: none;
+  }
+
+  .logic li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .logic li:last-child { border-bottom: none; }
+
+  .logic .cond {
+    font-weight: 600;
+    color: var(--green-900);
+    flex-shrink: 0;
+  }
+
+  .logic .conseq {
+    color: var(--ink-soft);
+    text-align: right;
+  }
+
+  /* RECIPE */
+  .recipe {
+    background: var(--green-50);
+    border-left: 4px solid var(--green-500);
+    padding: 14px 16px;
+    border-radius: 10px;
+  }
+
+  .recipe-title {
+    font-weight: 600;
+    color: var(--green-900);
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+  }
+
+  .recipe-list {
+    list-style: none;
+  }
+
+  .recipe-list li {
+    padding: 4px 0;
+    font-size: 0.9rem;
+    color: var(--ink);
+    display: flex;
+    gap: 8px;
+  }
+
+  .recipe-list li::before {
+    content: "+";
+    color: var(--green-500);
+    font-weight: 700;
+  }
+
+  .recipe-list li:first-child::before { content: "•"; }
+
+  .recipe-time {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--green-200);
+    font-weight: 600;
+    color: var(--green-900);
+    font-size: 0.9rem;
+  }
+
+  /* DISCLAIMER */
+  .disclaimer {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    margin-top: 16px;
+  }
+
+  .disclaimer strong {
+    color: var(--green-900);
+  }
+
+  /* EMPTY */
+  .empty {
+    text-align: center;
+    padding: 24px 16px;
+    color: var(--ink-light);
+    font-size: 0.88rem;
+    font-style: italic;
+  }
+
+  /* CHECK ICON */
+  .check { color: var(--green-700); font-weight: 700; }
+  .x-mark { color: var(--red); font-weight: 700; }
+
+  /* RESPONSIVE */
+  @media (min-width: 600px) {
+    .input-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .input-row .field { margin-bottom: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Manejo de Cetoacidose Diabética</h1>
+  <div class="sub">Calculadora clínica</div>
+</header>
+
+<main>
+
+  <!-- DIAGNÓSTICO -->
+  <section class="panel active" id="panel-dx">
+    <h2>Diagnóstico</h2>
+
+    <div class="card card-green">
+      <h3 style="margin-top: 0; color: var(--green-900);">Critérios diagnósticos</h3>
+      <ul class="criteria">
+        <li><span class="dot"></span>Glicemia &gt; 250 mg/dL</li>
+        <li><span class="dot"></span>pH sérico &lt; 7,3</li>
+        <li><span class="dot"></span>Bicarbonato &lt; 15 mmol/L</li>
+        <li><span class="dot"></span>Cetonemia ou cetonúria</li>
+      </ul>
+    </div>
+
+    <h3>Verificar paciente</h3>
+    <div class="card">
+      <div class="field">
+        <label>Glicemia</label>
+        <div class="input-wrap">
+          <input type="number" id="dx-glic" inputmode="decimal" placeholder="380">
+          <span class="input-unit">mg/dL</span>
+        </div>
+      </div>
+      <div class="field">
+        <label>pH sérico</label>
+        <div class="input-wrap">
+          <input type="number" id="dx-ph" inputmode="decimal" step="0.01" placeholder="7.15">
+        </div>
+      </div>
+      <div class="field">
+        <label>Bicarbonato</label>
+        <div class="input-wrap">
+          <input type="number" id="dx-bic" inputmode="decimal" step="0.1" placeholder="10">
+          <span class="input-unit">mmol/L</span>
+        </div>
+      </div>
+      <div class="field" style="margin-bottom: 0;">
+        <label>Cetonemia / cetonúria</label>
+        <select id="dx-cet">
+          <option value="">Selecionar...</option>
+          <option value="sim">Positiva</option>
+          <option value="nao">Negativa</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="dx-result"></div>
+
+    <h3>Sódio corrigido</h3>
+    <div class="card">
+      <p style="font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 12px; line-height: 1.5;">
+        Para Dx &gt; 100: a cada 100 mg/dL acima de 100, somar <strong style="color: var(--ink);">1,6 mEq</strong> ao Na sérico.
+      </p>
+      <div class="input-row">
+        <div class="field">
+          <label>Na medido</label>
+          <div class="input-wrap">
+            <input type="number" id="na-medido" inputmode="decimal" step="0.1" placeholder="132">
+            <span class="input-unit">mEq/L</span>
+          </div>
+        </div>
+        <div class="field" style="margin-bottom: 0;">
+          <label>Glicemia atual</label>
+          <div class="input-wrap">
+            <input type="number" id="na-glic" inputmode="decimal" placeholder="400">
+            <span class="input-unit">mg/dL</span>
+          </div>
+        </div>
+      </div>
+      <div id="na-result"></div>
+    </div>
+  </section>
+
+  <!-- ADMISSÃO -->
+  <section class="panel" id="panel-admissao">
+    <h2>Admissão</h2>
+
+    <ol class="steps">
+      <li>
+        <strong>Cristaloides 20 mL/kg na 1ª hora</strong>
+        <span class="step-note">SF 0,9% em bolus para expansão volêmica.</span>
+      </li>
+      <li>
+        <strong>Jejum</strong>
+        <span class="step-note">Manter até critérios de off bomba.</span>
+      </li>
+      <li>
+        <strong>Bomba de insulina</strong>
+        <span class="step-note">Apenas se K &gt; 3,3. Repor potássio antes se ≤ 3,3.</span>
+      </li>
+      <li>
+        <strong>Insulina regular EV bolus 0,1 U/kg</strong>
+        <span class="step-note">Apenas se K &gt; 3,3. Seguir com infusão contínua.</span>
+      </li>
+      <li>
+        <strong>Monitorar</strong>
+        <span class="step-note">Dx 1/1h e gasometria 2/2h. Escolher solução (1-8).</span>
+      </li>
+    </ol>
+
+    <h3>Variação da glicemia</h3>
+    <div class="var-grid">
+      <div class="var-card up">
+        <div class="arrow-icon">↑</div>
+        <div>Caiu &lt; 50-70/h</div>
+        <div class="var-action">Dobrar BIC</div>
+      </div>
+      <div class="var-card down">
+        <div class="arrow-icon">↓</div>
+        <div>Caiu &gt; 50-70/h</div>
+        <div class="var-action">Reduzir 50%</div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      <strong>Volume:</strong> cada solução em bomba por 2h, trocada/reavaliada a cada gasometria. Se intolerância a volume, infundir em 4h.
+    </div>
+  </section>
+
+  <!-- SOLUÇÃO -->
+  <section class="panel" id="panel-solucao">
+    <h2>Escolher solução</h2>
+
+    <div class="card">
+      <div class="field">
+        <label>Glicemia (Dx)</label>
+        <div class="input-wrap">
+          <input type="number" id="sol-dx" inputmode="decimal" placeholder="280">
+          <span class="input-unit">mg/dL</span>
+        </div>
+      </div>
+      <div class="field">
+        <label>Sódio</label>
+        <div class="input-wrap">
+          <input type="number" id="sol-na" inputmode="decimal" step="0.1" placeholder="138">
+          <span class="input-unit">mEq/L</span>
+        </div>
+      </div>
+      <div class="field" style="margin-bottom: 0;">
+        <label>Potássio</label>
+        <div class="input-wrap">
+          <input type="number" id="sol-k" inputmode="decimal" step="0.1" placeholder="4.2">
+          <span class="input-unit">mEq/L</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="sol-result">
+      <div class="empty">Preencha os três valores para ver a solução indicada.</div>
+    </div>
+  </section>
+
+  <!-- BICARBONATO -->
+  <section class="panel" id="panel-bicarb">
+    <h2>Bicarbonato EV</h2>
+
+    <div class="card">
+      <p style="font-size: 0.95rem; margin-bottom: 14px;">
+        Indicação <strong style="color: var(--green-900);">apenas se pH &lt; 6,9</strong>.
+      </p>
+      <div class="field" style="margin-bottom: 0;">
+        <label>pH atual</label>
+        <div class="input-wrap">
+          <input type="number" id="bicarb-ph" inputmode="decimal" step="0.01" placeholder="6.85">
+        </div>
+      </div>
+      <div id="bicarb-result"></div>
+    </div>
+
+    <h3>Receita padrão</h3>
+    <div class="recipe">
+      <div class="recipe-title">Quando pH &lt; 6,9</div>
+      <ul class="recipe-list">
+        <li>100 mL de Bicarbonato 8,4%</li>
+        <li>400 mL de AD</li>
+        <li>1 ampola de KCl 20%</li>
+      </ul>
+      <div class="recipe-time">Infundir em 2 horas</div>
+    </div>
+  </section>
+
+  <!-- OFF BOMBA -->
+  <section class="panel" id="panel-off">
+    <h2>Desligar bomba</h2>
+
+    <div class="card card-green">
+      <h3 style="margin-top: 0; color: var(--green-900);">Critérios (todos)</h3>
+      <ul class="criteria">
+        <li><span class="dot"></span>Glicemia &lt; 200 mg/dL</li>
+        <li><span class="dot"></span>pH &gt; 7,3</li>
+        <li><span class="dot"></span>Bicarbonato &gt; 18 mmol/L</li>
+      </ul>
+    </div>
+
+    <h3>Checar critérios</h3>
+    <div class="card">
+      <div class="field">
+        <label>Glicemia</label>
+        <div class="input-wrap">
+          <input type="number" id="off-glic" inputmode="decimal" placeholder="180">
+          <span class="input-unit">mg/dL</span>
+        </div>
+      </div>
+      <div class="field">
+        <label>pH</label>
+        <div class="input-wrap">
+          <input type="number" id="off-ph" inputmode="decimal" step="0.01" placeholder="7.35">
+        </div>
+      </div>
+      <div class="field" style="margin-bottom: 0;">
+        <label>Bicarbonato</label>
+        <div class="input-wrap">
+          <input type="number" id="off-bic" inputmode="decimal" step="0.1" placeholder="20">
+          <span class="input-unit">mmol/L</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="off-result"></div>
+
+    <h3>Sequência após critérios</h3>
+    <ol class="steps">
+      <li><strong>Liberar dieta</strong></li>
+      <li><strong>NPH SC 0,1 U/kg</strong></li>
+      <li><strong>Aguardar 1-2h e desligar bomba</strong></li>
+    </ol>
+  </section>
+
+  <!-- REFERÊNCIA -->
+  <section class="panel" id="panel-ref">
+    <h2>Soluções 1-8</h2>
+
+    <div class="sol-list">
+      <div class="sol-item"><div class="sol-n">1</div><div class="sol-c">AD 1000 mL + 1 amp KCl + 2 amp NaCl</div></div>
+      <div class="sol-item"><div class="sol-n">2</div><div class="sol-c">AD 1000 mL + 2 amp NaCl</div></div>
+      <div class="sol-item"><div class="sol-n">3</div><div class="sol-c">SF 0,9% 1000 mL + 1 amp KCl</div></div>
+      <div class="sol-item"><div class="sol-n">4</div><div class="sol-c">SF 0,9% 1000 mL</div></div>
+      <div class="sol-item"><div class="sol-n">5</div><div class="sol-c">SG 5% 1000 mL + 1 amp KCl + 2 amp NaCl</div></div>
+      <div class="sol-item"><div class="sol-n">6</div><div class="sol-c">SG 5% 1000 mL + 2 amp NaCl</div></div>
+      <div class="sol-item"><div class="sol-n">7</div><div class="sol-c">SG 5% 1000 mL + 2 amp KCl + 4 amp NaCl</div></div>
+      <div class="sol-item"><div class="sol-n">8</div><div class="sol-c">SG 5% 1000 mL + 4 amp NaCl</div></div>
+    </div>
+
+    <h3>Lógica da árvore</h3>
+    <div class="card">
+      <ul class="logic">
+        <li><span class="cond">Dx &gt; 250</span><span class="conseq">Soluções 1-4</span></li>
+        <li><span class="cond">Dx &lt; 250</span><span class="conseq">Soluções 5-8 (com SG)</span></li>
+        <li><span class="cond">Na &gt; 135</span><span class="conseq">AD (hipotônico)</span></li>
+        <li><span class="cond">Na &lt; 135</span><span class="conseq">SF 0,9%</span></li>
+        <li><span class="cond">K &lt; 5,3</span><span class="conseq">Repor KCl</span></li>
+        <li><span class="cond">K &gt; 5,3</span><span class="conseq">Sem KCl</span></li>
+      </ul>
+    </div>
+
+    <div class="disclaimer" style="margin-top: 20px;">
+      <strong>Aviso:</strong> ferramenta de apoio à decisão para profissionais médicos. Não substitui julgamento clínico individualizado. Considerar comorbidades, função renal e status volêmico do paciente. Referência: Emergências Clínicas USP.
+    </div>
+  </section>
+
+</main>
+
+<nav>
+  <button class="nav-btn active" data-tab="dx">
+    <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+    Dx
+  </button>
+  <button class="nav-btn" data-tab="admissao">
+    <svg viewBox="0 0 24 24"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg>
+    Admissão
+  </button>
+  <button class="nav-btn" data-tab="solucao">
+    <svg viewBox="0 0 24 24"><path d="M8 2v4M16 2v4M5 8h14M6 8v12a2 2 0 002 2h8a2 2 0 002-2V8"/><path d="M10 14h4"/></svg>
+    Solução
+  </button>
+  <button class="nav-btn" data-tab="bicarb">
+    <svg viewBox="0 0 24 24"><path d="M12 2v6M12 22v-4M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M2 12h6M16 12h6M4.93 19.07l4.24-4.24M14.83 9.17l4.24-4.24"/></svg>
+    Bicarb
+  </button>
+  <button class="nav-btn" data-tab="off">
+    <svg viewBox="0 0 24 24"><path d="M18.36 6.64a9 9 0 11-12.73 0M12 2v10"/></svg>
+    Off
+  </button>
+  <button class="nav-btn" data-tab="ref">
+    <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    Soluções
+  </button>
+</nav>
+
+<script>
+  // Nav
+  document.querySelectorAll('.nav-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // Diagnóstico
+  function checkDx() {
+    const glic = parseFloat(document.getElementById('dx-glic').value);
+    const ph = parseFloat(document.getElementById('dx-ph').value);
+    const bic = parseFloat(document.getElementById('dx-bic').value);
+    const cet = document.getElementById('dx-cet').value;
+    const result = document.getElementById('dx-result');
+
+    if (isNaN(glic) && isNaN(ph) && isNaN(bic) && !cet) {
+      result.innerHTML = '';
+      return;
+    }
+
+    let criterios = [];
+    let positivos = 0;
+    let total = 0;
+
+    if (!isNaN(glic)) {
+      total++;
+      if (glic > 250) { positivos++; criterios.push('<span class="check">✓</span> Glic ' + glic); }
+      else criterios.push('<span class="x-mark">✗</span> Glic ' + glic);
+    }
+    if (!isNaN(ph)) {
+      total++;
+      if (ph < 7.3) { positivos++; criterios.push('<span class="check">✓</span> pH ' + ph); }
+      else criterios.push('<span class="x-mark">✗</span> pH ' + ph);
+    }
+    if (!isNaN(bic)) {
+      total++;
+      if (bic < 15) { positivos++; criterios.push('<span class="check">✓</span> Bic ' + bic); }
+      else criterios.push('<span class="x-mark">✗</span> Bic ' + bic);
+    }
+    if (cet) {
+      total++;
+      if (cet === 'sim') { positivos++; criterios.push('<span class="check">✓</span> Cetonas+'); }
+      else criterios.push('<span class="x-mark">✗</span> Cetonas-');
+    }
+
+    let cls = 'result-mid';
+    let title = 'Avaliação parcial';
+    let msg = positivos + '/' + total + ' critérios preenchidos. Complete os 4 para conclusão.';
+
+    if (total === 4) {
+      if (positivos === 4) {
+        cls = 'result-pos';
+        title = 'CAD — critérios preenchidos';
+        msg = 'Todos os 4 critérios presentes. Iniciar protocolo de admissão.';
+      } else if (positivos >= 2) {
+        cls = 'result-mid';
+        title = 'CAD parcial / provável';
+        msg = positivos + '/4 critérios. Reavaliar contexto, considerar EHH ou acidose lática.';
+      } else {
+        cls = 'result-neg';
+        title = 'CAD pouco provável';
+        msg = positivos + '/4 critérios. Investigar diagnóstico diferencial.';
+      }
+    }
+
+    result.innerHTML = `
+      <div class="result ${cls}">
+        <div class="label">${title}</div>
+        <div class="value">${msg}</div>
+        <div class="detail">${criterios.join(' &nbsp; ')}</div>
+      </div>
+    `;
+  }
+
+  ['dx-glic','dx-ph','dx-bic','dx-cet'].forEach(id => {
+    document.getElementById(id).addEventListener('input', checkDx);
+    document.getElementById(id).addEventListener('change', checkDx);
+  });
+
+  // Sódio corrigido
+  function calcNa() {
+    const na = parseFloat(document.getElementById('na-medido').value);
+    const glic = parseFloat(document.getElementById('na-glic').value);
+    const result = document.getElementById('na-result');
+
+    if (isNaN(na) || isNaN(glic)) {
+      result.innerHTML = '';
+      return;
+    }
+
+    if (glic <= 100) {
+      result.innerHTML = `
+        <div class="result result-info">
+          <div class="label">Sódio corrigido</div>
+          <div class="value">${na.toFixed(1)} mEq/L</div>
+          <div class="detail">Glic ≤ 100, sem correção necessária.</div>
+        </div>
+      `;
+      return;
+    }
+
+    const correcao = ((glic - 100) / 100) * 1.6;
+    const naCorrigido = na + correcao;
+
+    result.innerHTML = `
+      <div class="result result-info">
+        <div class="label">Sódio corrigido</div>
+        <div class="value">${naCorrigido.toFixed(1)} mEq/L</div>
+        <div class="detail">Na ${na.toFixed(1)} <strong>+ ${correcao.toFixed(1)}</strong> (Dx ${glic})</div>
+      </div>
+    `;
+  }
+
+  ['na-medido','na-glic'].forEach(id => {
+    document.getElementById(id).addEventListener('input', calcNa);
+  });
+
+  // Solução
+  const solutions = {
+    1: 'AD 1000 mL + 1 amp KCl + 2 amp NaCl',
+    2: 'AD 1000 mL + 2 amp NaCl',
+    3: 'SF 0,9% 1000 mL + 1 amp KCl',
+    4: 'SF 0,9% 1000 mL',
+    5: 'SG 5% 1000 mL + 1 amp KCl + 2 amp NaCl',
+    6: 'SG 5% 1000 mL + 2 amp NaCl',
+    7: 'SG 5% 1000 mL + 2 amp KCl + 4 amp NaCl',
+    8: 'SG 5% 1000 mL + 4 amp NaCl'
+  };
+
+  function pickSolution() {
+    const dx = parseFloat(document.getElementById('sol-dx').value);
+    const na = parseFloat(document.getElementById('sol-na').value);
+    const k = parseFloat(document.getElementById('sol-k').value);
+    const result = document.getElementById('sol-result');
+
+    if (isNaN(dx) || isNaN(na) || isNaN(k)) {
+      result.innerHTML = '<div class="empty">Preencha os três valores para ver a solução indicada.</div>';
+      return;
+    }
+
+    let n;
+    let p1, p2, p3;
+
+    if (dx > 250) {
+      p1 = 'Dx > 250';
+      if (na > 135) {
+        p2 = 'Na > 135';
+        n = k < 5.3 ? 1 : 2;
+        p3 = k < 5.3 ? 'K < 5,3' : 'K > 5,3';
+      } else {
+        p2 = 'Na < 135';
+        n = k < 5.3 ? 3 : 4;
+        p3 = k < 5.3 ? 'K < 5,3' : 'K > 5,3';
+      }
+    } else {
+      p1 = 'Dx < 250';
+      if (na > 135) {
+        p2 = 'Na > 135';
+        n = k < 5.3 ? 5 : 6;
+        p3 = k < 5.3 ? 'K < 5,3' : 'K > 5,3';
+      } else {
+        p2 = 'Na < 135';
+        n = k < 5.3 ? 7 : 8;
+        p3 = k < 5.3 ? 'K < 5,3' : 'K > 5,3';
+      }
+    }
+
+    result.innerHTML = `
+      <div class="sol-hero">
+        <div class="badge">Solução indicada</div>
+        <div class="num">${n}</div>
+        <div class="comp">${solutions[n]}</div>
+      </div>
+      <div class="sol-path">
+        ${p1}<span class="arrow">→</span>${p2}<span class="arrow">→</span>${p3}
+      </div>
+      <div class="disclaimer">
+        Infundir em bomba por 2h. Reavaliar com nova gasometria + Dx. Intolerância a volume → infundir em 4h.
+      </div>
+    `;
+  }
+
+  ['sol-dx','sol-na','sol-k'].forEach(id => {
+    document.getElementById(id).addEventListener('input', pickSolution);
+  });
+
+  // Bicarbonato
+  function checkBicarb() {
+    const ph = parseFloat(document.getElementById('bicarb-ph').value);
+    const result = document.getElementById('bicarb-result');
+
+    if (isNaN(ph)) {
+      result.innerHTML = '';
+      return;
+    }
+
+    if (ph < 6.9) {
+      result.innerHTML = `
+        <div class="result result-pos">
+          <div class="label">Indicação positiva</div>
+          <div class="value">pH ${ph} &lt; 6,9 → repor</div>
+          <div class="detail">Seguir receita padrão abaixo.</div>
+        </div>
+      `;
+    } else {
+      result.innerHTML = `
+        <div class="result result-neg">
+          <div class="label">Sem indicação</div>
+          <div class="value">pH ${ph} ≥ 6,9 → não repor</div>
+          <div class="detail">Reposição não recomendada nessa faixa.</div>
+        </div>
+      `;
+    }
+  }
+  document.getElementById('bicarb-ph').addEventListener('input', checkBicarb);
+
+  // Off bomba
+  function checkOff() {
+    const glic = parseFloat(document.getElementById('off-glic').value);
+    const ph = parseFloat(document.getElementById('off-ph').value);
+    const bic = parseFloat(document.getElementById('off-bic').value);
+    const result = document.getElementById('off-result');
+
+    if (isNaN(glic) || isNaN(ph) || isNaN(bic)) {
+      result.innerHTML = '';
+      return;
+    }
+
+    const c1 = glic < 200;
+    const c2 = ph > 7.3;
+    const c3 = bic > 18;
+    const all = c1 && c2 && c3;
+
+    const cls = all ? 'result-neg' : 'result-mid';
+    const title = all ? 'Critérios atendidos — pode desligar' : 'Critérios incompletos — manter bomba';
+
+    result.innerHTML = `
+      <div class="result ${cls}">
+        <div class="label">${title}</div>
+        <div class="detail" style="font-size: 0.92rem; color: var(--ink); line-height: 1.8;">
+          ${c1 ? '<span class="check">✓</span>' : '<span class="x-mark">✗</span>'} Glic ${glic} <span style="color: var(--ink-light);">${c1 ? '(< 200)' : '(precisa < 200)'}</span><br>
+          ${c2 ? '<span class="check">✓</span>' : '<span class="x-mark">✗</span>'} pH ${ph} <span style="color: var(--ink-light);">${c2 ? '(> 7,3)' : '(precisa > 7,3)'}</span><br>
+          ${c3 ? '<span class="check">✓</span>' : '<span class="x-mark">✗</span>'} Bic ${bic} <span style="color: var(--ink-light);">${c3 ? '(> 18)' : '(precisa > 18)'}</span>
+        </div>
+      </div>
+    `;
+  }
+
+  ['off-glic','off-ph','off-bic'].forEach(id => {
+    document.getElementById(id).addEventListener('input', checkOff);
+  });
+</script>
+
+</body>
+</html>
