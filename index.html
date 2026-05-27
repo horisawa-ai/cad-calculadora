@@ -25,8 +25,8 @@
     --amber: #b07b1a;
     --amber-soft: #fbf2dc;
 
-    --header-h: 88px;
-    --nav-h: 60px;
+    --header-h: 76px;
+    --nav-h: 56px;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -51,7 +51,7 @@
   header {
     background: linear-gradient(135deg, var(--green-900) 0%, var(--green-700) 100%);
     color: white;
-    padding: 14px 18px 16px;
+    padding: 10px 16px 12px;
     height: var(--header-h);
     flex-shrink: 0;
     display: flex;
@@ -72,22 +72,22 @@
   }
 
   header h1 {
-    font-size: 1.1rem;
+    font-size: 0.98rem;
     font-weight: 700;
     letter-spacing: -0.005em;
     line-height: 1.15;
   }
 
   header .doctor {
-    font-size: 0.82rem;
+    font-size: 0.76rem;
     font-weight: 600;
-    margin-top: 5px;
+    margin-top: 3px;
     letter-spacing: 0.02em;
     opacity: 0.96;
   }
 
   header .sub {
-    font-size: 0.68rem;
+    font-size: 0.62rem;
     opacity: 0.72;
     margin-top: 1px;
     letter-spacing: 0.08em;
@@ -106,7 +106,7 @@
     display: none;
     position: absolute;
     inset: 0;
-    padding: 12px 14px;
+    padding: 10px 12px;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
@@ -133,7 +133,7 @@
     background: none;
     border: none;
     font-family: inherit;
-    font-size: 0.6rem;
+    font-size: 0.58rem;
     font-weight: 600;
     color: var(--ink-light);
     cursor: pointer;
@@ -141,14 +141,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 3px;
+    gap: 2px;
     letter-spacing: 0.02em;
-    padding: 4px 2px;
+    padding: 3px 2px;
   }
 
   .nav-btn svg {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     stroke: currentColor;
     stroke-width: 1.8;
     fill: none;
@@ -160,29 +160,29 @@
 
   /* TYPOGRAPHY */
   h2 {
-    font-size: 1.02rem;
+    font-size: 0.98rem;
     font-weight: 600;
     color: var(--green-900);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     letter-spacing: -0.01em;
   }
 
   h3 {
-    font-size: 0.7rem;
+    font-size: 0.66rem;
     font-weight: 700;
     color: var(--ink-soft);
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    margin: 10px 0 6px;
+    margin: 8px 0 5px;
   }
 
   /* CARDS */
   .card {
     background: var(--paper);
     border: 1px solid var(--line);
-    border-radius: 11px;
-    padding: 11px 13px;
-    margin-bottom: 8px;
+    border-radius: 10px;
+    padding: 9px 11px;
+    margin-bottom: 6px;
   }
 
   .card-green {
@@ -195,15 +195,15 @@
     list-style: none;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4px 12px;
+    gap: 2px 12px;
   }
 
   .criteria li {
-    padding: 4px 0;
-    font-size: 0.82rem;
+    padding: 2px 0;
+    font-size: 0.78rem;
     display: flex;
     align-items: center;
-    gap: 7px;
+    gap: 6px;
   }
 
   .criteria .dot {
@@ -216,22 +216,22 @@
 
   /* INPUTS */
   .field {
-    margin-bottom: 7px;
+    margin-bottom: 5px;
   }
 
   .field-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 7px;
-    margin-bottom: 7px;
+    gap: 6px;
+    margin-bottom: 5px;
   }
 
   .field label, .field-row .col label {
     display: block;
-    font-size: 0.66rem;
+    font-size: 0.64rem;
     font-weight: 700;
     color: var(--ink-soft);
-    margin-bottom: 3px;
+    margin-bottom: 2px;
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
@@ -244,11 +244,11 @@
 
   input[type="number"], select {
     width: 100%;
-    padding: 10px 12px;
+    padding: 8px 11px;
     border: 1.5px solid var(--line);
-    border-radius: 9px;
+    border-radius: 8px;
     font-family: inherit;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     background: var(--paper);
     color: var(--ink);
     -webkit-appearance: none;
@@ -281,9 +281,9 @@
 
   /* RESULT */
   .result {
-    margin-top: 8px;
-    padding: 10px 12px;
-    border-radius: 9px;
+    margin-top: 6px;
+    padding: 7px 10px;
+    border-radius: 8px;
     border-left: 3px solid;
   }
 
@@ -380,52 +380,52 @@
 
   .steps li {
     counter-increment: step;
-    padding: 8px 10px 8px 38px;
+    padding: 6px 10px 6px 34px;
     background: var(--paper);
     border: 1px solid var(--line);
     border-radius: 9px;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
     position: relative;
-    font-size: 0.82rem;
+    font-size: 0.78rem;
   }
 
   .steps li::before {
     content: counter(step);
     position: absolute;
-    left: 9px;
-    top: 8px;
-    width: 22px;
-    height: 22px;
+    left: 8px;
+    top: 6px;
+    width: 20px;
+    height: 20px;
     background: var(--green-700);
     color: white;
     border-radius: 50%;
     text-align: center;
-    line-height: 22px;
-    font-size: 0.72rem;
+    line-height: 20px;
+    font-size: 0.68rem;
     font-weight: 700;
   }
 
   .steps .step-note {
     display: block;
-    margin-top: 2px;
-    font-size: 0.72rem;
+    margin-top: 1px;
+    font-size: 0.68rem;
     color: var(--ink-soft);
-    line-height: 1.4;
+    line-height: 1.35;
   }
 
   /* VARIATION */
   .var-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 6px;
-    margin-top: 6px;
+    gap: 5px;
+    margin-top: 5px;
   }
 
   .var-card {
-    padding: 8px 6px;
+    padding: 7px 5px;
     border-radius: 9px;
     text-align: center;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
   }
 
   .var-card.up { background: var(--green-50); border: 1px solid var(--green-200); }
@@ -544,11 +544,11 @@
     background: var(--paper);
     border: 1px solid var(--line);
     border-radius: 8px;
-    padding: 8px 11px;
-    font-size: 0.7rem;
+    padding: 6px 10px;
+    font-size: 0.68rem;
     color: var(--ink-soft);
     line-height: 1.4;
-    margin-top: 8px;
+    margin-top: 5px;
   }
 
   .disclaimer strong { color: var(--green-900); }
@@ -564,6 +564,88 @@
 
   .check { color: var(--green-700); font-weight: 700; }
   .x-mark { color: var(--red); font-weight: 700; }
+
+  /* LOGIC */
+  .logic {
+    list-style: none;
+  }
+
+  /* VOLUME BTN */
+  .vol-btn {
+    flex: 1;
+    padding: 10px 8px;
+    border: 1.5px solid var(--line);
+    background: var(--paper);
+    color: var(--ink-soft);
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .vol-btn.active {
+    background: var(--green-700);
+    color: white;
+    border-color: var(--green-700);
+  }
+
+  /* GRAVITY */
+  .gravity-table {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 0.82rem;
+  }
+
+  .gravity-headers {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .gravity-h {
+    padding: 7px 6px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    border-right: 1px solid var(--line);
+    transition: all 0.25s ease;
+  }
+
+  .gravity-h:last-child { border-right: none; }
+
+  .gravity-line {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .gravity-line:last-child { border-bottom: none; }
+
+  .gravity-line > div {
+    padding: 6px 5px;
+    text-align: center;
+    color: var(--ink);
+    border-right: 1px solid var(--line);
+    transition: all 0.25s ease;
+    font-size: 0.76rem;
+  }
+
+  .gravity-line > div:last-child { border-right: none; }
+
+  /* ACESO */
+  .gravity-h.active.leve { background: var(--green-500); color: white; }
+  .gravity-h.active.mod { background: var(--amber); color: white; }
+  .gravity-h.active.grave { background: var(--red); color: white; }
+
+  .gravity-line .col-active.leve { background: var(--green-50); font-weight: 700; color: var(--green-900); }
+  .gravity-line .col-active.mod { background: var(--amber-soft); font-weight: 700; color: var(--amber); }
+  .gravity-line .col-active.grave { background: var(--red-soft); font-weight: 700; color: var(--red); }
 
   /* LOGIC */
   .logic {
@@ -604,17 +686,10 @@
 
   <!-- DIAGNÓSTICO -->
   <section class="panel active" id="panel-dx">
-    <div class="card card-green">
-      <h3 style="margin-top: 0; color: var(--green-900);">Critérios diagnósticos</h3>
-      <ul class="criteria">
-        <li><span class="dot"></span>Glic &gt; 250 mg/dL</li>
-        <li><span class="dot"></span>pH &lt; 7,3</li>
-        <li><span class="dot"></span>Bic &lt; 15 mmol/L</li>
-        <li><span class="dot"></span>Cetonemia/úria</li>
-      </ul>
+    <div class="card card-green" style="font-size: 0.76rem;">
+      <strong style="color: var(--green-900);">Critérios CAD:</strong> Glic &gt;250 · pH &lt;7,3 · Bic &lt;15 · Cetonas+
     </div>
 
-    <h3>Avaliar paciente</h3>
     <div class="card">
       <div class="field-row">
         <div class="col">
@@ -649,18 +724,36 @@
       <div id="dx-result"></div>
     </div>
 
-    <h3>Na corrigido <span style="font-weight: 500; text-transform: none; letter-spacing: 0; color: var(--ink-light);">· +1,6 mEq por 100 mg/dL acima de 100</span></h3>
+    <div class="gravity-table">
+      <div class="gravity-headers">
+        <div class="gravity-h" id="grav-leve">Leve</div>
+        <div class="gravity-h" id="grav-mod">Moderada</div>
+        <div class="gravity-h" id="grav-grave">Grave</div>
+      </div>
+      <div class="gravity-line">
+        <div><strong>pH</strong> 7,25-7,3</div>
+        <div><strong>pH</strong> 7,0-7,24</div>
+        <div><strong>pH</strong> &lt; 7,0</div>
+      </div>
+      <div class="gravity-line">
+        <div><strong>Bic</strong> 15-18</div>
+        <div><strong>Bic</strong> 10-14</div>
+        <div><strong>Bic</strong> &lt; 10</div>
+      </div>
+    </div>
+
+    <h3>Na⁺ corrigido <span style="font-weight: 500; text-transform: none; letter-spacing: 0; color: var(--ink-light);">+1,6 / 100 mg acima de 100</span></h3>
     <div class="card">
       <div class="field-row" style="margin-bottom: 0;">
         <div class="col">
-          <label>Na medido</label>
+          <label>Na⁺ medido</label>
           <div class="input-wrap">
             <input type="number" id="na-medido" inputmode="decimal" step="0.1" placeholder="132">
             <span class="input-unit">mEq/L</span>
           </div>
         </div>
         <div class="col">
-          <label>Glic atual</label>
+          <label>Glicemia atual</label>
           <div class="input-wrap">
             <input type="number" id="na-glic" inputmode="decimal" placeholder="400">
             <span class="input-unit">mg/dL</span>
@@ -668,6 +761,10 @@
         </div>
       </div>
       <div id="na-result"></div>
+    </div>
+
+    <div class="disclaimer">
+      <strong>DDx EHH:</strong> Glic &gt;600 · Osm &gt;320 · pH &gt;7,3 · cetonas mínimas (calcular na aba Cálc)
     </div>
   </section>
 
@@ -697,18 +794,32 @@
       </li>
     </ol>
 
-    <h3>Variação da glicemia/h</h3>
+    <h3 style="font-size: 0.78rem; color: var(--green-900); text-transform: none; letter-spacing: 0;">Ajuste da bomba · meta queda glicemia 50-75 mg/dL/h</h3>
+
     <div class="var-grid">
       <div class="var-card up">
-        <div class="arrow-icon">↑</div>
-        <div>Caiu &lt; 50-70</div>
-        <div class="var-action">Dobrar BIC</div>
+        <div style="font-size: 0.68rem; color: var(--ink-soft); font-weight: 600;">QUEDA LENTA</div>
+        <div style="font-size: 0.88rem; font-weight: 700; margin: 2px 0;">&lt; 50 mg/dL/h</div>
+        <div class="var-action" style="font-size: 0.78rem;">↑ Dobrar bomba</div>
+        <div style="font-size: 0.66rem; color: var(--ink-soft); margin-top: 2px; font-style: italic;">ex: 7 → 14 mL/h</div>
       </div>
       <div class="var-card down">
-        <div class="arrow-icon">↓</div>
-        <div>Caiu &gt; 50-70</div>
-        <div class="var-action">Reduzir 50%</div>
+        <div style="font-size: 0.68rem; color: var(--ink-soft); font-weight: 600;">QUEDA RÁPIDA</div>
+        <div style="font-size: 0.88rem; font-weight: 700; margin: 2px 0;">&gt; 75 mg/dL/h</div>
+        <div class="var-action" style="font-size: 0.78rem;">↓ Reduzir 50%</div>
+        <div style="font-size: 0.66rem; color: var(--ink-soft); margin-top: 2px; font-style: italic;">ex: 7 → 3,5 mL/h</div>
       </div>
+    </div>
+
+    <div class="disclaimer">
+      <strong>Ref ADA:</strong> Diabetes Care 2009 (reafirmado 2024). Queda rápida ↑ risco de edema cerebral.
+    </div>
+
+    <h3>Exames seriados</h3>
+    <div class="card" style="font-size: 0.74rem; line-height: 1.5;">
+      <strong style="color: var(--green-900);">Dx capilar</strong> 1/1h · <strong style="color: var(--green-900);">Gaso + K + Na</strong> 2/2h<br>
+      <strong style="color: var(--green-900);">Função renal</strong> admissão e 6/6h · <strong style="color: var(--green-900);">Cetonas</strong> 4/4h<br>
+      <span style="color: var(--ink-soft);">Considerar fósforo se jejum prolongado.</span>
     </div>
   </section>
 
@@ -719,7 +830,7 @@
     <div class="card card-green">
       <h3 style="margin-top: 0; color: var(--green-900);">Preparo</h3>
       <ul class="recipe-list" style="font-size: 0.85rem;">
-        <li>1 ampola insulina regular (100 UI)</li>
+        <li>1 mL de insulina regular (100 UI)</li>
         <li>99 mL SF 0,9%</li>
       </ul>
       <div style="margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--green-200); font-size: 0.78rem; color: var(--ink-soft);">
@@ -739,8 +850,24 @@
       <div id="bomba-result"></div>
     </div>
 
+    <h3>Reposição de K conforme valor</h3>
+    <div class="card" style="padding: 0; overflow: hidden;">
+      <div style="padding: 10px 12px; background: var(--red-soft); border-bottom: 1px solid var(--line);">
+        <strong style="color: var(--red); font-size: 0.78rem;">K &lt; 3,3</strong>
+        <div style="font-size: 0.78rem; margin-top: 2px;"><strong>PAUSAR bomba.</strong> Repor 20-30 mEq KCl/h até K &gt; 3,3</div>
+      </div>
+      <div style="padding: 10px 12px; background: var(--amber-soft); border-bottom: 1px solid var(--line);">
+        <strong style="color: var(--amber); font-size: 0.78rem;">K 3,3 - 5,2</strong>
+        <div style="font-size: 0.78rem; margin-top: 2px;">Manter bomba + 20-30 mEq KCl/L de solução</div>
+      </div>
+      <div style="padding: 10px 12px; background: var(--green-50);">
+        <strong style="color: var(--green-700); font-size: 0.78rem;">K &gt; 5,2</strong>
+        <div style="font-size: 0.78rem; margin-top: 2px;">Manter bomba sem KCl. Reavaliar K em 2h</div>
+      </div>
+    </div>
+
     <div class="disclaimer">
-      <strong>Atenção:</strong> iniciar apenas se K &gt; 3,3. Bolus inicial 0,1 UI/kg EV antes de iniciar a infusão contínua.
+      <strong>Bolus inicial:</strong> 0,1 UI/kg EV (opcional pelas diretrizes ADA 2009+ — pode iniciar direto na infusão se preferir).
     </div>
   </section>
 
@@ -748,6 +875,13 @@
   <section class="panel" id="panel-solucao">
     <h2>Escolher solução</h2>
     <div class="card">
+      <div class="field">
+        <label>Volume base do soro</label>
+        <div style="display: flex; gap: 6px;">
+          <button type="button" class="vol-btn active" data-vol="1000">1000 mL</button>
+          <button type="button" class="vol-btn" data-vol="500">500 mL</button>
+        </div>
+      </div>
       <div class="field-row">
         <div class="col">
           <label>Glicemia</label>
@@ -757,7 +891,7 @@
           </div>
         </div>
         <div class="col">
-          <label>Sódio</label>
+          <label>Na⁺ corrigido</label>
           <div class="input-wrap">
             <input type="number" id="sol-na" inputmode="decimal" step="0.1" placeholder="138">
             <span class="input-unit">mEq/L</span>
@@ -771,6 +905,9 @@
           <span class="input-unit">mEq/L</span>
         </div>
       </div>
+    </div>
+    <div class="disclaimer" style="font-size: 0.72rem; margin-top: 6px;">
+      Use o <strong>Na⁺ corrigido</strong> (não o medido) — calcule na aba <strong>Dx</strong>.
     </div>
 
     <div id="sol-result">
@@ -805,14 +942,8 @@
 
   <!-- OFF BOMBA -->
   <section class="panel" id="panel-off">
-    <h2>Desligar bomba</h2>
-    <div class="card card-green">
-      <h3 style="margin-top: 0; color: var(--green-900);">Critérios (todos)</h3>
-      <ul class="criteria">
-        <li><span class="dot"></span>Glic &lt; 200</li>
-        <li><span class="dot"></span>pH ≥ 7,3</li>
-        <li><span class="dot"></span>Bic ≥ 18</li>
-      </ul>
+    <div class="card card-green" style="font-size: 0.76rem;">
+      <strong style="color: var(--green-900);">Critérios (todos):</strong> Glic &lt;200 · pH ≥7,3 · Bic ≥18 · AG ≤12
     </div>
 
     <div class="card">
@@ -829,36 +960,107 @@
           <input type="number" id="off-ph" inputmode="decimal" step="0.01" placeholder="7.35">
         </div>
       </div>
-      <div class="field" style="margin-bottom: 0;">
-        <label>Bicarbonato</label>
-        <div class="input-wrap">
-          <input type="number" id="off-bic" inputmode="decimal" step="0.1" placeholder="20">
-          <span class="input-unit">mmol/L</span>
+      <div class="field-row" style="margin-bottom: 0;">
+        <div class="col">
+          <label>Bic</label>
+          <div class="input-wrap">
+            <input type="number" id="off-bic" inputmode="decimal" step="0.1" placeholder="20">
+            <span class="input-unit">mmol/L</span>
+          </div>
+        </div>
+        <div class="col">
+          <label>Ânion gap</label>
+          <input type="number" id="off-ag" inputmode="decimal" step="0.1" placeholder="10">
         </div>
       </div>
       <div id="off-result"></div>
     </div>
 
-    <h3>Sequência após critérios</h3>
+    <h3>Sequência</h3>
     <ol class="steps">
       <li><strong>Liberar dieta</strong></li>
       <li><strong>NPH SC 0,1 U/kg</strong></li>
-      <li><strong>Aguardar 1-2h e desligar bomba</strong></li>
+      <li><strong>Aguardar 1-2h e desligar bomba</strong><span class="step-note">NÃO desligar antes da NPH agir.</span></li>
     </ol>
+
+    <div class="disclaimer" style="border-left: 3px solid var(--red); border-color: var(--red);">
+      <strong style="color: var(--red);">Hipoglicemia (&lt;70):</strong> suspender bomba 30 min · SG 50% 30-60 mL EV se sintomático · reiniciar com solução glicosada.
+    </div>
   </section>
 
   <!-- REFERÊNCIA SOLUÇÕES -->
   <section class="panel" id="panel-ref">
     <h2>Soluções 1-8</h2>
     <div class="sol-list">
-      <div class="sol-item"><div class="sol-n">1</div><div class="sol-c">AD 1000 mL + 1 amp KCl + 2 amp NaCl</div></div>
-      <div class="sol-item"><div class="sol-n">2</div><div class="sol-c">AD 1000 mL + 2 amp NaCl</div></div>
-      <div class="sol-item"><div class="sol-n">3</div><div class="sol-c">SF 0,9% 1000 mL + 1 amp KCl</div></div>
+      <div class="sol-item"><div class="sol-n">1</div><div class="sol-c">AD 1000 mL + 1 amp KCl 19,1% + 2 amp NaCl 20%</div></div>
+      <div class="sol-item"><div class="sol-n">2</div><div class="sol-c">AD 1000 mL + 2 amp NaCl 20%</div></div>
+      <div class="sol-item"><div class="sol-n">3</div><div class="sol-c">SF 0,9% 1000 mL + 1 amp KCl 19,1%</div></div>
       <div class="sol-item"><div class="sol-n">4</div><div class="sol-c">SF 0,9% 1000 mL</div></div>
-      <div class="sol-item"><div class="sol-n">5</div><div class="sol-c">SG 5% 1000 mL + 1 amp KCl + 2 amp NaCl</div></div>
-      <div class="sol-item"><div class="sol-n">6</div><div class="sol-c">SG 5% 1000 mL + 2 amp NaCl</div></div>
-      <div class="sol-item"><div class="sol-n">7</div><div class="sol-c">SG 5% 1000 mL + 2 amp KCl + 4 amp NaCl</div></div>
-      <div class="sol-item"><div class="sol-n">8</div><div class="sol-c">SG 5% 1000 mL + 4 amp NaCl</div></div>
+      <div class="sol-item"><div class="sol-n">5</div><div class="sol-c">SG 5% 1000 mL + 1 amp KCl 19,1% + 2 amp NaCl 20%</div></div>
+      <div class="sol-item"><div class="sol-n">6</div><div class="sol-c">SG 5% 1000 mL + 2 amp NaCl 20%</div></div>
+      <div class="sol-item"><div class="sol-n">7</div><div class="sol-c">SG 5% 1000 mL + 2 amp KCl 19,1% + 4 amp NaCl 20%</div></div>
+      <div class="sol-item"><div class="sol-n">8</div><div class="sol-c">SG 5% 1000 mL + 4 amp NaCl 20%</div></div>
+    </div>
+    <div class="disclaimer" style="margin-top: 8px;">
+      <strong>Ampolas:</strong> KCl 19,1% 10 mL (≈ 25 mEq K) · NaCl 20% 10 mL (≈ 34 mEq Na)
+    </div>
+  </section>
+
+  <!-- CÁLCULOS -->
+  <section class="panel" id="panel-calc">
+    <h2>Cálculos auxiliares</h2>
+
+    <h3>Ânion gap · Na − (Cl + HCO3)</h3>
+    <div class="card">
+      <div class="field-row">
+        <div class="col">
+          <label>Na</label>
+          <div class="input-wrap">
+            <input type="number" id="ag-na" inputmode="decimal" step="0.1" placeholder="138">
+            <span class="input-unit">mEq/L</span>
+          </div>
+        </div>
+        <div class="col">
+          <label>Cl</label>
+          <div class="input-wrap">
+            <input type="number" id="ag-cl" inputmode="decimal" step="0.1" placeholder="100">
+            <span class="input-unit">mEq/L</span>
+          </div>
+        </div>
+      </div>
+      <div class="field" style="margin-bottom: 0;">
+        <label>HCO3 (Bic)</label>
+        <div class="input-wrap">
+          <input type="number" id="ag-hco3" inputmode="decimal" step="0.1" placeholder="10">
+          <span class="input-unit">mmol/L</span>
+        </div>
+      </div>
+      <div id="ag-result"></div>
+    </div>
+
+    <h3>Osmolaridade efetiva · 2×Na + Glic/18</h3>
+    <div class="card">
+      <div class="field-row" style="margin-bottom: 0;">
+        <div class="col">
+          <label>Na</label>
+          <div class="input-wrap">
+            <input type="number" id="osm-na" inputmode="decimal" step="0.1" placeholder="138">
+            <span class="input-unit">mEq/L</span>
+          </div>
+        </div>
+        <div class="col">
+          <label>Glicemia</label>
+          <div class="input-wrap">
+            <input type="number" id="osm-glic" inputmode="decimal" placeholder="400">
+            <span class="input-unit">mg/dL</span>
+          </div>
+        </div>
+      </div>
+      <div id="osm-result"></div>
+    </div>
+
+    <div class="disclaimer">
+      <strong>Referência:</strong> AG normal ≤ 12 · Osm efetiva normal 275-295 · Osm &gt; 320 sugere EHH ou desidratação grave.
     </div>
   </section>
 
@@ -923,6 +1125,10 @@
     <svg viewBox="0 0 24 24"><path d="M18.36 6.64a9 9 0 11-12.73 0M12 2v10"/></svg>
     Off
   </button>
+  <button class="nav-btn" data-tab="calc">
+    <svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h2M12 10h2M16 10h0M8 14h2M12 14h2M16 14h0M8 18h2M12 18h6"/></svg>
+    Cálc
+  </button>
   <button class="nav-btn" data-tab="ref">
     <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
     Soluções
@@ -943,12 +1149,45 @@
     });
   });
 
+  function updateGravity(glic, ph, bic) {
+    const leve = document.getElementById('grav-leve');
+    const mod = document.getElementById('grav-mod');
+    const grave = document.getElementById('grav-grave');
+    const cells = document.querySelectorAll('.gravity-line > div');
+
+    // Limpar
+    [leve, mod, grave].forEach(el => el.classList.remove('active', 'leve', 'mod', 'grave'));
+    cells.forEach(c => c.classList.remove('col-active', 'leve', 'mod', 'grave'));
+
+    if (isNaN(glic) || glic <= 250) return;
+    if (isNaN(ph) && isNaN(bic)) return;
+
+    const phLevel = !isNaN(ph) ? (ph < 7.0 ? 3 : (ph < 7.25 ? 2 : (ph <= 7.3 ? 1 : 0))) : 0;
+    const bicLevel = !isNaN(bic) ? (bic < 10 ? 3 : (bic < 15 ? 2 : (bic <= 18 ? 1 : 0))) : 0;
+    const max = Math.max(phLevel, bicLevel);
+
+    let nivel = null, col = -1;
+    if (max === 1) { nivel = 'leve'; col = 0; leve.classList.add('active', 'leve'); }
+    else if (max === 2) { nivel = 'mod'; col = 1; mod.classList.add('active', 'mod'); }
+    else if (max === 3) { nivel = 'grave'; col = 2; grave.classList.add('active', 'grave'); }
+
+    // Acender a coluna inteira (linha pH + linha Bic)
+    if (col >= 0 && nivel) {
+      cells.forEach((cell, idx) => {
+        if (idx % 3 === col) cell.classList.add('col-active', nivel);
+      });
+    }
+  }
+
   function checkDx() {
     const glic = parseFloat(document.getElementById('dx-glic').value);
     const ph = parseFloat(document.getElementById('dx-ph').value);
     const bic = parseFloat(document.getElementById('dx-bic').value);
     const cet = document.getElementById('dx-cet').value;
     const result = document.getElementById('dx-result');
+
+    // Acender gravidade quando glic, pH e bic preenchidos
+    updateGravity(glic, ph, bic);
 
     if (isNaN(glic) && isNaN(ph) && isNaN(bic) && !cet) { result.innerHTML = ''; return; }
 
@@ -987,16 +1226,38 @@
   }
   ['na-medido','na-glic'].forEach(id => document.getElementById(id).addEventListener('input', calcNa));
 
-  const solutions = {
-    1: 'AD 1000 mL + 1 amp KCl + 2 amp NaCl',
-    2: 'AD 1000 mL + 2 amp NaCl',
-    3: 'SF 0,9% 1000 mL + 1 amp KCl',
+  const solutions1000 = {
+    1: 'AD 1000 mL + 1 amp KCl 19,1% + 2 amp NaCl 20%',
+    2: 'AD 1000 mL + 2 amp NaCl 20%',
+    3: 'SF 0,9% 1000 mL + 1 amp KCl 19,1%',
     4: 'SF 0,9% 1000 mL',
-    5: 'SG 5% 1000 mL + 1 amp KCl + 2 amp NaCl',
-    6: 'SG 5% 1000 mL + 2 amp NaCl',
-    7: 'SG 5% 1000 mL + 2 amp KCl + 4 amp NaCl',
-    8: 'SG 5% 1000 mL + 4 amp NaCl'
+    5: 'SG 5% 1000 mL + 1 amp KCl 19,1% + 2 amp NaCl 20%',
+    6: 'SG 5% 1000 mL + 2 amp NaCl 20%',
+    7: 'SG 5% 1000 mL + 2 amp KCl 19,1% + 4 amp NaCl 20%',
+    8: 'SG 5% 1000 mL + 4 amp NaCl 20%'
   };
+
+  const solutions500 = {
+    1: 'AD 500 mL + ½ amp KCl 19,1% + 1 amp NaCl 20%',
+    2: 'AD 500 mL + 1 amp NaCl 20%',
+    3: 'SF 0,9% 500 mL + ½ amp KCl 19,1%',
+    4: 'SF 0,9% 500 mL',
+    5: 'SG 5% 500 mL + ½ amp KCl 19,1% + 1 amp NaCl 20%',
+    6: 'SG 5% 500 mL + 1 amp NaCl 20%',
+    7: 'SG 5% 500 mL + 1 amp KCl 19,1% + 2 amp NaCl 20%',
+    8: 'SG 5% 500 mL + 2 amp NaCl 20%'
+  };
+
+  let currentVolume = 1000;
+
+  document.querySelectorAll('.vol-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.vol-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentVolume = parseInt(btn.dataset.vol);
+      pickSolution();
+    });
+  });
 
   function calcBomba() {
     const peso = parseFloat(document.getElementById('bomba-peso').value);
@@ -1027,7 +1288,11 @@
       else { p2 = 'Na<135'; n = k < 5.3 ? 7 : 8; p3 = k < 5.3 ? 'K<5,3' : 'K>5,3'; }
     }
 
-    result.innerHTML = `<div class="sol-hero"><div class="badge">Solução</div><div class="num">${n}</div><div class="comp">${solutions[n]}</div><div style="margin-top: 10px; padding: 6px 12px; background: rgba(255,255,255,0.18); border-radius: 8px; display: inline-block; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.02em;">Correr a 250 mL/h</div></div><div class="sol-path">${p1}<span class="arrow">→</span>${p2}<span class="arrow">→</span>${p3}</div>`;
+    const solutions = currentVolume === 500 ? solutions500 : solutions1000;
+    const tempo = currentVolume === 500 ? '2h' : '4h';
+    const velocidade = '250 mL/h';
+
+    result.innerHTML = `<div class="sol-hero"><div class="badge">Solução</div><div class="num">${n}</div><div class="comp">${solutions[n]}</div><div style="margin-top: 10px; padding: 6px 12px; background: rgba(255,255,255,0.18); border-radius: 8px; display: inline-block; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.02em;">Correr a ${velocidade} (${tempo})</div></div><div class="sol-path">${p1}<span class="arrow">→</span>${p2}<span class="arrow">→</span>${p3}</div>`;
   }
   ['sol-dx','sol-na','sol-k'].forEach(id => document.getElementById(id).addEventListener('input', pickSolution));
 
@@ -1043,18 +1308,48 @@
   }
   document.getElementById('bicarb-ph').addEventListener('input', checkBicarb);
 
+  function calcAG() {
+    const na = parseFloat(document.getElementById('ag-na').value);
+    const cl = parseFloat(document.getElementById('ag-cl').value);
+    const hco3 = parseFloat(document.getElementById('ag-hco3').value);
+    const result = document.getElementById('ag-result');
+    if (isNaN(na) || isNaN(cl) || isNaN(hco3)) { result.innerHTML = ''; return; }
+    const ag = na - (cl + hco3);
+    let cls, label;
+    if (ag <= 12) { cls = 'result-neg'; label = 'AG normal (≤ 12)'; }
+    else if (ag <= 20) { cls = 'result-mid'; label = 'AG aumentado'; }
+    else { cls = 'result-pos'; label = 'AG muito aumentado'; }
+    result.innerHTML = `<div class="result ${cls}"><div class="label">${label}</div><div class="value">AG = ${ag.toFixed(1)} mEq/L</div><div class="detail">${na} − (${cl} + ${hco3})</div></div>`;
+  }
+  ['ag-na','ag-cl','ag-hco3'].forEach(id => document.getElementById(id).addEventListener('input', calcAG));
+
+  function calcOsm() {
+    const na = parseFloat(document.getElementById('osm-na').value);
+    const glic = parseFloat(document.getElementById('osm-glic').value);
+    const result = document.getElementById('osm-result');
+    if (isNaN(na) || isNaN(glic)) { result.innerHTML = ''; return; }
+    const osm = 2 * na + glic / 18;
+    let cls, label;
+    if (osm < 295) { cls = 'result-neg'; label = 'Osm normal'; }
+    else if (osm < 320) { cls = 'result-mid'; label = 'Osm elevada'; }
+    else { cls = 'result-pos'; label = 'Osm > 320 — risco EHH'; }
+    result.innerHTML = `<div class="result ${cls}"><div class="label">${label}</div><div class="value">Osm = ${osm.toFixed(1)} mOsm/L</div><div class="detail">2 × ${na} + ${glic}/18</div></div>`;
+  }
+  ['osm-na','osm-glic'].forEach(id => document.getElementById(id).addEventListener('input', calcOsm));
+
   function checkOff() {
     const glic = parseFloat(document.getElementById('off-glic').value);
     const ph = parseFloat(document.getElementById('off-ph').value);
     const bic = parseFloat(document.getElementById('off-bic').value);
+    const ag = parseFloat(document.getElementById('off-ag').value);
     const result = document.getElementById('off-result');
-    if (isNaN(glic) || isNaN(ph) || isNaN(bic)) { result.innerHTML = ''; return; }
-    const c1 = glic < 200, c2 = ph >= 7.3, c3 = bic >= 18, all = c1 && c2 && c3;
+    if (isNaN(glic) || isNaN(ph) || isNaN(bic) || isNaN(ag)) { result.innerHTML = ''; return; }
+    const c1 = glic < 200, c2 = ph >= 7.3, c3 = bic >= 18, c4 = ag <= 12, all = c1 && c2 && c3 && c4;
     const cls = all ? 'result-neg' : 'result-mid';
     const title = all ? 'Pode desligar' : 'Manter bomba';
-    result.innerHTML = `<div class="result ${cls}"><div class="label">${title}</div><div class="detail" style="color: var(--ink); line-height: 1.7;">${c1?'<span class="check">✓</span>':'<span class="x-mark">✗</span>'} Glic ${glic}<br>${c2?'<span class="check">✓</span>':'<span class="x-mark">✗</span>'} pH ${ph}<br>${c3?'<span class="check">✓</span>':'<span class="x-mark">✗</span>'} Bic ${bic}</div></div>`;
+    result.innerHTML = `<div class="result ${cls}"><div class="label">${title}</div><div class="detail" style="color: var(--ink); line-height: 1.7;">${c1?'<span class="check">✓</span>':'<span class="x-mark">✗</span>'} Glic ${glic}<br>${c2?'<span class="check">✓</span>':'<span class="x-mark">✗</span>'} pH ${ph}<br>${c3?'<span class="check">✓</span>':'<span class="x-mark">✗</span>'} Bic ${bic}<br>${c4?'<span class="check">✓</span>':'<span class="x-mark">✗</span>'} AG ${ag}</div></div>`;
   }
-  ['off-glic','off-ph','off-bic'].forEach(id => document.getElementById(id).addEventListener('input', checkOff));
+  ['off-glic','off-ph','off-bic','off-ag'].forEach(id => document.getElementById(id).addEventListener('input', checkOff));
 </script>
 
 </body>
