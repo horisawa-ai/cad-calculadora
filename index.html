@@ -1150,8 +1150,7 @@
 <div class="demo-bar">CONDUTAS VALIDADAS · ADA 2024 + EMERGÊNCIAS USP</div>
 
 <div class="guideline-pill">
-  <span>Seguindo: <span id="guidelineName">ADA 2024</span></span>
-  <button class="switch-btn" onclick="toggleGuideline()">Trocar para <span id="guidelineOther">USP</span></button>
+  <span>Seguindo: <strong>ADA 2024</strong> · validado com Emergências Clínicas USP</span>
 </div>
 
 <div class="case-banner" id="caseBanner">
@@ -1756,18 +1755,15 @@ try {
 
 /* GUIDELINE */
 function loadGuideline() {
-  try { currentGuideline = localStorage.getItem(GUIDELINE_KEY) || 'ada'; } catch(e) {}
+  // ADA 2024 fixo (validado com Emergências USP)
+  currentGuideline = 'ada';
   updateGuidelineUI();
 }
 function toggleGuideline() {
-  currentGuideline = currentGuideline === 'ada' ? 'usp' : 'ada';
-  try { localStorage.setItem(GUIDELINE_KEY, currentGuideline); } catch(e) {}
-  updateGuidelineUI();
-  if (caseData) renderCase();
+  // desativado — ADA 2024 fixo
 }
 function updateGuidelineUI() {
-  document.getElementById('guidelineName').textContent = currentGuideline === 'ada' ? 'ADA 2024' : 'Emergências USP';
-  document.getElementById('guidelineOther').textContent = currentGuideline === 'ada' ? 'USP' : 'ADA';
+  // pílula agora é só texto fixo, nada a atualizar
 }
 
 /* CRITÉRIOS dinâmicos baseados em guideline */
