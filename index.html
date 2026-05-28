@@ -374,6 +374,27 @@
   .conduct-text { font-size: 12px; line-height: 1.5; color: var(--text); }
   .conduct-text b { font-weight: 800; }
 
+  /* Conduta sem checkbox — numerada por prioridade */
+  .conduct-item-plain {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 9px 11px;
+    background: rgba(255,255,255,.6);
+    border-radius: 8px;
+    margin-bottom: 4px;
+  }
+  [data-theme="dark"] .conduct-item-plain { background: rgba(255,255,255,.04); }
+  .conduct-num {
+    width: 20px; height: 20px; flex-shrink: 0;
+    background: var(--accent); color: #fff;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-size: 11px; font-weight: 800;
+    margin-top: 1px;
+  }
+  .pending-card.alert .conduct-num { background: var(--red); }
+  .pending-card.warn .conduct-num { background: var(--amber); }
+  .pending-card.ok .conduct-num { background: var(--green); }
+
   /* Reavaliação trigger */
   .reaval-trigger {
     margin-top: 16px; width: 100%;
@@ -1258,15 +1279,15 @@
 
   <!-- Sub-nav das calculadoras (scroll horizontal) -->
   <div class="calc-tabs" id="calcTabs">
-    <button class="ctab active" onclick="showCalc('cdx')">Dx</button>
-    <button class="ctab" onclick="showCalc('cadm')">Admissão</button>
-    <button class="ctab" onclick="showCalc('cbomba')">Bomba</button>
-    <button class="ctab" onclick="showCalc('csol')">Solução</button>
-    <button class="ctab" onclick="showCalc('cbicarb')">Bicarb</button>
-    <button class="ctab" onclick="showCalc('coff')">Off</button>
-    <button class="ctab" onclick="showCalc('ccalc')">Cálc</button>
-    <button class="ctab" onclick="showCalc('cref')">Soluções</button>
-    <button class="ctab" onclick="showCalc('cleg')">Siglas</button>
+    <button class="ctab active" onclick="showCalc('cdx', this)">Dx</button>
+    <button class="ctab" onclick="showCalc('cadm', this)">Admissão</button>
+    <button class="ctab" onclick="showCalc('cbomba', this)">Bomba</button>
+    <button class="ctab" onclick="showCalc('csol', this)">Solução</button>
+    <button class="ctab" onclick="showCalc('cbicarb', this)">Bicarb</button>
+    <button class="ctab" onclick="showCalc('coff', this)">Off</button>
+    <button class="ctab" onclick="showCalc('ccalc', this)">Cálc</button>
+    <button class="ctab" onclick="showCalc('cref', this)">Soluções</button>
+    <button class="ctab" onclick="showCalc('cleg', this)">Siglas</button>
   </div>
 
   <!-- CALC DX -->
@@ -1660,6 +1681,10 @@
         <button type="button" class="time-chip" data-min="210" onclick="setTimeChip(210)">3h30</button>
         <button type="button" class="time-chip" data-min="225" onclick="setTimeChip(225)">3h45</button>
         <button type="button" class="time-chip" data-min="240" onclick="setTimeChip(240)">4h</button>
+        <button type="button" class="time-chip" data-min="270" onclick="setTimeChip(270)">4h30</button>
+        <button type="button" class="time-chip" data-min="300" onclick="setTimeChip(300)">5h</button>
+        <button type="button" class="time-chip" data-min="330" onclick="setTimeChip(330)">5h30</button>
+        <button type="button" class="time-chip" data-min="360" onclick="setTimeChip(360)">6h</button>
       </div>
       <div id="time-since-info" style="margin-top:8px; font-size:11px; color:var(--text-dim);"></div>
       <input type="hidden" id="rv-time" value="">
@@ -1691,8 +1716,22 @@ let currentGuideline = 'ada'; // 'ada' or 'usp'
 function loadCase() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) caseData = JSON.parse(raw);
-  } catch(e) {}
+    if (raw) {
+      caseData = JSON.parse(raw);
+      // Migração defensiva: garante campos esperados em casos antigos
+      if (caseData) {
+        if (!Array.isArray(caseData.events)) caseData.events = [];
+        if (!Array.isArray(caseData.pendingConducts)) caseData.pendingConducts = [];
+        if (!caseData._tlExpanded) caseData._tlExpanded = {};
+        if (!caseData._expanded) caseData._expanded = {};
+        if (!caseData.state) caseData.state = {};
+        if (typeof caseData.peso !== 'number') caseData.peso = parseFloat(caseData.peso) || 0;
+        // garante tags e conducts em cada evento/bloco
+        caseData.events.forEach(ev => { if (!Array.isArray(ev.tags)) ev.tags = []; });
+        caseData.pendingConducts.forEach(p => { if (!Array.isArray(p.conducts)) p.conducts = []; });
+      }
+    }
+  } catch(e) { caseData = null; }
 }
 function saveCase() {
   try {
@@ -1998,9 +2037,7 @@ function renderPending() {
   }
   // Mantém estado de expansão (default: primeiro aberto, demais fechados)
   if (!caseData._expanded) caseData._expanded = {};
-  area.innerHTML = '<h3 class="sec">Condutas pendentes</h3>' + caseData.pendingConducts.map((p, pi) => {
-    const allDone = p.conducts.every(c => c.done);
-    const doneCount = p.conducts.filter(c => c.done).length;
+  area.innerHTML = '<h3 class="sec">Conduta atual</h3>' + caseData.pendingConducts.map((p, pi) => {
     const total = p.conducts.length;
     const expanded = caseData._expanded[pi] === undefined ? (pi === 0) : caseData._expanded[pi];
     return `
@@ -2008,18 +2045,17 @@ function renderPending() {
       <div class="pending-header" onclick="togglePendingExpand(${pi})" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;">
         <div style="flex:1;min-width:0;">
           <div class="pending-title">${p.icon} ${p.title}</div>
-          <div class="pending-source">${p.source} · ${doneCount}/${total} feitas</div>
+          <div class="pending-source">${p.source} · ${total} condutas</div>
         </div>
         <div class="chevron" style="font-size:18px;color:var(--text-dim);transition:transform .2s;transform:rotate(${expanded ? '180' : '0'}deg);">⌄</div>
       </div>
       <div class="conduct-list" style="display:${expanded ? 'block' : 'none'};">
         ${p.conducts.map((c, ci) => `
-          <div class="conduct-item ${c.done?'done':''}" onclick="toggleConduct(${pi},${ci})">
-            <div class="conduct-check"></div>
+          <div class="conduct-item-plain">
+            <div class="conduct-num">${ci + 1}</div>
             <div class="conduct-text">${c.txt}</div>
           </div>
         `).join('')}
-        ${allDone ? `<div style="margin-top:8px; text-align:center;"><button class="btn-ghost" onclick="event.stopPropagation();dismissPending(${pi})" style="color:var(--green);border-color:var(--green);">✓ Marcar bloco como concluído</button></div>` : ''}
       </div>
     </div>
   `}).join('');
@@ -2150,6 +2186,37 @@ function renderTimeline() {
         </div>
       `;
     }
+    // Evento de reavaliação COM condutas → clicável pra expandir
+    if (ev.type === 'reaval' && ev.conductsBlocks && ev.conductsBlocks.length) {
+      const expanded = caseData._tlExpanded['r' + gi] === true;
+      return `
+        <div class="tl-event">
+          <div class="tl-card" style="cursor:pointer;" onclick="toggleTlReaval(${gi})">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+              <div style="flex:1;min-width:0;">
+                <div class="tl-time">${formatTime(ev.time)}</div>
+                <div class="tl-title">${ev.title}</div>
+                <div class="tl-content">${ev.content}</div>
+                ${ev.tags && ev.tags.length ? `<div class="tl-tags">${ev.tags.map(t => `<span class="tl-tag ${t.cls||''}">${t.txt}</span>`).join('')}</div>` : ''}
+              </div>
+              <div style="font-size:18px;color:var(--text-dim);transform:rotate(${expanded ? '180' : '0'}deg);transition:transform .2s;">⌄</div>
+            </div>
+            <div style="display:${expanded ? 'block' : 'none'};margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);">
+              ${ev.conductsBlocks.map(b => `
+                <div style="font-size:12px;font-weight:800;color:var(--text);margin:4px 0 6px;">${b.icon} ${b.title}</div>
+                ${b.conducts.map((c, ci) => `
+                  <div style="display:flex;gap:8px;padding:4px 0;font-size:12px;color:var(--text-dim);">
+                    <span style="color:var(--accent);font-weight:800;">${ci + 1}.</span>
+                    <span>${c.txt}</span>
+                  </div>
+                `).join('')}
+              `).join('')}
+            </div>
+            ${!expanded ? `<div style="margin-top:6px;font-size:11px;color:var(--text-dim);font-style:italic;">Toque para ver as condutas</div>` : ''}
+          </div>
+        </div>
+      `;
+    }
     return `
       <div class="tl-event ${ev.type === 'admission' ? 'admission' : ev.type === 'alert' ? 'alert' : ev.type === 'action' ? 'action' : ''}">
         <div class="tl-card">
@@ -2166,6 +2233,13 @@ function renderTimeline() {
 function toggleTlGroup(gid) {
   if (!caseData._tlExpanded) caseData._tlExpanded = {};
   caseData._tlExpanded['g' + gid] = !caseData._tlExpanded['g' + gid];
+  saveCase();
+  renderCase();
+}
+
+function toggleTlReaval(gi) {
+  if (!caseData._tlExpanded) caseData._tlExpanded = {};
+  caseData._tlExpanded['r' + gi] = !caseData._tlExpanded['r' + gi];
   saveCase();
   renderCase();
 }
@@ -2224,6 +2298,12 @@ function computeReactions() {
   if (!caseData) return;
   const s = caseData.state;
   const t = getThresholds();
+
+  // PROTEÇÃO: se bombaMlh veio zerado/inválido (caso antigo), recalcula pelo peso
+  if ((!s.bombaMlh || parseFloat(s.bombaMlh) === 0) && caseData.peso) {
+    s.bombaMlh = (caseData.peso * 0.1).toFixed(1);
+  }
+
   const glic = parseFloat(document.getElementById('rv-glic').value);
   const ph = parseFloat(document.getElementById('rv-ph').value);
   const bic = parseFloat(document.getElementById('rv-bic').value);
@@ -2240,250 +2320,170 @@ function computeReactions() {
   const deltaDisplay = document.getElementById('glic-delta-display');
   deltaDisplay.innerHTML = '';
 
-  // ========== ANÁLISE DA GLICEMIA ==========
-  if (!isNaN(glic) && hoursSince > 0) {
-    const diff = s.glic - glic; // positivo = caiu
-    const rate = diff / hoursSince; // mg/dL/h
-
-    // Display do delta (sem números negativos esquisitos)
-    let deltaCls, deltaLabel, deltaValue;
-    if (glic >= s.glic) {
-      // ESTÁVEL OU AUMENTANDO
-      deltaCls = 'refractory';
-      if (glic === s.glic) {
-        deltaLabel = '🚨 Glicemia ESTÁVEL';
-        deltaValue = `sem variação em ${hoursSince.toFixed(1)}h`;
-      } else {
-        deltaLabel = '🚨 Glicemia AUMENTOU';
-        deltaValue = `+${(glic - s.glic).toFixed(0)} mg/dL em ${hoursSince.toFixed(1)}h`;
-      }
-    } else if (rate < t.targetMin) {
-      deltaCls = 'slow';
-      deltaLabel = '⚠️ Queda lenta';
-      deltaValue = `${rate.toFixed(0)} mg/dL/h (meta ${t.targetMin}-${t.targetMax})`;
-    } else if (rate > t.targetMax) {
-      deltaCls = 'fast';
-      deltaLabel = '⚠️ Queda rápida';
-      deltaValue = `${rate.toFixed(0)} mg/dL/h (limite ${t.targetMax})`;
-    } else {
-      deltaCls = 'good';
-      deltaLabel = '✅ Queda adequada';
-      deltaValue = `${rate.toFixed(0)} mg/dL/h`;
-    }
-    deltaDisplay.innerHTML = `
-      <div class="glic-delta ${deltaCls}">
-        <div>
-          <div class="glic-delta-label">Análise da glicemia</div>
-          <div style="font-size:11px; color:var(--text-dim); margin-top:2px;">${deltaLabel}</div>
-        </div>
-        <div class="glic-delta-value">${deltaValue}</div>
-      </div>
-    `;
-
-    // CENÁRIO 1: GLICEMIA REFRATÁRIA
-    if (glic >= s.glic) {
-      const novaBomba = (parseFloat(s.bombaMlh) * 2).toFixed(1);
-      const bolus = (caseData.peso * 0.1).toFixed(1);
-      reactions.push({
-        cls: 'alert', icon: '🚨',
-        title: 'GLICEMIA REFRATÁRIA — investigar AGORA',
-        source: currentGuideline === 'ada' ? 'ADA 2024' : 'ADA 2001/USP',
-        conducts: [
-          { txt: '<b>Reavaliar volemia</b> — hidratação inadequada é a causa #1' },
-          { txt: '<b>Verificar acesso venoso</b> — clampado? infiltrado? obstruído?' },
-          { txt: '<b>Verificar bomba</b> — programada certo? infundindo de fato?' },
-          { txt: '<b>Conferir preparo da solução</b> — insulina pode aderir ao equipo plástico' },
-          { txt: '<b>Trocar equipo</b> se > 6h de infusão' },
-          { txt: `<b>↑ Dobrar bomba:</b> ${s.bombaMlh} → <b>${novaBomba} mL/h</b>` },
-          { txt: `<b>Considerar bolus EV adicional:</b> 0,1 UI/kg = <b>${bolus} UI</b>` },
-          { txt: '<b>Investigar precipitante:</b> infecção, IAM, AVC, gestação, corticoide, suspensão de insulina' },
-        ]
-      });
-    }
-    // CENÁRIO 2: QUEDA LENTA
-    else if (rate < t.targetMin) {
-      const novaBomba = (parseFloat(s.bombaMlh) * 2).toFixed(1);
-      reactions.push({
-        cls: 'warn', icon: '⚠️',
-        title: 'Queda insuficiente · dobrar bomba',
-        source: currentGuideline === 'ada' ? 'ADA 2024' : 'USP',
-        conducts: [
-          { txt: '<b>Confirmar bomba</b> infundindo corretamente' },
-          { txt: '<b>Reavaliar volemia</b> (hidratação inadequada atrapalha resposta)' },
-          { txt: `<b>↑ Dobrar bomba:</b> ${s.bombaMlh} → <b>${novaBomba} mL/h</b>` },
-          { txt: `<b>Manter solução ${s.solNum}:</b> ${solutionText(s.solNum)} (se glic ainda > 250)` },
-        ]
-      });
-    }
-    // CENÁRIO 3: QUEDA ADEQUADA
-    else if (rate >= t.targetMin && rate <= t.targetMax) {
-      reactions.push({
-        cls: 'ok', icon: '✓',
-        title: 'Queda na meta',
-        source: currentGuideline === 'ada' ? 'ADA 2024' : 'USP',
-        conducts: [
-          { txt: `<b>Manter bomba em ${s.bombaMlh} mL/h</b>` },
-          { txt: `<b>Manter Solução ${s.solNum}:</b> ${solutionText(s.solNum)}` },
-          { txt: '<b>Próxima gaso em 2h</b>' },
-        ]
-      });
-    }
-    // CENÁRIO 4: QUEDA RÁPIDA
-    else if (rate > t.targetMax) {
-      const novaBomba = (parseFloat(s.bombaMlh) / 2).toFixed(1);
-      reactions.push({
-        cls: 'warn', icon: '⚠️',
-        title: 'Queda rápida · risco edema cerebral',
-        source: currentGuideline === 'ada' ? 'ADA 2024' : 'USP',
-        conducts: [
-          { txt: `<b>↓ Reduzir bomba 50%:</b> ${s.bombaMlh} → <b>${novaBomba} mL/h</b>` },
-          { txt: '<b>Monitorar nível de consciência</b> (sinal precoce de edema)' },
-          { txt: '<b>Reavaliar Dx em 30 min</b> (não esperar 1h)' },
-          ...(glic >= 200 && glic <= 250 ? [{ txt: '<b>Reduzir bomba para 0,02-0,05 U/kg/h</b>' }] : []),
-        ]
-      });
-    }
-
-    // CENÁRIO 5: glic cruzou threshold pra usar SG
-    if (glic <= t.glicThreshold && s.glic > t.glicThreshold) {
-      const newSol = pickSolution(glic, s.naCorr || s.na || 138, !isNaN(k) ? k : s.k);
-      reactions.push({
-        cls: 'action', icon: '💧',
-        title: `Trocar para solução com glicose (glic ≤ ${t.glicThreshold})`,
-        source: currentGuideline === 'ada' ? 'ADA 2024' : 'USP',
-        conducts: [
-          { txt: '<b>⚠️ NÃO suspender insulina</b> — a glicose é só para prevenir hipoglicemia enquanto a insulina continua resolvendo a cetoacidose' },
-          { txt: `<b>Suspender</b> solução ${s.solNum}` },
-          { txt: `<b>Iniciar Solução ${newSol}:</b> ${solutionText(newSol)}` },
-          { txt: '<b>Correr a 250 mL/h</b> (1000 mL em 4h)' },
-        ]
-      });
-    }
+  // Sem glicemia preenchida ainda, não calcula nada
+  if (isNaN(glic) || hoursSince <= 0) {
+    window._lastReactions = [];
+    document.getElementById('reavalReactions').innerHTML = '';
+    return;
   }
 
-  // ========== ANÁLISE DO K ==========
+  // ====== ANÁLISE INTEGRADA (calcula tudo junto antes de montar a conduta) ======
+  const diff = s.glic - glic;            // positivo = caiu
+  const rate = diff / hoursSince;        // mg/dL/h
+  const naRef = s.naCorr || s.na || 138;
+
+  // Critérios de resolução
+  const resolutionMet = (!isNaN(ph) && !isNaN(bic)) && (currentGuideline === 'ada'
+    ? ((ph >= 7.3 || bic >= 18) && glic < 200)
+    : (ph >= 7.3 && bic >= 18 && glic < 200));
+
+  // Categoria da glicemia
+  let glicCat; // 'refrat' | 'lenta' | 'meta' | 'rapida'
+  if (glic >= s.glic) glicCat = 'refrat';
+  else if (rate < t.targetMin) glicCat = 'lenta';
+  else if (rate > t.targetMax) glicCat = 'rapida';
+  else glicCat = 'meta';
+
+  // Categoria do K
+  let kCat = null; // 'critico' | 'baixo-normal' | 'alto'
   if (!isNaN(k)) {
-    if (k < t.kPause) {
-      const doseAlta = k < 3.0;
-      reactions.push({
-        cls: 'alert', icon: '🛑',
-        title: `K < ${t.kPause} — PAUSAR BOMBA IMEDIATAMENTE`,
-        source: currentGuideline === 'ada' ? 'ADA 2024' : 'USP',
-        conducts: [
-          { txt: '<b>SUSPENDER bomba</b> de insulina agora' },
-          { txt: `<b>Repor KCl ${doseAlta ? '20-40' : '20-30'} mEq/h</b> em 250 mL SF 0,9%` },
-          { txt: `<b>Ampolas:</b> 1 amp KCl 19,1% (10 mL) = 25 mEq · OU · 2 amp KCl 10% (10 mL) = 26 mEq` },
-          { txt: `<b>⚠ Acesso ${doseAlta ? 'central obrigatório' : 'central preferencial'}</b> · monitor cardíaco · nunca em bolus` },
-          { txt: '<b>Reavaliar K em 1h</b>' },
-          { txt: '<b>ECG:</b> achatamento T, onda U, prolongamento PR' },
-          { txt: `<b>Reiniciar bomba</b> SOMENTE quando K > ${t.kPause}` },
-        ]
-      });
-    } else if (k > t.kHigh) {
-      reactions.push({
-        cls: 'warn', icon: '⚠️',
-        title: `K > ${t.kHigh} — sem KCl`,
-        source: currentGuideline === 'ada' ? 'ADA 2024' : 'USP',
-        conducts: [
-          { txt: `<b>Manter bomba em ${s.bombaMlh} mL/h</b>` },
-          { txt: '<b>Suspender KCl</b> da solução (usar Sol 2, 4, 6 ou 8)' },
-          { txt: '<b>Reavaliar K em 2h</b>' },
-          ...(k > 6.0 ? [{ txt: '<b>ECG</b> — procurar T apiculada' }] : []),
-        ]
-      });
+    if (k < t.kPause) kCat = 'critico';
+    else if (k > t.kHigh) kCat = 'alto';
+    else kCat = 'normal';
+  }
+
+  // ---- DECISÃO DA BOMBA (só a glicemia + K crítico decidem) ----
+  let bombaMlhAtual = parseFloat(s.bombaMlh);
+  let novaBomba = bombaMlhAtual;
+  let bombaTxt, bombaPausada = false;
+  if (kCat === 'critico') {
+    novaBomba = 0; bombaPausada = true;
+    bombaTxt = `<b>PAUSAR bomba de insulina</b> (K < ${t.kPause}) — reiniciar só com K > ${t.kPause}`;
+  } else if (resolutionMet) {
+    bombaTxt = null; // tratado no bloco de resolução
+  } else if (glicCat === 'refrat') {
+    novaBomba = bombaMlhAtual * 2;
+    bombaTxt = `<b>Dobrar bomba: ${bombaMlhAtual} → ${novaBomba.toFixed(1)} mL/h</b> (glicemia não caiu — investigar acesso/equipo/volemia)`;
+  } else if (glicCat === 'lenta') {
+    novaBomba = bombaMlhAtual * 2;
+    bombaTxt = `<b>Dobrar bomba: ${bombaMlhAtual} → ${novaBomba.toFixed(1)} mL/h</b> (queda lenta)`;
+  } else if (glicCat === 'rapida') {
+    novaBomba = bombaMlhAtual / 2;
+    bombaTxt = `<b>Reduzir bomba 50%: ${bombaMlhAtual} → ${novaBomba.toFixed(1)} mL/h</b> (queda rápida — risco de edema cerebral)`;
+  } else {
+    bombaTxt = `<b>Manter bomba em ${bombaMlhAtual} mL/h</b> (queda na meta)`;
+  }
+
+  // ---- DECISÃO DA SOLUÇÃO (integra glic + Na + K, escolhe a que JÁ tem o KCl certo) ----
+  const solAtual = pickSolution(glic, naRef, !isNaN(k) ? k : s.k);
+  const trocouSol = solAtual !== s.solNum;
+  let solTxt = null;
+  if (!bombaPausada) {
+    const cruzouSG = glic <= t.glicThreshold && s.glic > t.glicThreshold;
+    if (cruzouSG) {
+      solTxt = `<b>Trocar para Solução ${solAtual}:</b> ${solutionText(solAtual)} a 250 mL/h — glicemia ≤ ${t.glicThreshold}, entrar com glicose (NÃO suspender insulina)`;
+    } else if (trocouSol) {
+      solTxt = `<b>Trocar para Solução ${solAtual}:</b> ${solutionText(solAtual)} a 250 mL/h`;
     } else {
-      // Normal / baixo - manter
-      const solComKCl = [1, 3, 5, 7].includes(s.solNum);
-      const conducts = [
-        { txt: `<b>Manter bomba em ${s.bombaMlh} mL/h</b>` },
-      ];
-      if (solComKCl) {
-        conducts.push({ txt: `<b>KCl já incluso na Solução ${s.solNum}</b> (≈25 mEq/L) — alvo K 4-5` });
-      } else {
-        conducts.push({ txt: `<b>Adicionar 1 amp KCl 19,1%</b> (25 mEq) por litro · OU · 2 amp KCl 10% (26 mEq)` });
-      }
-      conducts.push({ txt: '<b>Reavaliar K em 2h</b>' });
-      reactions.push({
-        cls: 'action', icon: '⚖️',
-        title: `K = ${k} (entre ${t.kPause} e ${t.kHigh}) — manter reposição`,
-        source: currentGuideline === 'ada' ? 'ADA 2024' : 'USP',
-        conducts: conducts
-      });
+      solTxt = `<b>Manter Solução ${solAtual}:</b> ${solutionText(solAtual)} a 250 mL/h`;
     }
   }
 
-  // ========== BICARBONATO ==========
+  // ---- DECISÃO DO POTÁSSIO ----
+  let kTxt = null;
+  if (kCat === 'critico') {
+    const doseAlta = k < 3.0;
+    kTxt = `<b>Repor KCl ${doseAlta ? '20-40' : '20-30'} mEq/h</b> em 250 mL SF 0,9% (1 amp KCl 19,1% = 25 mEq · ou 2 amp KCl 10% = 26 mEq) · acesso ${doseAlta ? 'central obrigatório' : 'central preferencial'} · monitor cardíaco · nunca em bolus`;
+  } else if (kCat === 'alto') {
+    kTxt = `<b>Sem KCl</b> (K > ${t.kHigh}) — solução indicada acima já é sem potássio · reavaliar K em 2h`;
+  } else if (kCat === 'normal') {
+    const solComKCl = [1, 3, 5, 7].includes(solAtual);
+    if (solComKCl) {
+      kTxt = `<b>KCl já incluso na Solução ${solAtual}</b> (≈25 mEq/L) — alvo K 4-5`;
+    } else {
+      kTxt = `<b>Adicionar 1 amp KCl 19,1%</b> (25 mEq) por litro — alvo K 4-5`;
+    }
+  }
+
+  // ---- HIDRATAÇÃO (só aparece se houver ação relevante) ----
+  let hidraTxt = null;
+  if (glicCat === 'refrat' || glicCat === 'lenta') {
+    hidraTxt = `<b>Reavaliar volemia</b> — hidratação inadequada atrapalha a queda da glicemia`;
+  }
+
+  // ---- BICARBONATO (se indicado) ----
+  let bicTxt = null;
   if (!isNaN(ph) && ph < t.bicPh) {
-    reactions.push({
-      cls: 'alert', icon: '⚗',
-      title: `pH < ${t.bicPh} — considerar bicarbonato`,
-      source: currentGuideline === 'ada' ? 'ADA 2024 (evidência fraca)' : 'USP',
-      conducts: [
-        { txt: '<b>⚠️ Evidência controversa</b> — discutir com chefia/familiar antes' },
-        { txt: '<b>Receita:</b> 100 mL Bic 8,4% + 400 mL AD + 1 amp KCl 19,1%' },
-        { txt: '<b>Infundir em 2h</b>' },
-        { txt: '<b>Repetir gaso após infusão</b>' },
-        { txt: `<b>NÃO repetir</b> se pH ≥ ${t.bicPh}` },
-      ]
-    });
+    bicTxt = `<b>Bicarbonato:</b> pH < ${t.bicPh} — 100 mL Bic 8,4% + 400 mL AD + 1 amp KCl 19,1%, infundir em 2h`;
   }
 
-  // ========== HIPOGLICEMIA ==========
-  if (!isNaN(glic) && glic < 70) {
-    reactions.push({
-      cls: 'alert', icon: '🆘',
-      title: 'HIPOGLICEMIA',
-      source: 'ADA 2024',
-      conducts: [
-        { txt: '<b>SUSPENDER bomba</b> temporariamente' },
-        { txt: '<b>SG 50% 30-60 mL EV em bolus</b> se sintomático' },
-        { txt: '<b>NUNCA suspender insulina permanentemente</b> — cetoacidose ainda ativa' },
-        { txt: '<b>Reavaliar Dx em 15-30 min</b>' },
-        { txt: '<b>Reiniciar bomba</b> em rate menor + solução com SG quando glicemia > 100' },
-      ]
-    });
+  // ---- DISPLAY DA ANÁLISE (topo) ----
+  let deltaCls, deltaLabel, deltaValue;
+  if (glicCat === 'refrat') {
+    deltaCls = 'refractory';
+    deltaLabel = glic === s.glic ? '🚨 Glicemia ESTÁVEL' : '🚨 Glicemia AUMENTOU';
+    deltaValue = glic === s.glic ? `sem variação em ${hoursSince.toFixed(1)}h` : `+${(glic - s.glic).toFixed(0)} mg/dL`;
+  } else if (glicCat === 'lenta') {
+    deltaCls = 'slow'; deltaLabel = '⚠️ Queda lenta'; deltaValue = `${rate.toFixed(0)} mg/dL/h (meta ${t.targetMin}-${t.targetMax})`;
+  } else if (glicCat === 'rapida') {
+    deltaCls = 'fast'; deltaLabel = '⚠️ Queda rápida'; deltaValue = `${rate.toFixed(0)} mg/dL/h (limite ${t.targetMax})`;
+  } else {
+    deltaCls = 'good'; deltaLabel = '✅ Queda adequada'; deltaValue = `${rate.toFixed(0)} mg/dL/h`;
   }
+  deltaDisplay.innerHTML = `
+    <div class="glic-delta ${deltaCls}">
+      <div>
+        <div class="glic-delta-label">Análise</div>
+        <div style="font-size:11px; color:var(--text-dim); margin-top:2px;">${deltaLabel}${!isNaN(k) ? ' · K ' + k : ''}${!isNaN(ph) ? ' · pH ' + ph : ''}</div>
+      </div>
+      <div class="glic-delta-value">${deltaValue}</div>
+    </div>
+  `;
 
-  // ========== CRITÉRIOS DE RESOLUÇÃO ==========
-  if (!isNaN(ph) && !isNaN(bic) && !isNaN(glic)) {
-    const resolutionMet = currentGuideline === 'ada'
-      ? (ph >= 7.3 || bic >= 18) && glic < 200
-      : (ph >= 7.3 && bic >= 18 && glic < 200); // USP usa ambos
-    if (resolutionMet) {
-      const nph = (caseData.peso * 0.1).toFixed(1);
-      const glargina = (caseData.peso * 0.25).toFixed(1);
-      reactions.push({
-        cls: 'ok', icon: '✅',
-        title: 'CRITÉRIOS DE RESOLUÇÃO atingidos',
-        source: currentGuideline === 'ada' ? 'ADA 2024 (sem AG)' : 'USP (com AG)',
-        conducts: [
-          { txt: '<b>Liberar dieta</b>' },
-          { txt: `<b>NPH ${nph} UI SC</b> (0,1 U/kg) OU <b>Glargina ${glargina} UI SC</b> (0,25 U/kg)` },
-          { txt: '<b>AGUARDAR 1-2h</b> após SC antes de desligar bomba' },
-          { txt: '<b>Desligar bomba</b> após sobreposição' },
-          { txt: '<b>Manter HGT 4/4h</b> nas primeiras 24h' },
-          { txt: '<b>Iniciar esquema basal-bolus</b>' },
-        ]
-      });
+  // ====== MONTA A CONDUTA ÚNICA CONSOLIDADA ======
+  const conducts = [];
+
+  if (resolutionMet) {
+    // Conduta de resolução
+    const nph = (caseData.peso * 0.1).toFixed(1);
+    const glargina = (caseData.peso * 0.25).toFixed(1);
+    if (kCat === 'critico') conducts.push({ txt: kTxt }); // segurança: K crítico antes
+    conducts.push({ txt: '<b>Liberar dieta</b>' });
+    conducts.push({ txt: `<b>NPH ${nph} UI SC</b> (0,1 U/kg) OU <b>Glargina ${glargina} UI SC</b> (0,25 U/kg)` });
+    conducts.push({ txt: '<b>Aguardar 1-2h</b> após SC antes de desligar a bomba' });
+    conducts.push({ txt: '<b>Desligar bomba</b> após a sobreposição' });
+    conducts.push({ txt: '<b>HGT 4/4h</b> nas primeiras 24h · iniciar esquema basal-bolus' });
+    reactions.push({
+      cls: 'ok', icon: '✅',
+      title: 'CRITÉRIOS DE RESOLUÇÃO atingidos',
+      source: currentGuideline === 'ada' ? 'ADA 2024 (sem AG)' : 'USP (com AG)',
+      conducts
+    });
+  } else {
+    // Conduta única integrada — só inclui linha quando há ação
+    if (kCat === 'critico' && bombaTxt) conducts.push({ txt: bombaTxt });      // pausa bomba aparece primeiro
+    else if (bombaTxt) conducts.push({ txt: bombaTxt });
+    if (solTxt) conducts.push({ txt: solTxt });
+    if (kTxt && kCat !== 'critico') conducts.push({ txt: kTxt });
+    if (kCat === 'critico') {
+      // detalhes do K crítico
+      conducts.push({ txt: kTxt });
+      conducts.push({ txt: '<b>Reavaliar K em 1h</b> · ECG (achatamento T, onda U, PR longo)' });
     }
+    if (hidraTxt) conducts.push({ txt: hidraTxt });
+    if (bicTxt) conducts.push({ txt: bicTxt });
+    conducts.push({ txt: `<b>Próxima gasometria em 2h</b>` });
+
+    // Cor e título do bloco conforme a situação mais crítica
+    let cls = 'ok', icon = '✓', title = 'Conduta — queda na meta';
+    if (kCat === 'critico') { cls = 'alert'; icon = '🛑'; title = `K < ${t.kPause} — PAUSAR BOMBA + repor K`; }
+    else if (glicCat === 'refrat') { cls = 'alert'; icon = '🚨'; title = 'Glicemia refratária — dobrar bomba + investigar'; }
+    else if (glicCat === 'lenta') { cls = 'warn'; icon = '⚠️'; title = 'Queda insuficiente — dobrar bomba'; }
+    else if (glicCat === 'rapida') { cls = 'warn'; icon = '⚠️'; title = 'Queda rápida — reduzir bomba'; }
+
+    reactions.push({ cls, icon, title, source: currentGuideline === 'ada' ? 'ADA 2024' : 'USP', conducts });
   }
 
-  // DEDUPLICAR condutas idênticas entre blocos
-  // (ex: "Manter bomba em 8 mL/h" aparece tanto no cenário "queda na meta" quanto em "K normal")
-  const seenTexts = new Set();
-  reactions.forEach(r => {
-    r.conducts = r.conducts.filter(c => {
-      // Usa texto cru (sem tags HTML) como chave de comparação
-      const key = c.txt.replace(/<[^>]+>/g, '').trim();
-      if (seenTexts.has(key)) return false;
-      seenTexts.add(key);
-      return true;
-    });
-  });
-  // Remove blocos que ficaram completamente vazios após deduplicação
-  const dedupedReactions = reactions.filter(r => r.conducts.length > 0);
-  reactions.length = 0;
-  reactions.push(...dedupedReactions);
 
   // RENDER
   if (reactions.length === 0) {
@@ -2496,9 +2496,9 @@ function computeReactions() {
           <div class="pending-source">${r.source}</div>
         </div>
         <div class="conduct-list">
-          ${r.conducts.map(c => `
-            <div class="conduct-item" style="cursor:default">
-              <div class="conduct-check" style="opacity:.3"></div>
+          ${r.conducts.map((c, ci) => `
+            <div class="conduct-item-plain">
+              <div class="conduct-num">${ci + 1}</div>
               <div class="conduct-text">${c.txt}</div>
             </div>
           `).join('')}
@@ -2522,13 +2522,22 @@ function confirmReaval() {
 
   const t = getThresholds();
   const s = caseData.state;
+  // PROTEÇÃO: recalcula bombaMlh se veio zerado (caso antigo)
+  if ((!s.bombaMlh || parseFloat(s.bombaMlh) === 0) && caseData.peso) {
+    s.bombaMlh = (caseData.peso * 0.1).toFixed(1);
+  }
   const rate = (s.glic - data.glic) / data.hoursSince;
   const reactions = window._lastReactions || [];
+
+  const resolutionMet = (currentGuideline === 'ada'
+    ? ((data.ph >= 7.3 || data.bic >= 18) && data.glic < 200)
+    : (data.ph >= 7.3 && data.bic >= 18 && data.glic < 200));
 
   // Determina ação principal da bomba e solução
   let novaBomba = parseFloat(s.bombaMlh);
   let acaoBomba = 'manter';
   if (data.k < t.kPause) { novaBomba = 0; acaoBomba = 'pausar'; }
+  else if (resolutionMet) { acaoBomba = 'manter'; /* resolução: mantém até desligar */ }
   else if (data.glic >= s.glic) { novaBomba = parseFloat(s.bombaMlh) * 2; acaoBomba = 'refratária'; }
   else if (rate < t.targetMin) { novaBomba = parseFloat(s.bombaMlh) * 2; acaoBomba = 'dobrar'; }
   else if (rate > t.targetMax) { novaBomba = parseFloat(s.bombaMlh) / 2; acaoBomba = 'reduzir'; }
@@ -2550,12 +2559,16 @@ function confirmReaval() {
   else if (data.glic === s.glic) glicTxt = `Glicemia <b>${data.glic}</b> (estável em ${data.hoursSince.toFixed(1)}h)`;
   else glicTxt = `Glicemia <b>${s.glic} → ${data.glic}</b> (queda ${rate.toFixed(0)} mg/dL/h)`;
 
-  // Evento na timeline
+  // Evento na timeline (guarda as condutas pra mostrar ao clicar)
   caseData.events.push({
     time: data.evTime.toISOString(), type: 'reaval',
     title: `Reavaliação ${formatTime(data.evTime)}`,
     content: `${glicTxt} · pH <b>${data.ph}</b> · Bic <b>${data.bic}</b> · K <b>${data.k}</b>`,
-    tags
+    tags,
+    conductsBlocks: reactions.map(r => ({
+      cls: r.cls, icon: r.icon, title: r.title, source: r.source,
+      conducts: r.conducts.map(c => ({ txt: c.txt }))
+    }))
   });
 
   // Atualiza estado
@@ -2718,11 +2731,16 @@ function setMode(m) {
   window.scrollTo(0, 0);
 }
 
-function showCalc(c) {
+function showCalc(c, btn) {
   document.querySelectorAll('.ctab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.calc-panel').forEach(p => p.classList.remove('active'));
-  event.target.classList.add('active');
-  document.getElementById('calc-' + c).classList.add('active');
+  if (btn) btn.classList.add('active');
+  else {
+    const b = document.querySelector('.ctab[onclick*="' + c + '"]');
+    if (b) b.classList.add('active');
+  }
+  const panel = document.getElementById('calc-' + c);
+  if (panel) panel.classList.add('active');
 }
 
 /* ============================================ CALCULADORAS ============================================ */
