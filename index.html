@@ -82,9 +82,21 @@
   .modal-header {
     background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%);
     color: #fff; padding: 12px 16px 14px; padding-top: calc(12px + env(safe-area-inset-top));
-    position: sticky; top: 0; z-index: 10;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; gap: 12px;
     box-shadow: 0 3px 12px rgba(20,55,125,0.22);
+  }
+  /* Spacer pra compensar o header fixo (mesma altura aproximada) */
+  body::before {
+    content: "";
+    display: block;
+    height: calc(73px + env(safe-area-inset-top));
+  }
+  /* Na tela welcome o body já é flex e não precisa de spacer; também volta o header pro fluxo */
+  body.welcome-mode::before { display: none; }
+  body.welcome-mode .modal-header {
+    position: relative;
+    flex-shrink: 0;
   }
   .modal-header::after {
     content: ""; position: absolute; bottom: 0; left: 0; right: 0;
