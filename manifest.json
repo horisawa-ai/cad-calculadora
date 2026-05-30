@@ -1,0 +1,3031 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#14377d">
+<title>Manejo de Cetoacidose Diabética · Dr. Renan Horisawa</title>
+<meta name="description" content="Calculadora clínica de manejo de Cetoacidose Diabética — guiada por ADA 2024 e Emergências Clínicas USP. Timeline, reavaliações e prescrição final.">
+
+<!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://horisawa-ai.github.io/cad-calculadora/">
+<meta property="og:title" content="Manejo de Cetoacidose Diabética">
+<meta property="og:description" content="Calculadora guiada · timeline · prescrição final · Dr. Renan Horisawa">
+<meta property="og:image" content="https://horisawa-ai.github.io/cad-calculadora/icons/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="CAD · Dr. Renan Horisawa">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Manejo de Cetoacidose Diabética">
+<meta name="twitter:description" content="Calculadora clínica guiada · ADA 2024 + Emergências USP">
+<meta name="twitter:image" content="https://horisawa-ai.github.io/cad-calculadora/icons/og-image.png">
+
+<!-- Ícones (iOS, Android, favicon) -->
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon-180.png">
+<link rel="apple-touch-icon" sizes="167x167" href="icons/apple-touch-icon-167.png">
+<link rel="apple-touch-icon" sizes="152x152" href="icons/apple-touch-icon-152.png">
+<link rel="apple-touch-icon" sizes="120x120" href="icons/apple-touch-icon-120.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="CAD">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="CAD">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  :root {
+    --bg: #fafbfd; --bg-soft: #f0f3f9; --bg-card: #ffffff; --bg-elev: #ffffff;
+    --text: #0a1f3d; --text-dim: #6b7c93; --text-faint: #a5b0c2;
+    --border: #e5eaf2;
+    --accent: #14377d; --accent-dark: #0a1f3d; --accent-soft: #e8edf7;
+    --gold: #c9a961; --gold-soft: #f7f1e0;
+    --red: #c3334e; --red-soft: #fdeaec;
+    --amber: #b07b1a; --amber-soft: #fbf2dc;
+    --green: #1d9b63; --green-soft: #e8f6ee;
+    --shadow-sm: 0 1px 2px rgba(10,31,61,.06);
+    --shadow-md: 0 4px 12px rgba(10,31,61,.08);
+    --shadow-lg: 0 12px 30px rgba(10,31,61,.15);
+  }
+  [data-theme="dark"] {
+    --bg: #0a1020; --bg-soft: #0e1730; --bg-card: #131b30; --bg-elev: #1a2440;
+    --text: #e8edf5; --text-dim: #8a99b3; --text-faint: #5a6580;
+    --border: #1f2a45;
+    --accent: #5a8ae8; --accent-dark: #4d8dff; --accent-soft: #1a2a52;
+    --gold: #d4b56e; --gold-soft: #2a2418;
+    --red: #e4596f; --red-soft: #2a1419;
+    --amber: #e0a440; --amber-soft: #2a2010;
+    --green: #4ade80; --green-soft: #122a1c;
+  }
+  html, body { height: 100%; overflow-x: hidden; }
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.45; -webkit-font-smoothing: antialiased;
+    transition: background .3s, color .3s;
+  }
+  .modal-header {
+    background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%);
+    color: #fff; padding: 12px 16px 14px; padding-top: calc(12px + env(safe-area-inset-top));
+    position: sticky; top: 0; z-index: 10;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: 0 3px 12px rgba(20,55,125,0.22);
+  }
+  .modal-header::after {
+    content: ""; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px; background: #5a8ae8;
+  }
+  .modal-back, .theme-toggle, .settings-btn {
+    width: 36px; height: 36px;
+    background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.2);
+    color: #fff; border-radius: 10px;
+    display: grid; place-items: center; cursor: pointer;
+    font-size: 18px; font-weight: 700; flex-shrink: 0;
+  }
+  .modal-title-block { flex: 1; min-width: 0; }
+  .modal-title { font-size: 16px; font-weight: 800; letter-spacing: -.02em; line-height: 1.15; }
+  .modal-doctor { font-size: 12px; font-weight: 700; opacity: .96; margin-top: 4px; letter-spacing: .01em; }
+  .modal-sub { font-size: 9.5px; opacity: .7; text-transform: uppercase; letter-spacing: .12em; font-weight: 600; margin-top: 2px; }
+
+  /* MODE TOGGLE PRINCIPAL */
+  .mode-toggle {
+    display: flex;
+    background: var(--bg-soft);
+    margin: 12px 14px 0;
+    border-radius: 12px;
+    padding: 4px;
+    position: relative;
+  }
+  .mode-btn {
+    flex: 1;
+    padding: 10px 12px;
+    border-radius: 9px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-dim);
+    background: transparent;
+    cursor: pointer;
+    transition: all .25s ease;
+    border: none;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .mode-btn.active {
+    background: var(--bg-card);
+    color: var(--accent);
+    box-shadow: 0 2px 6px rgba(20,55,125,.1);
+  }
+  .mode-btn .pulse-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 0 2px rgba(74,222,128,.3);
+    animation: modePulse 1.8s infinite;
+    display: none;
+  }
+  .mode-btn.has-case .pulse-dot { display: inline-block; }
+  @keyframes modePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .6; transform: scale(1.25); }
+  }
+
+  .case-banner {
+    padding: 10px 16px; display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; font-weight: 700;
+    background: var(--green-soft); border-bottom: 2px solid var(--green); color: var(--green);
+  }
+  .case-banner.no-case { background: var(--gold-soft); border-color: var(--gold); color: var(--accent-dark); }
+  [data-theme="dark"] .case-banner.no-case { color: var(--gold); }
+  .pulse { width: 8px; height: 8px; background: currentColor; border-radius: 50%;
+    display: inline-block; margin-right: 6px; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .4; } }
+  .case-banner.no-case .pulse { animation: none; }
+
+  /* Guideline pill */
+  .guideline-pill {
+    background: var(--gold-soft); border-bottom: 1px solid var(--gold);
+    padding: 8px 16px; font-size: 11px; font-weight: 700;
+    color: var(--accent-dark); display: flex; justify-content: space-between; align-items: center;
+  }
+  [data-theme="dark"] .guideline-pill { color: var(--gold); }
+  .guideline-pill .switch-btn {
+    background: var(--accent); color: #fff; border: none;
+    padding: 4px 10px; border-radius: 100px;
+    font-size: 10px; font-weight: 800; cursor: pointer;
+    letter-spacing: .05em;
+  }
+
+  .chip-tabs {
+    display: flex; gap: 6px; overflow-x: auto;
+    padding: 12px 16px; background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(to right, #000 92%, transparent);
+            mask-image: linear-gradient(to right, #000 92%, transparent);
+    position: sticky; top: 64px; z-index: 5;
+  }
+  .chip-tabs::-webkit-scrollbar { display: none; }
+  .chip {
+    flex-shrink: 0; padding: 7px 14px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 100px; color: var(--text-dim);
+    font-family: inherit; font-size: 12px; font-weight: 700;
+    cursor: pointer; white-space: nowrap;
+    display: flex; align-items: center; gap: 5px;
+    transition: all .15s;
+  }
+  .chip.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .chip.live {
+    background: var(--green); color: #fff; border-color: var(--green);
+    box-shadow: 0 0 0 3px var(--green-soft);
+  }
+  .chip.live::before {
+    content: ''; width: 6px; height: 6px; background: #fff;
+    border-radius: 50%; animation: pulse 2s infinite;
+  }
+
+  .panel { display: none; padding: 0 16px 40px; }
+  .panel.active { display: block; animation: fadeIn .2s; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+  h3.sec {
+    font-size: 11px; font-weight: 700; color: var(--text-dim);
+    text-transform: uppercase; letter-spacing: .1em;
+    margin: 16px 0 8px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  h3.sec::before { content: ''; width: 14px; height: 1.5px; background: var(--gold); border-radius: 1px; }
+
+  .card-inner {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 12px 14px; margin-bottom: 8px;
+  }
+  .card-inner.tinted { background: var(--accent-soft); border-color: transparent; }
+  .info-line { font-size: 12px; color: var(--text); }
+  .info-line strong { color: var(--accent); }
+  [data-theme="dark"] .info-line strong { color: var(--gold); }
+
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+  .field { display: flex; flex-direction: column; gap: 3px; }
+  .field label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .05em; font-weight: 700; }
+  .input-wrap { position: relative; }
+  .field input, .field select {
+    width: 100%; background: var(--bg);
+    border: 1.5px solid var(--border); color: var(--text);
+    padding: 9px 11px; border-radius: 8px;
+    font-family: inherit; font-size: 14px; font-weight: 600;
+    -webkit-appearance: none; appearance: none;
+  }
+  .field input { padding-right: 42px; }
+  .field input[type="time"] { padding-right: 11px; }
+  .field input:focus, .field select:focus {
+    outline: none; border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  .field input.invalid {
+    border-color: var(--red); background: var(--red-soft);
+  }
+  .field-error {
+    font-size: 10px; color: var(--red); font-weight: 600;
+    margin-top: 2px;
+  }
+  .input-unit {
+    position: absolute; right: 11px; top: 50%;
+    transform: translateY(-50%); color: var(--text-faint);
+    font-size: 11px; font-weight: 600; pointer-events: none;
+  }
+
+  /* INICIAR CASO */
+  .start-case-area {
+    margin-top: 14px; padding: 20px 16px;
+    background: linear-gradient(135deg, var(--accent-soft), transparent);
+    border-radius: 14px; text-align: center;
+    border: 1px dashed var(--accent);
+  }
+  .start-case-area h3 { font-size: 14px; font-weight: 800; color: var(--accent-dark); margin-bottom: 4px; }
+  [data-theme="dark"] .start-case-area h3 { color: var(--gold); }
+  .start-case-area p { font-size: 12px; color: var(--text-dim); margin-bottom: 14px; line-height: 1.5; }
+
+  .btn-primary {
+    background: var(--accent); color: #fff;
+    border: none; border-radius: 10px;
+    padding: 12px 24px;
+    font-family: inherit; font-size: 14px; font-weight: 800;
+    cursor: pointer; box-shadow: 0 4px 12px rgba(20,55,125,.3);
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary.green { background: var(--green); box-shadow: 0 4px 12px rgba(29,155,99,.3); }
+  .btn-primary.danger { background: var(--red); box-shadow: 0 4px 12px rgba(195,51,78,.3); }
+  .btn-ghost {
+    background: var(--bg-soft); color: var(--text-dim);
+    border: 1px solid var(--border); border-radius: 10px;
+    padding: 9px 14px; font-family: inherit;
+    font-size: 12px; font-weight: 700; cursor: pointer;
+  }
+
+  /* Advanced toggle (NPH precoce) */
+  .advanced-toggle {
+    margin-top: 12px;
+    padding: 12px 14px;
+    background: var(--gold-soft);
+    border: 1px dashed var(--gold);
+    border-radius: 10px;
+  }
+  .advanced-toggle .toggle-row {
+    display: flex; justify-content: space-between; align-items: center; gap: 10px;
+  }
+  .advanced-toggle .toggle-title {
+    font-size: 12px; font-weight: 800; color: var(--accent-dark);
+  }
+  [data-theme="dark"] .advanced-toggle .toggle-title { color: var(--gold); }
+  .advanced-toggle .toggle-note {
+    font-size: 10px; color: var(--text-dim); margin-top: 3px; line-height: 1.4;
+  }
+  .toggle-switch {
+    width: 44px; height: 24px;
+    background: var(--border); border-radius: 100px;
+    cursor: pointer; position: relative; flex-shrink: 0;
+    transition: background .2s;
+  }
+  .toggle-switch::after {
+    content: ''; position: absolute;
+    width: 18px; height: 18px;
+    background: #fff; border-radius: 50%;
+    top: 3px; left: 3px;
+    transition: left .2s;
+    box-shadow: var(--shadow-sm);
+  }
+  .toggle-switch.on { background: var(--green); }
+  .toggle-switch.on::after { left: 23px; }
+
+  /* CASE SUMMARY */
+  .case-summary {
+    background: linear-gradient(160deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: #fff; border-radius: 14px;
+    padding: 14px 16px; margin-top: 14px;
+    border: 1px solid var(--gold);
+    box-shadow: var(--shadow-md);
+  }
+  .case-summary-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 10px;
+  }
+  .css-title { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+  .case-time { font-size: 11px; opacity: .8; }
+  .case-summary-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;
+    border-top: 1px solid rgba(255,255,255,.15); padding-top: 10px;
+  }
+  .css-item { text-align: center; }
+  .css-label { font-size: 9px; opacity: .65; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; }
+  .css-value { font-size: 16px; font-weight: 800; margin-top: 2px; letter-spacing: -.02em; }
+  .css-unit { font-size: 10px; opacity: .7; margin-left: 2px; }
+
+  /* Pending conducts (vem da última reavaliação) */
+  .pending-area {
+    margin-top: 12px;
+  }
+  .pending-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+  }
+  .pending-card.warn { border-left-color: var(--amber); background: var(--amber-soft); }
+  .pending-card.alert { border-left-color: var(--red); background: var(--red-soft); }
+  .pending-card.ok { border-left-color: var(--green); background: var(--green-soft); }
+  .pending-card.action { border-left-color: var(--accent); background: var(--accent-soft); }
+  .pending-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 10px; gap: 8px;
+  }
+  .pending-title {
+    font-size: 13px; font-weight: 800;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .pending-card.warn .pending-title { color: var(--amber); }
+  .pending-card.alert .pending-title { color: var(--red); }
+  .pending-card.ok .pending-title { color: var(--green); }
+  .pending-card.action .pending-title { color: var(--accent); }
+  [data-theme="dark"] .pending-card.action .pending-title { color: var(--gold); }
+  .pending-source {
+    font-size: 9px; color: var(--text-dim); font-weight: 600;
+    text-transform: uppercase; letter-spacing: .06em;
+  }
+  .conduct-list { display: flex; flex-direction: column; gap: 5px; }
+  .conduct-item {
+    display: flex; gap: 8px; align-items: flex-start;
+    padding: 8px 10px;
+    background: rgba(255,255,255,.6);
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition: all .15s;
+    cursor: pointer;
+  }
+  [data-theme="dark"] .conduct-item { background: rgba(255,255,255,.04); }
+  .conduct-item:hover { border-color: var(--accent); }
+  .conduct-item.done {
+    background: var(--green-soft);
+    border-color: var(--green);
+  }
+  .conduct-item.done .conduct-text {
+    color: var(--text);
+  }
+  .conduct-check {
+    width: 18px; height: 18px; flex-shrink: 0;
+    border: 2px solid var(--text-faint);
+    border-radius: 5px;
+    background: #fff;
+    display: grid; place-items: center;
+    margin-top: 1px;
+    transition: all .15s;
+  }
+  .conduct-item.done .conduct-check {
+    background: var(--green); border-color: var(--green);
+    color: #fff;
+  }
+  .conduct-item.done .conduct-check::after {
+    content: '✓'; font-size: 11px; font-weight: 800;
+  }
+  .conduct-text { font-size: 12px; line-height: 1.5; color: var(--text); }
+  .conduct-text b { font-weight: 800; }
+
+  /* Conduta sem checkbox — numerada por prioridade */
+  .conduct-item-plain {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 9px 11px;
+    background: rgba(255,255,255,.6);
+    border-radius: 8px;
+    margin-bottom: 4px;
+  }
+  [data-theme="dark"] .conduct-item-plain { background: rgba(255,255,255,.04); }
+  .conduct-num {
+    width: 20px; height: 20px; flex-shrink: 0;
+    background: var(--accent); color: #fff;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-size: 11px; font-weight: 800;
+    margin-top: 1px;
+  }
+  .pending-card.alert .conduct-num { background: var(--red); }
+  .pending-card.warn .conduct-num { background: var(--amber); }
+  .pending-card.ok .conduct-num { background: var(--green); }
+
+  /* Cores por linha individual (override quando a conduta tem cls própria) */
+  .conduct-item-plain.ci-ok { background: var(--green-soft); }
+  .conduct-item-plain.ci-ok .conduct-num { background: var(--green); }
+  .conduct-item-plain.ci-warn { background: var(--amber-soft); }
+  .conduct-item-plain.ci-warn .conduct-num { background: var(--amber); }
+  .conduct-item-plain.ci-alert { background: var(--red-soft); }
+  .conduct-item-plain.ci-alert .conduct-num { background: var(--red); }
+
+  /* Reavaliação trigger */
+  .reaval-trigger {
+    margin-top: 16px; width: 100%;
+    background: var(--accent); color: #fff;
+    border: none; border-radius: 12px;
+    padding: 14px;
+    font-family: inherit; font-size: 14px; font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(20,55,125,.3);
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .reaval-trigger .plus {
+    width: 22px; height: 22px;
+    background: rgba(255,255,255,.2); border-radius: 50%;
+    display: grid; place-items: center; font-size: 16px;
+  }
+
+  /* Próximo passo */
+  .next-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-left: 4px solid var(--accent); border-radius: 12px;
+    padding: 12px 14px; margin-top: 10px;
+  }
+  .next-card.warn { border-left-color: var(--amber); background: var(--amber-soft); }
+  .next-card.late { border-left-color: var(--red); background: var(--red-soft); }
+  .next-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .next-title { font-size: 11px; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: .08em; }
+  .next-card.warn .next-title { color: var(--amber); }
+  .next-card.late .next-title { color: var(--red); }
+  .next-list { display: flex; flex-direction: column; gap: 6px; font-size: 13px; }
+  .next-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 10px; background: rgba(255,255,255,.5); border-radius: 8px;
+  }
+  [data-theme="dark"] .next-item { background: rgba(255,255,255,.04); }
+  .next-item-task { font-weight: 600; }
+  .next-item-time { font-size: 11px; font-weight: 700; color: var(--accent); }
+  .next-item-time.warn { color: var(--amber); }
+  .next-item-time.late { color: var(--red); }
+
+  /* Timeline */
+  .timeline {
+    margin-top: 6px;
+    position: relative; padding-left: 18px;
+  }
+  .timeline::before {
+    content: ''; position: absolute;
+    left: 5px; top: 8px; bottom: 8px;
+    width: 2px; background: var(--border);
+  }
+  .tl-event { position: relative; margin-bottom: 10px; }
+  .tl-event::before {
+    content: ''; position: absolute;
+    left: -18px; top: 8px;
+    width: 12px; height: 12px;
+    background: var(--accent); border: 2px solid var(--bg);
+    border-radius: 50%;
+  }
+  .tl-event.admission::before { background: var(--green); width: 14px; height: 14px; left: -19px; }
+  .tl-event.alert::before { background: var(--red); }
+  .tl-event.action::before { background: var(--gold); }
+  .tl-event.done::before { background: var(--green); }
+  .tl-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 10px 12px;
+  }
+  .tl-time {
+    font-size: 10px; font-weight: 700; color: var(--text-dim);
+    letter-spacing: .05em; text-transform: uppercase; margin-bottom: 4px;
+  }
+  .tl-title { font-size: 13px; font-weight: 800; color: var(--text); margin-bottom: 3px; }
+  .tl-event.alert .tl-title { color: var(--red); }
+  .tl-event.action .tl-title { color: var(--accent); }
+  [data-theme="dark"] .tl-event.action .tl-title { color: var(--gold); }
+  .tl-event.done .tl-title { color: var(--green); }
+  .tl-content { font-size: 12px; color: var(--text-dim); line-height: 1.5; }
+  .tl-content b { color: var(--text); }
+  .tl-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+  .tl-tag {
+    font-size: 10px; font-weight: 700;
+    padding: 2px 8px; border-radius: 100px;
+    background: var(--accent-soft); color: var(--accent);
+  }
+  [data-theme="dark"] .tl-tag { color: var(--gold); }
+  .tl-tag.amber { background: var(--amber-soft); color: var(--amber); }
+  .tl-tag.red { background: var(--red-soft); color: var(--red); }
+  .tl-tag.green { background: var(--green-soft); color: var(--green); }
+
+  /* Glic delta display */
+  .glic-delta {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 10px 12px; margin: 8px 0;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .glic-delta.refractory { background: var(--red-soft); border-color: var(--red); }
+  .glic-delta.slow { background: var(--amber-soft); border-color: var(--amber); }
+  .glic-delta.good { background: var(--green-soft); border-color: var(--green); }
+  .glic-delta.fast { background: var(--amber-soft); border-color: var(--amber); }
+  .glic-delta-label {
+    font-size: 10px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: .08em; color: var(--text-dim);
+  }
+  .glic-delta-value {
+    font-size: 16px; font-weight: 800; letter-spacing: -.02em;
+  }
+  .glic-delta.refractory .glic-delta-value { color: var(--red); }
+  .glic-delta.slow .glic-delta-value { color: var(--amber); }
+  .glic-delta.good .glic-delta-value { color: var(--green); }
+  .glic-delta.fast .glic-delta-value { color: var(--amber); }
+
+  /* Reavaliação overlay */
+  .reaval-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(10,31,61,.6); z-index: 200;
+    align-items: flex-end;
+  }
+  .reaval-overlay.open { display: flex; animation: fadeOverlay .2s; }
+  @keyframes fadeOverlay { from { opacity: 0; } to { opacity: 1; } }
+  .reaval-sheet {
+    background: var(--bg); width: 100%;
+    border-radius: 20px 20px 0 0;
+    padding: 16px 16px calc(20px + env(safe-area-inset-bottom));
+    max-height: 92vh; overflow-y: auto;
+    animation: slideUp .25s;
+  }
+  @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+  .sheet-handle { width: 40px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 14px; }
+  .sheet-title { font-size: 18px; font-weight: 800; letter-spacing: -.02em; margin-bottom: 6px; }
+  .sheet-sub { font-size: 12px; color: var(--text-dim); margin-bottom: 14px; }
+  .state-strip {
+    background: var(--gold-soft); border: 1px solid var(--gold);
+    border-radius: 10px; padding: 10px 12px; margin-bottom: 12px;
+  }
+  .state-label {
+    font-size: 10px; font-weight: 800; color: var(--accent-dark);
+    letter-spacing: .08em; text-transform: uppercase; margin-bottom: 5px;
+  }
+  [data-theme="dark"] .state-label { color: var(--gold); }
+  .state-values {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    font-size: 12px; color: var(--text);
+  }
+  .state-values b { color: var(--accent); font-weight: 800; }
+  [data-theme="dark"] .state-values b { color: var(--gold); }
+  .state-time { font-size: 10px; color: var(--text-dim); margin-top: 6px; font-style: italic; }
+  .sheet-actions { margin-top: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 30px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent-dark); color: #fff;
+    padding: 10px 18px; border-radius: 100px;
+    font-size: 12px; font-weight: 700; z-index: 300;
+    box-shadow: var(--shadow-lg);
+    animation: toastIn .25s, toastOut .25s 2.5s forwards;
+  }
+  @keyframes toastIn { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+  @keyframes toastOut { to { opacity: 0; transform: translateX(-50%) translateY(20px); } }
+
+  /* RX */
+  .rx-box {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 14px 16px; margin-top: 10px;
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: 12px; line-height: 1.7; color: var(--text);
+    white-space: pre-wrap;
+  }
+  .rx-actions { display: flex; gap: 8px; margin-top: 10px; }
+  .rx-actions button { flex: 1; padding: 10px; font-family: inherit; font-size: 12px; font-weight: 700; border-radius: 10px; cursor: pointer; }
+
+  .empty-tl { text-align: center; padding: 30px 20px; color: var(--text-faint); font-size: 13px; font-style: italic; }
+
+  .demo-bar {
+    background: linear-gradient(90deg, var(--gold), var(--accent));
+    padding: 8px 14px; color: #fff;
+    font-size: 11px; font-weight: 700;
+    text-align: center; letter-spacing: .08em; text-transform: uppercase;
+  }
+
+  /* MODE SECTIONS */
+  .mode-section { display: none; }
+  .mode-section.active { display: block; }
+
+  /* CALC TABS */
+  .calc-tabs {
+    display: flex; gap: 6px; padding: 12px 14px 4px;
+    overflow-x: auto; scrollbar-width: none;
+  }
+  .calc-tabs::-webkit-scrollbar { display: none; }
+  .ctab {
+    flex-shrink: 0;
+    padding: 8px 14px;
+    border-radius: 100px;
+    background: var(--bg-card);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all .15s;
+  }
+  .ctab.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .calc-panel { display: none; padding: 12px 14px; }
+  .calc-panel.active { display: block; animation: fadeIn .15s ease; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  /* GRAVIDADE */
+  .gravity-table {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 12px;
+    margin-top: 8px;
+  }
+  .gravity-headers {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    background: var(--bg-soft);
+    border-bottom: 1px solid var(--border);
+  }
+  .gravity-h {
+    padding: 9px 6px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text-dim);
+    border-right: 1px solid var(--border);
+    transition: all .25s ease;
+  }
+  .gravity-h:last-child { border-right: none; }
+  .gravity-line {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    border-bottom: 1px solid var(--border);
+  }
+  .gravity-line:last-child { border-bottom: none; }
+  .gravity-line > div {
+    padding: 8px 5px;
+    text-align: center;
+    color: var(--text);
+    border-right: 1px solid var(--border);
+    transition: all .25s ease;
+  }
+  .gravity-line > div:last-child { border-right: none; }
+  .gravity-h.active.leve { background: var(--green); color: white; }
+  .gravity-h.active.mod { background: var(--amber); color: white; }
+  .gravity-h.active.grave { background: var(--red); color: white; }
+  .gravity-line .col-active.leve { background: var(--green-soft); font-weight: 700; color: var(--green); }
+  .gravity-line .col-active.mod { background: var(--amber-soft); font-weight: 700; color: var(--amber); }
+  .gravity-line .col-active.grave { background: var(--red-soft); font-weight: 700; color: var(--red); }
+
+  /* VAR-GRID (queda lenta/rápida) */
+  .var-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 6px; margin-top: 6px;
+  }
+  .var-card {
+    padding: 10px 8px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  .var-card.up { background: var(--green-soft); border: 1px solid var(--green); }
+  .var-card.down { background: var(--amber-soft); border: 1px solid var(--amber); }
+  .var-tag { font-size: 10px; color: var(--text-dim); font-weight: 700; }
+  .var-value { font-size: 13px; font-weight: 800; margin: 3px 0; color: var(--text); }
+  .var-action { font-size: 12px; font-weight: 700; color: var(--text); }
+  .var-card.up .var-action { color: var(--green); }
+  .var-card.down .var-action { color: var(--amber); }
+  .var-ex { font-size: 10px; color: var(--text-dim); margin-top: 3px; font-style: italic; }
+
+  /* K-TABLE */
+  .k-table {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .k-row {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .k-row:last-child { border-bottom: none; }
+  .k-red { background: var(--red-soft); }
+  .k-amber { background: var(--amber-soft); }
+  .k-green { background: var(--green-soft); }
+  .k-val { font-size: 12px; font-weight: 800; margin-bottom: 2px; }
+  .k-red .k-val { color: var(--red); }
+  .k-amber .k-val { color: var(--amber); }
+  .k-green .k-val { color: var(--green); }
+  .k-action { font-size: 12px; color: var(--text); }
+
+  /* VOL BTN */
+  .vol-btn {
+    flex: 1;
+    padding: 10px 8px;
+    border: 1.5px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-dim);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .vol-btn.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+
+  /* SOL LIST */
+  .sol-list { display: flex; flex-direction: column; gap: 6px; }
+  .sol-item {
+    display: flex; gap: 10px;
+    padding: 9px 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    align-items: center;
+  }
+  .sol-n {
+    width: 30px; height: 30px;
+    background: var(--accent); color: white;
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .sol-c { font-size: 12px; line-height: 1.4; color: var(--text); flex: 1; min-width: 0; }
+  .sol-rate {
+    flex-shrink: 0;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 10px;
+    font-weight: 800;
+    padding: 4px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+
+  /* RECIPE */
+  .recipe-box {
+    background: var(--accent-soft);
+    border-left: 4px solid var(--accent);
+    padding: 12px 14px;
+    border-radius: 10px;
+  }
+  .recipe-list { list-style: none; }
+  .recipe-list li {
+    padding: 3px 0;
+    font-size: 13px;
+    color: var(--text);
+    display: flex;
+    gap: 6px;
+  }
+  .recipe-list li::before { content: "+"; color: var(--accent); font-weight: 700; }
+  .recipe-list li:first-child::before { content: "•"; }
+  .recipe-time {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 13px;
+  }
+
+  /* LEGENDA */
+  .legenda {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 6px 12px;
+    font-size: 12px;
+  }
+  .legenda dt { font-weight: 800; color: var(--accent); }
+  .legenda dd { color: var(--text); }
+
+  /* LOGIC */
+  .logic { list-style: none; }
+  .logic li {
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .logic li:last-child { border-bottom: none; }
+  .logic .cond { font-weight: 800; color: var(--accent); }
+  .logic .conseq { color: var(--text-dim); text-align: right; }
+
+  /* STEPS (admissão/off) */
+  .steps { list-style: none; counter-reset: step; }
+  .steps li {
+    counter-increment: step;
+    padding: 9px 12px 9px 38px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 6px;
+    position: relative;
+    font-size: 13px;
+  }
+  .steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 10px; top: 10px;
+    width: 22px; height: 22px;
+    background: var(--accent); color: white;
+    border-radius: 50%;
+    text-align: center; line-height: 22px;
+    font-size: 11px; font-weight: 800;
+  }
+  .steps .step-note {
+    display: block; margin-top: 2px;
+    font-size: 11px; color: var(--text-dim);
+    line-height: 1.4;
+  }
+
+  /* CALC RESULT BOX (genérico) */
+  .calc-result {
+    margin-top: 8px;
+    padding: 10px 12px;
+    border-radius: 9px;
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+  }
+  .calc-result .cr-label {
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .08em;
+    color: var(--accent); margin-bottom: 2px;
+  }
+  .calc-result .cr-value {
+    font-size: 14px; font-weight: 700; color: var(--text);
+  }
+  .calc-result .cr-detail {
+    margin-top: 4px;
+    font-size: 11px; color: var(--text-dim);
+  }
+  .calc-result.red { background: var(--red-soft); border-color: var(--red); }
+  .calc-result.red .cr-label { color: var(--red); }
+  .calc-result.amber { background: var(--amber-soft); border-color: var(--amber); }
+  .calc-result.amber .cr-label { color: var(--amber); }
+  .calc-result.green { background: var(--green-soft); border-color: var(--green); }
+  .calc-result.green .cr-label { color: var(--green); }
+
+  /* PENDING COLLAPSED */
+  .pending-card.collapsed .pending-header {
+    padding-bottom: 0;
+  }
+  .pending-card.collapsed .pending-source {
+    margin-top: 2px;
+  }
+  .pending-card .chevron {
+    flex-shrink: 0;
+    user-select: none;
+  }
+
+  /* TIME CHIPS (seletor de tempo desde última) */
+  .time-since-block {
+    margin-top: 8px;
+  }
+  .time-since-block > label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    margin-bottom: 6px;
+  }
+  .time-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .time-chip {
+    padding: 7px 10px;
+    border-radius: 100px;
+    background: var(--bg-card);
+    color: var(--text-dim);
+    border: 1.5px solid var(--border);
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .time-chip:hover {
+    border-color: var(--accent);
+  }
+  .time-chip.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+  /* ============================================ */
+  /* WELCOME SCREEN (tela inicial)                  */
+  /* ============================================ */
+  body.welcome-mode {
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .welcome-screen {
+    display: none;
+    flex-direction: column;
+    flex: 1;
+    padding: 16px 14px 14px;
+    padding-bottom: calc(14px + env(safe-area-inset-bottom));
+    min-height: 0;
+  }
+  .welcome-screen.show {
+    display: flex;
+  }
+
+  .welcome-greeting {
+    font-size: 12px;
+    color: var(--text-dim);
+    text-align: center;
+    margin-bottom: 2px;
+  }
+  .welcome-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--text);
+    text-align: center;
+    margin-bottom: 14px;
+    line-height: 1.25;
+  }
+
+  .welcome-btns {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 0;
+  }
+
+  .welcome-btn {
+    flex: 1;
+    background: var(--bg-card);
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    padding: 14px;
+    cursor: pointer;
+    text-align: left;
+    transition: all .2s;
+    font-family: inherit;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 0;
+  }
+  .welcome-btn:active {
+    transform: scale(.98);
+  }
+  .welcome-btn.case {
+    background: linear-gradient(135deg, var(--bg-card) 0%, var(--accent-soft) 100%);
+  }
+  .welcome-btn.case::before {
+    content: ""; position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 4px; background: var(--accent);
+  }
+  .welcome-btn.calc::before {
+    content: ""; position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 4px; background: var(--gold);
+  }
+
+  .wb-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .wb-icon {
+    width: 42px; height: 42px;
+    background: var(--accent-soft);
+    border-radius: 11px;
+    display: grid; place-items: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .welcome-btn.calc .wb-icon {
+    background: var(--gold-soft);
+  }
+  .wb-title-block { flex: 1; min-width: 0; }
+  .wb-title {
+    font-size: 15px; font-weight: 800;
+    color: var(--text);
+    line-height: 1.2;
+  }
+  .wb-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 8.5px; font-weight: 800;
+    padding: 2px 7px; border-radius: 100px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+  .welcome-btn.calc .wb-badge {
+    background: var(--gold);
+  }
+  .wb-desc {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+  .wb-features {
+    display: flex; flex-wrap: wrap; gap: 4px;
+    margin-bottom: 8px;
+  }
+  .wb-feat {
+    background: var(--bg-soft);
+    color: var(--accent);
+    font-size: 9.5px; font-weight: 700;
+    padding: 3px 7px; border-radius: 5px;
+  }
+  .welcome-btn.calc .wb-feat {
+    background: var(--gold-soft);
+    color: var(--amber);
+  }
+  .wb-action {
+    padding-top: 8px;
+    border-top: 1px dashed var(--border);
+    display: flex; align-items: center;
+    justify-content: space-between;
+    font-size: 12px; font-weight: 800;
+    color: var(--accent);
+  }
+  .welcome-btn.calc .wb-action {
+    color: var(--amber);
+  }
+  .wb-arrow { font-size: 18px; }
+
+  .welcome-footer {
+    padding-top: 10px;
+    text-align: center;
+    font-size: 9.5px;
+    color: var(--text-faint);
+    line-height: 1.5;
+    flex-shrink: 0;
+  }
+  .welcome-footer strong { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="modal-header">
+  <button class="modal-back" onclick="goBackToWelcome()" id="homeBtn" title="Voltar ao início" style="font-size: 0;">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+  </button>
+  <div class="modal-title-block">
+    <div class="modal-title">Manejo de Cetoacidose Diabética</div>
+    <div class="modal-doctor">Dr. Renan Horisawa</div>
+    <div class="modal-sub">Calculadora clínica</div>
+  </div>
+  <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
+</div>
+
+<!-- ============================================ -->
+<!-- TELA INICIAL (welcome)                       -->
+<!-- ============================================ -->
+<div class="welcome-screen" id="welcomeScreen">
+  <div class="welcome-greeting">Bem-vindo,</div>
+  <div class="welcome-title">como posso te ajudar agora?</div>
+
+  <div class="welcome-btns">
+    <button class="welcome-btn case" onclick="welcomeChoose('case')">
+      <div>
+        <div class="wb-top">
+          <div class="wb-icon">📊</div>
+          <div class="wb-title-block">
+            <div class="wb-title">Iniciar Caso Ativo</div>
+            <div class="wb-badge">Manejo guiado</div>
+          </div>
+        </div>
+        <div class="wb-desc">Acompanhe o manejo do paciente do início ao fim. Timeline, reavaliações guiadas e prescrição final.</div>
+        <div class="wb-features">
+          <span class="wb-feat">⏱ Timeline</span>
+          <span class="wb-feat">🔄 Reavaliações</span>
+          <span class="wb-feat">📋 Prescrição pronta</span>
+        </div>
+      </div>
+      <div class="wb-action">
+        <span>Começar agora</span>
+        <span class="wb-arrow">→</span>
+      </div>
+    </button>
+
+    <button class="welcome-btn calc" onclick="welcomeChoose('calc')">
+      <div>
+        <div class="wb-top">
+          <div class="wb-icon">🧮</div>
+          <div class="wb-title-block">
+            <div class="wb-title">Calculadoras</div>
+            <div class="wb-badge">Consulta rápida</div>
+          </div>
+        </div>
+        <div class="wb-desc">Consulta pontual de fórmulas e doses. 9 ferramentas independentes pra usar no plantão.</div>
+        <div class="wb-features">
+          <span class="wb-feat">Dx · Bomba · Solução</span>
+          <span class="wb-feat">Na corr · AG · Osm</span>
+        </div>
+      </div>
+      <div class="wb-action">
+        <span>Abrir calculadoras</span>
+        <span class="wb-arrow">→</span>
+      </div>
+    </button>
+  </div>
+
+  <div class="welcome-footer">
+    <strong>Ref:</strong> ADA 2024 · Emergências Clínicas USP
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- APP (escondido até o usuário escolher)       -->
+<!-- ============================================ -->
+<div class="app-shell" id="appShell" style="display:none;">
+
+<!-- TOGGLE PRINCIPAL: CASO ATIVO ↔ CALCULADORAS -->
+<div class="mode-toggle">
+  <button class="mode-btn active" id="modeBtnCase" onclick="setMode('case')">
+    <span class="pulse-dot" id="modeDot"></span>Caso Ativo
+  </button>
+  <button class="mode-btn" id="modeBtnCalc" onclick="setMode('calc')">
+    Calculadoras
+  </button>
+</div>
+
+<div class="demo-bar">CONDUTAS VALIDADAS · ADA 2024 + EMERGÊNCIAS USP</div>
+
+<div class="guideline-pill">
+  <span>Seguindo: <strong>ADA 2024</strong> · validado com Emergências Clínicas USP</span>
+</div>
+
+<div class="case-banner" id="caseBanner">
+  <span><span class="pulse"></span>Sem caso ativo</span>
+  <span style="opacity:.7">Inicie pela aba Diagnóstico</span>
+</div>
+
+<!-- ============================================== -->
+<!-- MODO 1: CASO ATIVO (Diagnóstico / Caso / Rx)   -->
+<!-- ============================================== -->
+<div class="mode-section active" id="modeCase">
+
+<div class="chip-tabs" id="chips">
+  <button class="chip" onclick="showTab('caso')" id="chip-caso" style="display:none">
+    <span>📊</span>Caso Ativo
+  </button>
+  <button class="chip active" onclick="showTab('dx')" id="chip-dx">
+    <span>⊕</span>Diagnóstico
+  </button>
+  <button class="chip" onclick="showTab('rx')" id="chip-rx" style="display:none">
+    <span>📋</span>Prescrição
+  </button>
+</div>
+
+<!-- ===== DX ===== -->
+<div class="panel active" id="panel-dx">
+  <div class="card-inner tinted">
+    <div class="info-line">
+      <strong>Critérios CAD (ADA 2024):</strong> Glicemia ≥200 OU histórico DM · pH &lt;7,3 ou Bic &lt;18 · Cetonas+
+    </div>
+  </div>
+  <div class="card-inner">
+    <div class="field-row">
+      <div class="field">
+        <label>Glicemia</label>
+        <div class="input-wrap"><input type="number" id="dx-glic" placeholder="Ex: 380" oninput="validateField(this, 30, 1500)"><span class="input-unit">mg/dL</span></div>
+      </div>
+      <div class="field">
+        <label>pH</label>
+        <input type="number" id="dx-ph" step="0.01" placeholder="Ex: 7.15" oninput="validateField(this, 6.5, 8)">
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Bicarbonato</label>
+        <div class="input-wrap"><input type="number" id="dx-bic" step="0.1" placeholder="Ex: 10" oninput="validateField(this, 0, 35)"><span class="input-unit">mmol/L</span></div>
+      </div>
+      <div class="field">
+        <label>Potássio</label>
+        <div class="input-wrap"><input type="number" id="dx-k" step="0.1" placeholder="Ex: 4.2" oninput="validateField(this, 1.5, 8)"><span class="input-unit">mEq/L</span></div>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Sódio</label>
+        <div class="input-wrap"><input type="number" id="dx-na" step="0.1" placeholder="Ex: 135" oninput="validateField(this, 100, 180)"><span class="input-unit">mEq/L</span></div>
+      </div>
+      <div class="field">
+        <label>Peso</label>
+        <div class="input-wrap"><input type="number" id="dx-peso" step="0.1" placeholder="Ex: 70" oninput="validateField(this, 30, 200)"><span class="input-unit">kg</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NPH PRECOCE (opção avançada) -->
+  <div class="advanced-toggle">
+    <div class="toggle-row">
+      <div>
+        <div class="toggle-title">🌟 NPH precoce (ADA 2024)</div>
+        <div class="toggle-note">Aplicar NPH 0,1-0,2 U/kg SC junto com a bomba reduz tempo de internação e previne hiperglicemia rebote.</div>
+      </div>
+      <div class="toggle-switch" id="nphSwitch" onclick="this.classList.toggle('on')"></div>
+    </div>
+  </div>
+
+  <!-- INICIAR -->
+  <div class="start-case-area" id="startCaseArea">
+    <h3>🟢 Iniciar Caso Ativo</h3>
+    <p>O app registra a admissão e te conduz durante todo o manejo do paciente — com condutas baseadas em guideline a cada reavaliação.</p>
+    <button class="btn-primary green" onclick="startCase()"><span>▶</span> Iniciar caso agora</button>
+  </div>
+</div>
+
+<!-- ===== CASO ATIVO ===== -->
+<div class="panel" id="panel-caso">
+  <div class="case-summary" id="caseSummary"></div>
+
+  <!-- Condutas pendentes da última reavaliação -->
+  <div class="pending-area" id="pendingArea"></div>
+
+  <!-- Próximo passo timing -->
+  <div class="next-card" id="nextCard"></div>
+
+  <button class="reaval-trigger" onclick="openReaval()">
+    <span class="plus">+</span> Nova reavaliação
+  </button>
+
+  <h3 class="sec">Linha do tempo</h3>
+  <div class="timeline" id="timeline"></div>
+
+  <div style="margin-top: 20px; padding-top: 16px; border-top: 1px dashed var(--border); text-align: center;">
+    <button class="btn-ghost" onclick="endCase()" style="color: var(--red); border-color: var(--red);">
+      Encerrar caso
+    </button>
+  </div>
+</div>
+
+<!-- ===== PRESCRIÇÃO ===== -->
+<div class="panel" id="panel-rx">
+  <h3 class="sec">Prescrição atual</h3>
+  <div class="rx-box" id="rxBox"></div>
+  <div class="rx-actions">
+    <button class="btn-primary" onclick="copyRx()" style="padding: 10px;">📋 Copiar</button>
+    <button class="btn-ghost" onclick="shareRx()">📤 Compartilhar</button>
+  </div>
+</div>
+
+</div><!-- fim modeCase -->
+
+
+<!-- ============================================== -->
+<!-- MODO 2: CALCULADORAS (referências rápidas)     -->
+<!-- ============================================== -->
+<div class="mode-section" id="modeCalc">
+
+  <!-- Sub-nav das calculadoras (scroll horizontal) -->
+  <div class="calc-tabs" id="calcTabs">
+    <button class="ctab active" onclick="showCalc('cdx', this)">Dx</button>
+    <button class="ctab" onclick="showCalc('cadm', this)">Admissão</button>
+    <button class="ctab" onclick="showCalc('cbomba', this)">Bomba</button>
+    <button class="ctab" onclick="showCalc('csol', this)">Solução</button>
+    <button class="ctab" onclick="showCalc('cbicarb', this)">Bicarb</button>
+    <button class="ctab" onclick="showCalc('coff', this)">Off</button>
+    <button class="ctab" onclick="showCalc('ccalc', this)">Cálc</button>
+    <button class="ctab" onclick="showCalc('cref', this)">Soluções</button>
+    <button class="ctab" onclick="showCalc('cleg', this)">Siglas</button>
+  </div>
+
+  <!-- CALC DX -->
+  <div class="calc-panel active" id="calc-cdx">
+    <div class="card-inner tinted">
+      <strong style="color:var(--accent);">Critérios CAD:</strong> Glic &gt;250 · pH &lt;7,3 · Bic &lt;15 · Cetonas+
+    </div>
+    <div class="card-inner">
+      <div class="field-row">
+        <div class="field">
+          <label>Glicemia</label>
+          <div class="input-wrap"><input type="number" id="cdx-glic" inputmode="decimal" placeholder="380"><span class="input-unit">mg/dL</span></div>
+        </div>
+        <div class="field">
+          <label>pH</label>
+          <input type="number" id="cdx-ph" step="0.01" inputmode="decimal" placeholder="7.15">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Bicarbonato</label>
+          <div class="input-wrap"><input type="number" id="cdx-bic" step="0.1" inputmode="decimal" placeholder="10"><span class="input-unit">mmol/L</span></div>
+        </div>
+        <div class="field">
+          <label>Cetonas</label>
+          <select id="cdx-cet" style="padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 9px; background: var(--bg-card); color: var(--text); font-family: inherit; font-size: 14px;">
+            <option value="">—</option>
+            <option value="sim">Positiva</option>
+            <option value="nao">Negativa</option>
+          </select>
+        </div>
+      </div>
+      <div id="cdx-result"></div>
+    </div>
+
+    <div class="gravity-table">
+      <div class="gravity-headers">
+        <div class="gravity-h" id="grav-leve">Leve</div>
+        <div class="gravity-h" id="grav-mod">Moderada</div>
+        <div class="gravity-h" id="grav-grave">Grave</div>
+      </div>
+      <div class="gravity-line">
+        <div><strong>pH</strong> 7,25-7,3</div>
+        <div><strong>pH</strong> 7,0-7,24</div>
+        <div><strong>pH</strong> &lt; 7,0</div>
+      </div>
+      <div class="gravity-line">
+        <div><strong>Bic</strong> 15-18</div>
+        <div><strong>Bic</strong> 10-14</div>
+        <div><strong>Bic</strong> &lt; 10</div>
+      </div>
+    </div>
+
+    <h3 class="sec" style="margin-top: 14px;">Na⁺ corrigido <span style="font-weight: 500; color: var(--text-faint); text-transform: none; letter-spacing: 0; font-size: 11px;">+1,6 / 100 mg acima de 100</span></h3>
+    <div class="card-inner">
+      <div class="field-row">
+        <div class="field">
+          <label>Na⁺ medido</label>
+          <div class="input-wrap"><input type="number" id="cna-medido" step="0.1" inputmode="decimal" placeholder="132"><span class="input-unit">mEq/L</span></div>
+        </div>
+        <div class="field">
+          <label>Glicemia atual</label>
+          <div class="input-wrap"><input type="number" id="cna-glic" inputmode="decimal" placeholder="400"><span class="input-unit">mg/dL</span></div>
+        </div>
+      </div>
+      <div id="cna-result"></div>
+    </div>
+
+    <div class="info-line" style="margin-top:10px;background:var(--bg-soft);padding:10px;border-radius:10px;font-size:11px;color:var(--text-dim);">
+      <strong style="color:var(--accent);">DDx EHH:</strong> Glic &gt;600 · Osm &gt;320 · pH &gt;7,3 · cetonas mínimas (use aba Cálc)
+    </div>
+  </div>
+
+  <!-- CALC ADMISSÃO -->
+  <div class="calc-panel" id="calc-cadm">
+    <h3 class="sec">Conduta na admissão</h3>
+    <ol class="steps">
+      <li><strong>Cristaloides 20 mL/kg na 1ª hora</strong><span class="step-note">SF 0,9% em bolus.</span></li>
+      <li><strong>Jejum</strong><span class="step-note">Até critérios de off bomba.</span></li>
+      <li><strong>Bomba de insulina</strong><span class="step-note">Se K &gt; 3,3 (senão, repor K antes).</span></li>
+      <li><strong>Insulina regular EV bolus 0,1 U/kg</strong><span class="step-note">Opcional (ADA 2009+). Manter infusão contínua.</span></li>
+      <li><strong>Monitorar Dx 1/1h · Gaso 2/2h</strong><span class="step-note">Escolher solução (1-8) a cada gasometria.</span></li>
+    </ol>
+
+    <h3 class="sec">Ajuste da bomba · meta queda 50-75 mg/dL/h</h3>
+    <div class="var-grid">
+      <div class="var-card up">
+        <div class="var-tag">QUEDA LENTA</div>
+        <div class="var-value">&lt; 50 mg/dL/h</div>
+        <div class="var-action">↑ Dobrar bomba</div>
+        <div class="var-ex">ex: 7 → 14 mL/h</div>
+      </div>
+      <div class="var-card down">
+        <div class="var-tag">QUEDA RÁPIDA</div>
+        <div class="var-value">&gt; 75 mg/dL/h</div>
+        <div class="var-action">↓ Reduzir 50%</div>
+        <div class="var-ex">ex: 7 → 3,5 mL/h</div>
+      </div>
+    </div>
+    <div class="info-line" style="margin-top:8px;background:var(--bg-soft);padding:8px 10px;border-radius:8px;font-size:11px;color:var(--text-dim);">
+      <strong style="color:var(--accent);">Ref ADA:</strong> Diabetes Care 2009 (reafirmado 2024). Queda rápida ↑ risco edema cerebral.
+    </div>
+
+    <h3 class="sec">Exames seriados</h3>
+    <div class="card-inner" style="font-size: 12px; line-height: 1.6;">
+      <strong style="color: var(--accent);">Dx capilar</strong> 1/1h · <strong style="color: var(--accent);">Gaso + K + Na</strong> 2/2h<br>
+      <strong style="color: var(--accent);">Função renal</strong> 6/6h · <strong style="color: var(--accent);">Cetonas</strong> 4/4h<br>
+      <span style="color: var(--text-dim);">Considerar fósforo se jejum prolongado.</span>
+    </div>
+  </div>
+
+  <!-- CALC BOMBA -->
+  <div class="calc-panel" id="calc-cbomba">
+    <h3 class="sec">Preparo da bomba</h3>
+    <div class="card-inner tinted">
+      <strong style="color:var(--accent);">1 mL insulina regular (100 UI) + 99 mL SF 0,9%</strong><br>
+      <span style="font-size:11px;color:var(--text-dim);">Total 100 mL → 1 UI/mL</span>
+    </div>
+
+    <h3 class="sec">Velocidade · 0,1 UI/kg/h</h3>
+    <div class="card-inner">
+      <div class="field">
+        <label>Peso do paciente</label>
+        <div class="input-wrap"><input type="number" id="cbomba-peso" step="0.1" inputmode="decimal" placeholder="70"><span class="input-unit">kg</span></div>
+      </div>
+      <div id="cbomba-result"></div>
+    </div>
+
+    <h3 class="sec">Reposição de K conforme valor</h3>
+    <div class="k-table">
+      <div class="k-row k-red">
+        <div class="k-val">K &lt; 3,3</div>
+        <div class="k-action"><strong>PAUSAR bomba.</strong> Repor 20-30 mEq KCl/h em 250 mL SF até K &gt; 3,3. Acesso central preferencial.</div>
+      </div>
+      <div class="k-row k-amber">
+        <div class="k-val">K 3,3-5,2</div>
+        <div class="k-action">Manter bomba + <strong>1 amp KCl 19,1% (25 mEq)</strong> por litro de solução</div>
+      </div>
+      <div class="k-row k-green">
+        <div class="k-val">K &gt; 5,2</div>
+        <div class="k-action">Manter bomba <strong>sem KCl</strong>. Usar Sol 2/4/6/8. Reavaliar K em 2h</div>
+      </div>
+    </div>
+    <div class="info-line" style="margin-top:8px;background:var(--bg-soft);padding:8px 10px;border-radius:8px;font-size:11px;color:var(--text-dim);">
+      <strong style="color:var(--accent);">Ampolas:</strong> KCl 19,1% 10 mL = 25 mEq · KCl 10% 10 mL = 13 mEq · Nunca em bolus EV.
+    </div>
+  </div>
+
+  <!-- CALC SOLUÇÃO -->
+  <div class="calc-panel" id="calc-csol">
+    <h3 class="sec">Escolher solução</h3>
+    <div class="card-inner">
+      <div class="field">
+        <label>Volume base do soro</label>
+        <div style="display: flex; gap: 6px;">
+          <button type="button" class="vol-btn active" data-vol="1000">1000 mL</button>
+          <button type="button" class="vol-btn" data-vol="500">500 mL</button>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Glicemia</label>
+          <div class="input-wrap"><input type="number" id="csol-dx" inputmode="decimal" placeholder="280"><span class="input-unit">mg/dL</span></div>
+        </div>
+        <div class="field">
+          <label>Na⁺ corrigido</label>
+          <div class="input-wrap"><input type="number" id="csol-na" step="0.1" inputmode="decimal" placeholder="138"><span class="input-unit">mEq/L</span></div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Potássio</label>
+        <div class="input-wrap"><input type="number" id="csol-k" step="0.1" inputmode="decimal" placeholder="4.2"><span class="input-unit">mEq/L</span></div>
+      </div>
+    </div>
+    <div class="info-line" style="font-size:11px;background:var(--bg-soft);padding:8px 10px;border-radius:8px;color:var(--text-dim);margin-top:6px;">
+      Use o <strong style="color:var(--accent);">Na⁺ corrigido</strong> (não o medido) — calcule na aba <strong>Dx</strong>.
+    </div>
+    <div id="csol-result"><div class="empty-tl">Preencha os três valores.</div></div>
+  </div>
+
+  <!-- CALC BICARB -->
+  <div class="calc-panel" id="calc-cbicarb">
+    <h3 class="sec">Bicarbonato EV</h3>
+    <div class="card-inner">
+      <div style="font-size:13px;margin-bottom:8px;">Indicação <strong style="color:var(--accent);">apenas se pH &lt; 6,9</strong>.</div>
+      <div class="field">
+        <label>pH atual</label>
+        <input type="number" id="cbicarb-ph" step="0.01" inputmode="decimal" placeholder="6.85">
+      </div>
+      <div id="cbicarb-result"></div>
+    </div>
+
+    <h3 class="sec">Receita padrão (pH &lt; 6,9)</h3>
+    <div class="recipe-box">
+      <ul class="recipe-list">
+        <li>100 mL Bicarbonato 8,4%</li>
+        <li>400 mL AD</li>
+        <li>1 ampola KCl 19,1%</li>
+      </ul>
+      <div class="recipe-time">Infundir em 2 horas</div>
+    </div>
+  </div>
+
+  <!-- CALC OFF -->
+  <div class="calc-panel" id="calc-coff">
+    <h3 class="sec">Desligar bomba</h3>
+    <div class="card-inner tinted">
+      <strong style="color:var(--accent);">Critérios (todos):</strong> Glic &lt;200 · pH ≥7,3 · Bic ≥18 · AG ≤12
+    </div>
+    <div class="card-inner">
+      <div class="field-row">
+        <div class="field">
+          <label>Glic</label>
+          <div class="input-wrap"><input type="number" id="coff-glic" inputmode="decimal" placeholder="180"><span class="input-unit">mg/dL</span></div>
+        </div>
+        <div class="field">
+          <label>pH</label>
+          <input type="number" id="coff-ph" step="0.01" inputmode="decimal" placeholder="7.35">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Bic</label>
+          <div class="input-wrap"><input type="number" id="coff-bic" step="0.1" inputmode="decimal" placeholder="20"><span class="input-unit">mmol/L</span></div>
+        </div>
+        <div class="field">
+          <label>Ânion gap</label>
+          <input type="number" id="coff-ag" step="0.1" inputmode="decimal" placeholder="10">
+        </div>
+      </div>
+      <div id="coff-result"></div>
+    </div>
+
+    <h3 class="sec">Sequência</h3>
+    <ol class="steps">
+      <li><strong>Liberar dieta</strong></li>
+      <li><strong>NPH SC 0,1 U/kg</strong></li>
+      <li><strong>Aguardar 1-2h e desligar bomba</strong><span class="step-note">NÃO desligar antes da NPH agir.</span></li>
+    </ol>
+
+    <div class="info-line" style="margin-top:8px;background:var(--red-soft);border-left:3px solid var(--red);padding:8px 10px;border-radius:8px;font-size:11px;color:var(--text-dim);">
+      <strong style="color:var(--red);">Hipoglicemia (&lt;70):</strong> suspender bomba 30 min · SG 50% 30-60 mL EV se sintomático · reiniciar com SG.
+    </div>
+  </div>
+
+  <!-- CALC AUXILIARES -->
+  <div class="calc-panel" id="calc-ccalc">
+    <h3 class="sec">Ânion gap · Na − (Cl + HCO3)</h3>
+    <div class="card-inner">
+      <div class="field-row">
+        <div class="field">
+          <label>Na</label>
+          <div class="input-wrap"><input type="number" id="ag-na" step="0.1" inputmode="decimal" placeholder="138"><span class="input-unit">mEq/L</span></div>
+        </div>
+        <div class="field">
+          <label>Cl</label>
+          <div class="input-wrap"><input type="number" id="ag-cl" step="0.1" inputmode="decimal" placeholder="100"><span class="input-unit">mEq/L</span></div>
+        </div>
+      </div>
+      <div class="field">
+        <label>HCO3 (Bic)</label>
+        <div class="input-wrap"><input type="number" id="ag-hco3" step="0.1" inputmode="decimal" placeholder="10"><span class="input-unit">mmol/L</span></div>
+      </div>
+      <div id="ag-result"></div>
+    </div>
+
+    <h3 class="sec">Osmolaridade efetiva · 2×Na + Glic/18</h3>
+    <div class="card-inner">
+      <div class="field-row">
+        <div class="field">
+          <label>Na</label>
+          <div class="input-wrap"><input type="number" id="osm-na" step="0.1" inputmode="decimal" placeholder="138"><span class="input-unit">mEq/L</span></div>
+        </div>
+        <div class="field">
+          <label>Glicemia</label>
+          <div class="input-wrap"><input type="number" id="osm-glic" inputmode="decimal" placeholder="400"><span class="input-unit">mg/dL</span></div>
+        </div>
+      </div>
+      <div id="osm-result"></div>
+    </div>
+
+    <div class="info-line" style="margin-top:8px;background:var(--bg-soft);padding:8px 10px;border-radius:8px;font-size:11px;color:var(--text-dim);">
+      <strong style="color:var(--accent);">Referência:</strong> AG normal ≤12 · Osm efetiva 275-295 · Osm &gt;320 sugere EHH.
+    </div>
+  </div>
+
+  <!-- CALC SOLUÇÕES (referência) -->
+  <div class="calc-panel" id="calc-cref">
+    <h3 class="sec">Soluções 1-8</h3>
+    <div class="sol-list">
+      <div class="sol-item"><div class="sol-n">1</div><div class="sol-c">AD 1000 mL + 1 amp KCl 19,1% + 2 amp NaCl 20%</div><div class="sol-rate">250 mL/h</div></div>
+      <div class="sol-item"><div class="sol-n">2</div><div class="sol-c">AD 1000 mL + 2 amp NaCl 20%</div><div class="sol-rate">250 mL/h</div></div>
+      <div class="sol-item"><div class="sol-n">3</div><div class="sol-c">SF 0,9% 1000 mL + 1 amp KCl 19,1%</div><div class="sol-rate">250 mL/h</div></div>
+      <div class="sol-item"><div class="sol-n">4</div><div class="sol-c">SF 0,9% 1000 mL</div><div class="sol-rate">250 mL/h</div></div>
+      <div class="sol-item"><div class="sol-n">5</div><div class="sol-c">SG 5% 1000 mL + 1 amp KCl 19,1% + 2 amp NaCl 20%</div><div class="sol-rate">250 mL/h</div></div>
+      <div class="sol-item"><div class="sol-n">6</div><div class="sol-c">SG 5% 1000 mL + 2 amp NaCl 20%</div><div class="sol-rate">250 mL/h</div></div>
+      <div class="sol-item"><div class="sol-n">7</div><div class="sol-c">SG 5% 1000 mL + 2 amp KCl 19,1% + 4 amp NaCl 20%</div><div class="sol-rate">250 mL/h</div></div>
+      <div class="sol-item"><div class="sol-n">8</div><div class="sol-c">SG 5% 1000 mL + 4 amp NaCl 20%</div><div class="sol-rate">250 mL/h</div></div>
+    </div>
+    <div class="info-line" style="margin-top:8px;background:var(--accent-soft);padding:8px 10px;border-radius:8px;font-size:11px;color:var(--text-dim);">
+      <strong style="color:var(--accent);">Velocidade padrão 250 mL/h</strong> (1000 mL em 4h). Ajustar conforme volemia: mais lento se risco de sobrecarga (cardiopata/renal), mais rápido se choque/desidratação grave. Intolerância a volume → 4h.
+    </div>
+    <div class="info-line" style="margin-top:8px;background:var(--bg-soft);padding:8px 10px;border-radius:8px;font-size:11px;color:var(--text-dim);">
+      <strong style="color:var(--accent);">Ampolas:</strong> KCl 19,1% 10 mL (≈25 mEq K) · NaCl 20% 10 mL (≈34 mEq Na)
+    </div>
+  </div>
+
+  <!-- CALC SIGLAS -->
+  <div class="calc-panel" id="calc-cleg">
+    <h3 class="sec">Legenda das siglas</h3>
+    <div class="card-inner">
+      <dl class="legenda">
+        <dt>AD</dt><dd>Água Destilada (sem eletrólitos)</dd>
+        <dt>SF 0,9%</dt><dd>Soro Fisiológico (NaCl 0,9% = 154 mEq/L Na)</dd>
+        <dt>SG 5%</dt><dd>Soro Glicosado 5%</dd>
+        <dt>KCl</dt><dd>Cloreto de Potássio (1 amp 10 mL 19,1% ≈ 25 mEq K)</dd>
+        <dt>NaCl</dt><dd>Cloreto de Sódio 20% (1 amp 10 mL ≈ 34 mEq Na)</dd>
+        <dt>Bic</dt><dd>Bicarbonato de Sódio</dd>
+        <dt>Dx</dt><dd>Dextro (glicemia capilar)</dd>
+        <dt>NPH</dt><dd>Insulina ação intermediária (SC)</dd>
+        <dt>EV / SC</dt><dd>Endovenoso / Subcutâneo</dd>
+        <dt>BIC</dt><dd>Bomba de Infusão Contínua</dd>
+        <dt>EHH</dt><dd>Estado Hiperglicêmico Hiperosmolar</dd>
+      </dl>
+    </div>
+
+    <h3 class="sec">Lógica da árvore de soluções</h3>
+    <div class="card-inner">
+      <ul class="logic">
+        <li><span class="cond">Dx &gt; 250</span><span class="conseq">Soluções 1-4 (sem glic)</span></li>
+        <li><span class="cond">Dx &lt; 250</span><span class="conseq">Soluções 5-8 (com SG)</span></li>
+        <li><span class="cond">Na &gt; 135</span><span class="conseq">AD (controla tonicidade)</span></li>
+        <li><span class="cond">Na &lt; 135</span><span class="conseq">SF 0,9%</span></li>
+        <li><span class="cond">K &lt; 5,3</span><span class="conseq">Repor KCl</span></li>
+        <li><span class="cond">K &gt; 5,3</span><span class="conseq">Sem KCl</span></li>
+      </ul>
+    </div>
+
+    <div class="info-line" style="margin-top:8px;background:var(--bg-soft);padding:8px 10px;border-radius:8px;font-size:11px;color:var(--text-dim);">
+      <strong style="color:var(--accent);">Ref:</strong> Emergências Clínicas USP · ADA 2024
+    </div>
+  </div>
+
+</div><!-- fim modeCalc -->
+
+<!-- REAVAL OVERLAY -->
+<div class="reaval-overlay" id="reavalOverlay">
+  <div class="reaval-sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">Nova reavaliação</div>
+    <div class="sheet-sub">Digite os novos valores. O app vai te dar as condutas baseadas em guideline.</div>
+
+    <div class="state-strip" id="stateStrip"></div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Glicemia</label>
+        <div class="input-wrap"><input type="number" id="rv-glic" placeholder="Ex: 320" oninput="validateField(this, 30, 1500); computeReactions();"><span class="input-unit">mg/dL</span></div>
+      </div>
+      <div class="field">
+        <label>pH</label>
+        <input type="number" id="rv-ph" step="0.01" placeholder="Ex: 7.22" oninput="validateField(this, 6.5, 8); computeReactions();">
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Bicarbonato</label>
+        <div class="input-wrap"><input type="number" id="rv-bic" step="0.1" placeholder="Ex: 13" oninput="validateField(this, 0, 35); computeReactions();"><span class="input-unit">mmol/L</span></div>
+      </div>
+      <div class="field">
+        <label>Potássio</label>
+        <div class="input-wrap"><input type="number" id="rv-k" step="0.1" placeholder="Ex: 4.0" oninput="validateField(this, 1.5, 8); computeReactions();"><span class="input-unit">mEq/L</span></div>
+      </div>
+    </div>
+    <div class="time-since-block">
+      <label>Tempo desde a última reavaliação</label>
+      <div class="time-chips" id="timeChips">
+        <button type="button" class="time-chip" data-min="15" onclick="setTimeChip(15)">15min</button>
+        <button type="button" class="time-chip" data-min="30" onclick="setTimeChip(30)">30min</button>
+        <button type="button" class="time-chip" data-min="45" onclick="setTimeChip(45)">45min</button>
+        <button type="button" class="time-chip" data-min="60" onclick="setTimeChip(60)">1h</button>
+        <button type="button" class="time-chip" data-min="75" onclick="setTimeChip(75)">1h15</button>
+        <button type="button" class="time-chip" data-min="90" onclick="setTimeChip(90)">1h30</button>
+        <button type="button" class="time-chip" data-min="105" onclick="setTimeChip(105)">1h45</button>
+        <button type="button" class="time-chip active" data-min="120" onclick="setTimeChip(120)">2h</button>
+        <button type="button" class="time-chip" data-min="135" onclick="setTimeChip(135)">2h15</button>
+        <button type="button" class="time-chip" data-min="150" onclick="setTimeChip(150)">2h30</button>
+        <button type="button" class="time-chip" data-min="165" onclick="setTimeChip(165)">2h45</button>
+        <button type="button" class="time-chip" data-min="180" onclick="setTimeChip(180)">3h</button>
+        <button type="button" class="time-chip" data-min="195" onclick="setTimeChip(195)">3h15</button>
+        <button type="button" class="time-chip" data-min="210" onclick="setTimeChip(210)">3h30</button>
+        <button type="button" class="time-chip" data-min="225" onclick="setTimeChip(225)">3h45</button>
+        <button type="button" class="time-chip" data-min="240" onclick="setTimeChip(240)">4h</button>
+        <button type="button" class="time-chip" data-min="270" onclick="setTimeChip(270)">4h30</button>
+        <button type="button" class="time-chip" data-min="300" onclick="setTimeChip(300)">5h</button>
+        <button type="button" class="time-chip" data-min="330" onclick="setTimeChip(330)">5h30</button>
+        <button type="button" class="time-chip" data-min="360" onclick="setTimeChip(360)">6h</button>
+      </div>
+      <div id="time-since-info" style="margin-top:8px; font-size:11px; color:var(--text-dim);"></div>
+      <input type="hidden" id="rv-time" value="">
+      <input type="hidden" id="rv-minutes" value="120">
+    </div>
+
+    <!-- Delta da glicemia -->
+    <div id="glic-delta-display"></div>
+
+    <!-- Reações ao vivo -->
+    <div id="reavalReactions"></div>
+
+    <div class="sheet-actions">
+      <button class="btn-ghost" onclick="closeReaval()">Cancelar</button>
+      <button class="btn-primary" onclick="confirmReaval()">Registrar reavaliação</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- /app-shell -->
+
+<script>
+/* ============================================ STATE ============================================ */
+let caseData = null;
+const STORAGE_KEY = 'cad_v2_case';
+const GUIDELINE_KEY = 'cad_v2_guideline';
+let currentGuideline = 'ada'; // 'ada' or 'usp'
+
+function loadCase() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      caseData = JSON.parse(raw);
+      // Migração defensiva: garante campos esperados em casos antigos
+      if (caseData) {
+        if (!Array.isArray(caseData.events)) caseData.events = [];
+        if (!Array.isArray(caseData.pendingConducts)) caseData.pendingConducts = [];
+        if (!caseData._tlExpanded) caseData._tlExpanded = {};
+        if (!caseData._expanded) caseData._expanded = {};
+        if (!caseData.state) caseData.state = {};
+        if (typeof caseData.peso !== 'number') caseData.peso = parseFloat(caseData.peso) || 0;
+        // garante tags e conducts em cada evento/bloco
+        caseData.events.forEach(ev => { if (!Array.isArray(ev.tags)) ev.tags = []; });
+        caseData.pendingConducts.forEach(p => { if (!Array.isArray(p.conducts)) p.conducts = []; });
+      }
+    }
+  } catch(e) { caseData = null; }
+}
+function saveCase() {
+  try {
+    if (caseData) localStorage.setItem(STORAGE_KEY, JSON.stringify(caseData));
+    else localStorage.removeItem(STORAGE_KEY);
+  } catch(e) {}
+}
+
+/* THEME */
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme') || 'light';
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  document.getElementById('themeBtn').textContent = next === 'dark' ? '☀️' : '🌙';
+  try { localStorage.setItem('cad_v2_theme', next); } catch(e) {}
+}
+try {
+  const t = localStorage.getItem('cad_v2_theme') || 'light';
+  document.documentElement.setAttribute('data-theme', t);
+  document.getElementById('themeBtn').textContent = t === 'dark' ? '☀️' : '🌙';
+} catch(e) {}
+
+/* GUIDELINE */
+function loadGuideline() {
+  // ADA 2024 fixo (validado com Emergências USP)
+  currentGuideline = 'ada';
+  updateGuidelineUI();
+}
+function toggleGuideline() {
+  // desativado — ADA 2024 fixo
+}
+function updateGuidelineUI() {
+  // pílula agora é só texto fixo, nada a atualizar
+}
+
+/* CRITÉRIOS dinâmicos baseados em guideline */
+function getThresholds() {
+  if (currentGuideline === 'ada') {
+    return {
+      kPause: 3.5,           // K abaixo → pausa bomba
+      kReplaceStart: 5.0,    // K abaixo → começa repor
+      kHigh: 5.0,            // K acima → sem repor
+      targetMin: 50,         // queda mínima esperada (mg/dL/h)
+      targetMax: 70,         // queda máxima (mg/dL/h)
+      bicPh: 7.0,            // pH abaixo → considera bic
+      glicThreshold: 200,    // glic pra trocar pra sol com SG
+      resolutionGlic: 200,   // glic pra critério de resolução
+    };
+  } else {
+    return {
+      kPause: 3.3,
+      kReplaceStart: 5.3,
+      kHigh: 5.3,
+      targetMin: 50,
+      targetMax: 75,
+      bicPh: 6.9,
+      glicThreshold: 250,
+      resolutionGlic: 200,
+    };
+  }
+}
+
+/* VALIDAÇÃO numérica */
+function validateField(input, min, max) {
+  const v = parseFloat(input.value);
+  const errEl = input.parentElement.parentElement.querySelector('.field-error') || input.parentElement.querySelector('.field-error');
+  if (errEl) errEl.remove();
+  if (isNaN(v) || input.value === '') {
+    input.classList.remove('invalid');
+    return true;
+  }
+  if (v < min || v > max) {
+    input.classList.add('invalid');
+    const err = document.createElement('div');
+    err.className = 'field-error';
+    err.textContent = `Valor improvável (esperado ${min}-${max})`;
+    input.parentElement.appendChild(err);
+    return false;
+  }
+  input.classList.remove('invalid');
+  return true;
+}
+
+/* TAB SWITCH */
+function showTab(t) {
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active', 'live'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('chip-' + t)?.classList.add('active');
+  if (t === 'caso' && caseData) document.getElementById('chip-caso').classList.add('live');
+  document.getElementById('panel-' + t).classList.add('active');
+  if (t === 'caso') renderCase();
+  if (t === 'rx') renderRx();
+  window.scrollTo(0, 0);
+}
+
+/* INICIAR */
+function startCase() {
+  const glic = parseFloat(document.getElementById('dx-glic').value);
+  const ph = parseFloat(document.getElementById('dx-ph').value);
+  const bic = parseFloat(document.getElementById('dx-bic').value);
+  const k = parseFloat(document.getElementById('dx-k').value);
+  const na = parseFloat(document.getElementById('dx-na').value);
+  const peso = parseFloat(document.getElementById('dx-peso').value);
+  const nphPrecoce = document.getElementById('nphSwitch').classList.contains('on');
+
+  if (!glic || !ph || !bic || !k || !peso) {
+    alert('Preencha glicemia, pH, bicarbonato, K e peso.');
+    return;
+  }
+
+  const now = new Date();
+  const naCorr = na ? na + ((glic - 100) / 100) * 1.6 : null;
+  const solNum = pickSolution(glic, naCorr || na, k);
+  const bombaMlh = parseFloat((peso * 0.1).toFixed(1));
+
+  let sev = 'leve';
+  if (ph < 7.0 || bic < 10) sev = 'grave';
+  else if (ph < 7.25 || bic < 15) sev = 'mod';
+
+  caseData = {
+    startTime: now.toISOString(),
+    peso, nphPrecoce, guideline: currentGuideline,
+    state: { glic, ph, bic, k, na, naCorr, severity: sev, solNum, bombaMlh },
+    events: [],
+    pendingConducts: [] // condutas da última reavaliação
+  };
+
+  // Evento de admissão
+  caseData.events.push({
+    time: now.toISOString(), type: 'admission',
+    title: 'Admissão · CAD ' + (sev === 'grave' ? 'GRAVE' : sev === 'mod' ? 'moderada' : 'leve'),
+    content: `Glicemia <b>${glic}</b> · pH <b>${ph}</b> · Bic <b>${bic}</b> · K <b>${k}</b>${na ? ' · Na <b>'+na+'</b>' : ''}`,
+    tags: [
+      { txt: `Solução ${solNum}`, cls: '' },
+      { txt: `Bomba ${bombaMlh} mL/h`, cls: '' },
+      { txt: sev === 'grave' ? 'GRAVE' : sev === 'mod' ? 'Moderada' : 'Leve', cls: sev === 'grave' ? 'red' : sev === 'mod' ? 'amber' : 'green' }
+    ]
+  });
+
+  // Condutas iniciais (sempre as mesmas — adaptadas)
+  const t = getThresholds();
+  const condInitial = [];
+  // Volemia
+  condInitial.push({ id: 'init-fluid', txt: `<b>Hidratação inicial:</b> SF 0,9% ${(peso * 20).toFixed(0)} mL EV em 1h (20 mL/kg)` });
+  // K-based insulin
+  if (k < t.kPause) {
+    condInitial.push({ id: 'init-k', txt: `<b>K = ${k} (&lt; ${t.kPause}):</b> NÃO iniciar bomba` });
+    condInitial.push({ id: 'init-k-dose', txt: `<b>Repor KCl 20-30 mEq/h</b> em 250 mL SF 0,9% até K &gt; ${t.kPause}` });
+    condInitial.push({ id: 'init-k-amp', txt: `<b>Ampolas:</b> 1 amp KCl 19,1% (10 mL) = 25 mEq · OU · 2 amp KCl 10% (10 mL) = 26 mEq` });
+    condInitial.push({ id: 'init-k-alert', txt: `<b>⚠ Acesso central</b> preferencial · monitor cardíaco · nunca em bolus` });
+  } else {
+    condInitial.push({ id: 'init-bomba', txt: `<b>Bomba de insulina:</b> insulina regular 100 UI + SF 99 mL → infundir a <b>${bombaMlh} mL/h</b> (= ${bombaMlh} UI/h)` });
+    condInitial.push({ id: 'init-sol', txt: `<b>Solução ${solNum}:</b> ${solutionText(solNum)} → correr a 250 mL/h` });
+  }
+  // NPH precoce
+  if (nphPrecoce) {
+    const nphDose = (peso * 0.15).toFixed(1);
+    condInitial.push({ id: 'init-nph', txt: `<b>🌟 NPH precoce:</b> ${nphDose} U SC agora (0,15 U/kg) — reduz tempo de internação. Manter bomba EV normalmente.` });
+  }
+  // Monitorização
+  condInitial.push({ id: 'init-mon', txt: '<b>Monitorização:</b> Dx capilar 1/1h · Gaso + Na + K 2/2h · Cetonas 4/4h' });
+
+  caseData.pendingConducts = [{
+    cls: 'action', icon: '⚡', title: 'Condutas iniciais da admissão',
+    source: currentGuideline === 'ada' ? 'ADA 2024' : 'Emergências USP',
+    conducts: condInitial
+  }];
+
+  saveCase();
+  showCaseUI();
+  showTab('caso');
+  toast('Caso iniciado · ' + formatTime(now));
+}
+
+let _endCaseConfirming = false;
+function endCase() {
+  if (!_endCaseConfirming) {
+    _endCaseConfirming = true;
+    // Muda o texto do botão pra "Confirmar?" temporariamente
+    const btns = document.querySelectorAll('button[onclick="endCase()"]');
+    btns.forEach(b => {
+      b._originalText = b.innerHTML;
+      b.innerHTML = '⚠ Clique de novo pra confirmar';
+      b.style.background = 'var(--red)';
+      b.style.color = '#fff';
+    });
+    // Reverte após 4 segundos se não clicar de novo
+    setTimeout(() => {
+      _endCaseConfirming = false;
+      btns.forEach(b => {
+        if (b._originalText) {
+          b.innerHTML = b._originalText;
+          b.style.background = '';
+          b.style.color = 'var(--red)';
+        }
+      });
+    }, 4000);
+    return;
+  }
+  // Segundo clique → encerra de fato
+  _endCaseConfirming = false;
+  caseData = null;
+  saveCase();
+  hideCaseUI();
+  showWelcome();
+  toast('Caso encerrado');
+}
+
+function goBackToWelcome() {
+  // Sem confirm nativo — caso continua salvo no localStorage de qualquer forma
+  showWelcome();
+  toast(caseData ? 'Voltou ao início (caso continua salvo)' : '');
+}
+
+function showCaseUI() {
+  document.getElementById('chip-caso').style.display = 'flex';
+  document.getElementById('chip-rx').style.display = 'flex';
+  document.getElementById('startCaseArea').style.display = 'none';
+  document.getElementById('modeBtnCase').classList.add('has-case');
+  const banner = document.getElementById('caseBanner');
+  banner.classList.remove('no-case');
+  const elapsed = caseData ? getElapsed(caseData.startTime) : '';
+  banner.innerHTML = `<span><span class="pulse"></span>Caso ATIVO · ${elapsed}</span><span style="opacity:.85;font-weight:700">${caseData.events.length} eventos</span>`;
+}
+function hideCaseUI() {
+  document.getElementById('chip-caso').style.display = 'none';
+  document.getElementById('chip-rx').style.display = 'none';
+  document.getElementById('startCaseArea').style.display = 'block';
+  document.getElementById('modeBtnCase').classList.remove('has-case');
+  const banner = document.getElementById('caseBanner');
+  banner.classList.add('no-case');
+  banner.innerHTML = `<span><span class="pulse"></span>Sem caso ativo</span><span style="opacity:.7">Inicie pela aba Diagnóstico</span>`;
+}
+
+/* HELPERS */
+function formatTime(d) {
+  if (typeof d === 'string') d = new Date(d);
+  return d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+}
+function getElapsed(startISO) {
+  const ms = new Date() - new Date(startISO);
+  const h = Math.floor(ms / 3600000);
+  const m = Math.floor((ms % 3600000) / 60000);
+  if (h === 0) return `${m} min em manejo`;
+  return `${h}h${m.toString().padStart(2,'0')} em manejo`;
+}
+function pickSolution(dx, na, k) {
+  const t = getThresholds();
+  if (dx > 250) {
+    if (na > 135) return k < t.kReplaceStart ? 1 : 2;
+    return k < t.kReplaceStart ? 3 : 4;
+  }
+  if (na > 135) return k < t.kReplaceStart ? 5 : 6;
+  return k < t.kReplaceStart ? 7 : 8;
+}
+function solutionText(n) {
+  const s = {
+    1:'AD 1000 mL + 1 amp KCl 19,1% + 2 amp NaCl 20%',
+    2:'AD 1000 mL + 2 amp NaCl 20%',
+    3:'SF 0,9% 1000 mL + 1 amp KCl 19,1%',
+    4:'SF 0,9% 1000 mL',
+    5:'SG 5% 1000 mL + 1 amp KCl 19,1% + 2 amp NaCl 20%',
+    6:'SG 5% 1000 mL + 2 amp NaCl 20%',
+    7:'SG 5% 1000 mL + 2 amp KCl 19,1% + 4 amp NaCl 20%',
+    8:'SG 5% 1000 mL + 4 amp NaCl 20%'
+  };
+  return s[n];
+}
+
+/* RENDER CASE */
+function renderCase() {
+  if (!caseData) return;
+  const s = caseData.state;
+  document.getElementById('caseSummary').innerHTML = `
+    <div class="case-summary-header">
+      <div class="css-title">Estado atual</div>
+      <div class="case-time">${getElapsed(caseData.startTime)}</div>
+    </div>
+    <div class="case-summary-grid">
+      <div class="css-item"><div class="css-label">Glic</div><div class="css-value">${s.glic}<span class="css-unit">mg/dL</span></div></div>
+      <div class="css-item"><div class="css-label">pH</div><div class="css-value">${s.ph}</div></div>
+      <div class="css-item"><div class="css-label">Bic</div><div class="css-value">${s.bic}</div></div>
+      <div class="css-item"><div class="css-label">K</div><div class="css-value">${s.k}</div></div>
+    </div>
+    <div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,.15); font-size: 12px; opacity: .95;">
+      Bomba <b>${s.bombaMlh} mL/h</b> · Solução <b>${s.solNum}</b> a 250 mL/h
+    </div>
+  `;
+  renderPending();
+  renderNextStep();
+  renderTimeline();
+  showCaseUI();
+}
+
+function renderPending() {
+  const area = document.getElementById('pendingArea');
+  if (!caseData.pendingConducts || !caseData.pendingConducts.length) {
+    area.innerHTML = '';
+    return;
+  }
+  // Mantém estado de expansão (default: primeiro aberto, demais fechados)
+  if (!caseData._expanded) caseData._expanded = {};
+  area.innerHTML = '<h3 class="sec">Conduta atual</h3>' + caseData.pendingConducts.map((p, pi) => {
+    const total = p.conducts.length;
+    const expanded = caseData._expanded[pi] === undefined ? (pi === 0) : caseData._expanded[pi];
+    return `
+    <div class="pending-card ${p.cls} ${expanded ? 'expanded' : 'collapsed'}">
+      <div class="pending-header" onclick="togglePendingExpand(${pi})" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;">
+        <div style="flex:1;min-width:0;">
+          <div class="pending-title">${p.icon} ${p.title}</div>
+          <div class="pending-source">${p.source} · ${total} condutas</div>
+        </div>
+        <div class="chevron" style="font-size:18px;color:var(--text-dim);transition:transform .2s;transform:rotate(${expanded ? '180' : '0'}deg);">⌄</div>
+      </div>
+      <div class="conduct-list" style="display:${expanded ? 'block' : 'none'};">
+        ${p.conducts.map((c, ci) => `
+          <div class="conduct-item-plain ${c.cls ? 'ci-' + c.cls : ''}">
+            <div class="conduct-num">${ci + 1}</div>
+            <div class="conduct-text">${c.txt}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `}).join('');
+}
+
+function togglePendingExpand(pi) {
+  if (!caseData._expanded) caseData._expanded = {};
+  const cur = caseData._expanded[pi] === undefined ? (pi === 0) : caseData._expanded[pi];
+  caseData._expanded[pi] = !cur;
+  saveCase();
+  renderCase();
+}
+
+function toggleConduct(pi, ci) {
+  const c = caseData.pendingConducts[pi].conducts[ci];
+  c.done = !c.done;
+  if (c.done) {
+    // adiciona evento de "conduta executada" na timeline
+    caseData.events.push({
+      time: new Date().toISOString(), type: 'done',
+      title: '✓ Conduta executada',
+      content: c.txt,
+      tags: []
+    });
+  }
+  saveCase();
+  renderCase();
+}
+
+function dismissPending(pi) {
+  caseData.pendingConducts.splice(pi, 1);
+  saveCase();
+  renderCase();
+  toast('Bloco arquivado na timeline');
+}
+
+function renderNextStep() {
+  if (!caseData) return;
+  const lastMeas = [...caseData.events].reverse().find(e => e.type === 'admission' || e.type === 'reaval');
+  if (!lastMeas) return;
+  const lastTime = new Date(lastMeas.time);
+  const minutesSince = Math.floor((new Date() - lastTime) / 60000);
+  const dxRem = 60 - minutesSince;
+  const gasoRem = 120 - minutesSince;
+  let cls = '';
+  if (dxRem < -10 || gasoRem < -10) cls = 'late';
+  else if (dxRem < 10 || gasoRem < 10) cls = 'warn';
+  const dxTime = new Date(lastTime.getTime() + 60 * 60000);
+  const gasoTime = new Date(lastTime.getTime() + 120 * 60000);
+  const dxClass = dxRem < 0 ? 'late' : (dxRem < 10 ? 'warn' : '');
+  const gasoClass = gasoRem < 0 ? 'late' : (gasoRem < 10 ? 'warn' : '');
+  document.getElementById('nextCard').className = 'next-card ' + cls;
+  document.getElementById('nextCard').innerHTML = `
+    <div class="next-header">
+      <div class="next-title">🎯 Próximos passos</div>
+      <div style="font-size: 10px; color: var(--text-dim); font-weight: 700;">desde ${formatTime(lastTime)}</div>
+    </div>
+    <div class="next-list">
+      <div class="next-item">
+        <span class="next-item-task">Dx capilar (1/1h)</span>
+        <span class="next-item-time ${dxClass}">${dxRem > 0 ? 'em ' + dxRem + ' min' : 'atrasado ' + Math.abs(dxRem) + ' min'} · ${formatTime(dxTime)}</span>
+      </div>
+      <div class="next-item">
+        <span class="next-item-task">Gaso + K (2/2h)</span>
+        <span class="next-item-time ${gasoClass}">${gasoRem > 0 ? 'em ' + gasoRem + ' min' : 'atrasado ' + Math.abs(gasoRem) + ' min'} · ${formatTime(gasoTime)}</span>
+      </div>
+    </div>
+  `;
+}
+
+function renderTimeline() {
+  const tl = document.getElementById('timeline');
+  if (!caseData || !caseData.events.length) {
+    tl.innerHTML = '<div class="empty-tl">Sem eventos ainda</div>';
+    return;
+  }
+
+  // AGRUPA eventos 'done' consecutivos num único bloco
+  const grouped = [];
+  caseData.events.forEach((ev, idx) => {
+    if (ev.type === 'done') {
+      const last = grouped[grouped.length - 1];
+      if (last && last.type === 'done-group') {
+        last.items.push(ev);
+        last.lastTime = ev.time;
+      } else {
+        grouped.push({
+          type: 'done-group',
+          firstTime: ev.time,
+          lastTime: ev.time,
+          items: [ev],
+          groupId: idx
+        });
+      }
+    } else {
+      grouped.push(ev);
+    }
+  });
+
+  if (!caseData._tlExpanded) caseData._tlExpanded = {};
+
+  tl.innerHTML = grouped.map((ev, gi) => {
+    if (ev.type === 'done-group') {
+      const expanded = caseData._tlExpanded['g' + ev.groupId] === true;
+      const count = ev.items.length;
+      const timeRange = ev.firstTime === ev.lastTime
+        ? formatTime(ev.firstTime)
+        : `${formatTime(ev.firstTime)} - ${formatTime(ev.lastTime)}`;
+      return `
+        <div class="tl-event done">
+          <div class="tl-card" style="cursor:pointer;" onclick="toggleTlGroup(${ev.groupId})">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+              <div style="flex:1;min-width:0;">
+                <div class="tl-time">${timeRange}</div>
+                <div class="tl-title" style="color:var(--green);">✓ ${count} condutas executadas</div>
+              </div>
+              <div style="font-size:18px;color:var(--text-dim);transform:rotate(${expanded ? '180' : '0'}deg);transition:transform .2s;">⌄</div>
+            </div>
+            <div style="display:${expanded ? 'block' : 'none'};margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);">
+              ${ev.items.map(it => `
+                <div style="padding:6px 0;font-size:12px;color:var(--text-dim);border-bottom:1px solid var(--border);">
+                  <span style="color:var(--green);font-weight:700;">✓</span> ${it.content}
+                </div>
+              `).join('')}
+            </div>
+            ${!expanded ? `<div style="margin-top:6px;font-size:11px;color:var(--text-dim);font-style:italic;">Toque para expandir</div>` : ''}
+          </div>
+        </div>
+      `;
+    }
+    // Evento de reavaliação COM condutas → clicável pra expandir
+    if (ev.type === 'reaval' && ev.conductsBlocks && ev.conductsBlocks.length) {
+      const expanded = caseData._tlExpanded['r' + gi] === true;
+      return `
+        <div class="tl-event">
+          <div class="tl-card" style="cursor:pointer;" onclick="toggleTlReaval(${gi})">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+              <div style="flex:1;min-width:0;">
+                <div class="tl-time">${formatTime(ev.time)}</div>
+                <div class="tl-title">${ev.title}</div>
+                <div class="tl-content">${ev.content}</div>
+                ${ev.tags && ev.tags.length ? `<div class="tl-tags">${ev.tags.map(t => `<span class="tl-tag ${t.cls||''}">${t.txt}</span>`).join('')}</div>` : ''}
+              </div>
+              <div style="font-size:18px;color:var(--text-dim);transform:rotate(${expanded ? '180' : '0'}deg);transition:transform .2s;">⌄</div>
+            </div>
+            <div style="display:${expanded ? 'block' : 'none'};margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);">
+              ${ev.conductsBlocks.map(b => `
+                <div style="font-size:12px;font-weight:800;color:var(--text);margin:4px 0 6px;">${b.icon} ${b.title}</div>
+                ${b.conducts.map((c, ci) => `
+                  <div style="display:flex;gap:8px;padding:4px 0;font-size:12px;color:var(--text-dim);">
+                    <span style="color:var(--accent);font-weight:800;">${ci + 1}.</span>
+                    <span>${c.txt}</span>
+                  </div>
+                `).join('')}
+              `).join('')}
+            </div>
+            ${!expanded ? `<div style="margin-top:6px;font-size:11px;color:var(--text-dim);font-style:italic;">Toque para ver as condutas</div>` : ''}
+          </div>
+        </div>
+      `;
+    }
+    return `
+      <div class="tl-event ${ev.type === 'admission' ? 'admission' : ev.type === 'alert' ? 'alert' : ev.type === 'action' ? 'action' : ''}">
+        <div class="tl-card">
+          <div class="tl-time">${formatTime(ev.time)}</div>
+          <div class="tl-title">${ev.title}</div>
+          <div class="tl-content">${ev.content}</div>
+          ${ev.tags && ev.tags.length ? `<div class="tl-tags">${ev.tags.map(t => `<span class="tl-tag ${t.cls||''}">${t.txt}</span>`).join('')}</div>` : ''}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function toggleTlGroup(gid) {
+  if (!caseData._tlExpanded) caseData._tlExpanded = {};
+  caseData._tlExpanded['g' + gid] = !caseData._tlExpanded['g' + gid];
+  saveCase();
+  renderCase();
+}
+
+function toggleTlReaval(gi) {
+  if (!caseData._tlExpanded) caseData._tlExpanded = {};
+  caseData._tlExpanded['r' + gi] = !caseData._tlExpanded['r' + gi];
+  saveCase();
+  renderCase();
+}
+
+/* REAVAL */
+function openReaval() {
+  if (!caseData) return;
+  const s = caseData.state;
+  document.getElementById('stateStrip').innerHTML = `
+    <div class="state-label">Estado atual (antes desta reavaliação)</div>
+    <div class="state-values">
+      <span>Glic <b>${s.glic}</b></span>
+      <span>pH <b>${s.ph}</b></span>
+      <span>Bic <b>${s.bic}</b></span>
+      <span>K <b>${s.k}</b></span>
+      <span>Bomba <b>${s.bombaMlh} mL/h</b></span>
+      <span>Sol <b>${s.solNum}</b></span>
+    </div>
+    <div class="state-time">${getElapsed(caseData.startTime)}</div>
+  `;
+  ['rv-glic', 'rv-ph', 'rv-bic', 'rv-k'].forEach(id => {
+    const el = document.getElementById(id);
+    el.value = '';
+    el.classList.remove('invalid');
+  });
+  // Reseta tempo desde a última pra 2h (default)
+  setTimeChip(120);
+  document.getElementById('reavalReactions').innerHTML = '';
+  document.getElementById('glic-delta-display').innerHTML = '';
+  document.getElementById('reavalOverlay').classList.add('open');
+}
+function closeReaval() {
+  document.getElementById('reavalOverlay').classList.remove('open');
+}
+
+function setTimeChip(min) {
+  document.querySelectorAll('.time-chip').forEach(c => c.classList.remove('active'));
+  const btn = document.querySelector(`.time-chip[data-min="${min}"]`);
+  if (btn) btn.classList.add('active');
+  document.getElementById('rv-minutes').value = min;
+  // Atualiza display
+  const info = document.getElementById('time-since-info');
+  if (caseData) {
+    const lastEv = [...caseData.events].reverse().find(e => e.type === 'admission' || e.type === 'reaval');
+    if (lastEv) {
+      const lastTime = new Date(lastEv.time);
+      const evTime = new Date(lastTime.getTime() + min * 60000);
+      info.innerHTML = `Última: <strong>${formatTime(lastTime)}</strong> · Esta reavaliação: <strong>${formatTime(evTime)}</strong>`;
+    }
+  }
+  // Recalcula reações
+  if (typeof computeReactions === 'function') computeReactions();
+}
+
+function computeReactions() {
+  if (!caseData) return;
+  const s = caseData.state;
+  const t = getThresholds();
+
+  // PROTEÇÃO: se bombaMlh veio zerado/inválido (caso antigo), recalcula pelo peso
+  if ((!s.bombaMlh || parseFloat(s.bombaMlh) === 0) && caseData.peso) {
+    s.bombaMlh = (caseData.peso * 0.1).toFixed(1);
+  }
+
+  const glic = parseFloat(document.getElementById('rv-glic').value);
+  const ph = parseFloat(document.getElementById('rv-ph').value);
+  const bic = parseFloat(document.getElementById('rv-bic').value);
+  const k = parseFloat(document.getElementById('rv-k').value);
+  const minutes = parseInt(document.getElementById('rv-minutes').value) || 120;
+
+  // Calcula evTime a partir do tempo desde a última reavaliação (NÃO mais com horário absoluto)
+  const lastEv = [...caseData.events].reverse().find(e => e.type === 'admission' || e.type === 'reaval');
+  const lastTime = lastEv ? new Date(lastEv.time) : new Date(caseData.startTime);
+  const evTime = new Date(lastTime.getTime() + minutes * 60000);
+  const hoursSince = minutes / 60;
+
+  const reactions = [];
+  const deltaDisplay = document.getElementById('glic-delta-display');
+  deltaDisplay.innerHTML = '';
+
+  // Sem glicemia preenchida ainda, não calcula nada
+  if (isNaN(glic) || hoursSince <= 0) {
+    window._lastReactions = [];
+    document.getElementById('reavalReactions').innerHTML = '';
+    return;
+  }
+
+  // ====== ANÁLISE INTEGRADA (calcula tudo junto antes de montar a conduta) ======
+  const diff = s.glic - glic;            // positivo = caiu
+  const rate = diff / hoursSince;        // mg/dL/h
+  const naRef = s.naCorr || s.na || 138;
+
+  // Critérios de resolução
+  const resolutionMet = (!isNaN(ph) && !isNaN(bic)) && (currentGuideline === 'ada'
+    ? ((ph >= 7.3 || bic >= 18) && glic < 200)
+    : (ph >= 7.3 && bic >= 18 && glic < 200));
+
+  // Categoria da glicemia
+  let glicCat; // 'refrat' | 'lenta' | 'meta' | 'rapida'
+  if (glic >= s.glic) glicCat = 'refrat';
+  else if (rate < t.targetMin) glicCat = 'lenta';
+  else if (rate > t.targetMax) glicCat = 'rapida';
+  else glicCat = 'meta';
+
+  // Categoria do K
+  let kCat = null; // 'critico' | 'baixo-normal' | 'alto'
+  if (!isNaN(k)) {
+    if (k < t.kPause) kCat = 'critico';
+    else if (k > t.kHigh) kCat = 'alto';
+    else kCat = 'normal';
+  }
+
+  // ---- DECISÃO DA BOMBA (só a glicemia + K crítico decidem) ----
+  let bombaMlhAtual = parseFloat(s.bombaMlh);
+  let novaBomba = bombaMlhAtual;
+  let bombaTxt, bombaPausada = false;
+  if (kCat === 'critico') {
+    novaBomba = 0; bombaPausada = true;
+    bombaTxt = `<b>PAUSAR bomba de insulina</b> (K < ${t.kPause}) — reiniciar só com K > ${t.kPause}`;
+  } else if (resolutionMet) {
+    bombaTxt = null; // tratado no bloco de resolução
+  } else if (glicCat === 'refrat') {
+    novaBomba = bombaMlhAtual * 2;
+    bombaTxt = `<b>Dobrar bomba: ${bombaMlhAtual} → ${novaBomba.toFixed(1)} mL/h</b> (glicemia não caiu — investigar acesso/equipo/volemia)`;
+  } else if (glicCat === 'lenta') {
+    novaBomba = bombaMlhAtual * 2;
+    bombaTxt = `<b>Dobrar bomba: ${bombaMlhAtual} → ${novaBomba.toFixed(1)} mL/h</b> (queda lenta)`;
+  } else if (glicCat === 'rapida') {
+    novaBomba = bombaMlhAtual / 2;
+    bombaTxt = `<b>Reduzir bomba 50%: ${bombaMlhAtual} → ${novaBomba.toFixed(1)} mL/h</b> (queda rápida — risco de edema cerebral)`;
+  } else {
+    bombaTxt = `<b>Manter bomba em ${bombaMlhAtual} mL/h</b> (queda na meta)`;
+  }
+
+  // ---- DECISÃO DA SOLUÇÃO (integra glic + Na + K, escolhe a que JÁ tem o KCl certo) ----
+  const solAtual = pickSolution(glic, naRef, !isNaN(k) ? k : s.k);
+  const trocouSol = solAtual !== s.solNum;
+  let solTxt = null;
+  if (!bombaPausada) {
+    const cruzouSG = glic <= t.glicThreshold && s.glic > t.glicThreshold;
+    if (cruzouSG) {
+      solTxt = `<b>Trocar para Solução ${solAtual}:</b> ${solutionText(solAtual)} a 250 mL/h — glicemia ≤ ${t.glicThreshold}, entrar com glicose (NÃO suspender insulina)`;
+    } else if (trocouSol) {
+      solTxt = `<b>Trocar para Solução ${solAtual}:</b> ${solutionText(solAtual)} a 250 mL/h`;
+    } else {
+      solTxt = `<b>Manter Solução ${solAtual}:</b> ${solutionText(solAtual)} a 250 mL/h`;
+    }
+  }
+
+  // ---- DECISÃO DO POTÁSSIO ----
+  let kTxt = null;
+  if (kCat === 'critico') {
+    const doseAlta = k < 3.0;
+    kTxt = `<b>Repor KCl ${doseAlta ? '20-40' : '20-30'} mEq/h</b> em 250 mL SF 0,9% (1 amp KCl 19,1% = 25 mEq · ou 2 amp KCl 10% = 26 mEq) · acesso ${doseAlta ? 'central obrigatório' : 'central preferencial'} · monitor cardíaco · nunca em bolus`;
+  } else if (kCat === 'alto') {
+    kTxt = `<b>Sem KCl</b> (K > ${t.kHigh}) — solução indicada acima já é sem potássio · reavaliar K em 2h`;
+  } else if (kCat === 'normal') {
+    const solComKCl = [1, 3, 5, 7].includes(solAtual);
+    if (solComKCl) {
+      kTxt = `<b>KCl já incluso na Solução ${solAtual}</b> (≈25 mEq/L) — alvo K 4-5`;
+    } else {
+      kTxt = `<b>Adicionar 1 amp KCl 19,1%</b> (25 mEq) por litro — alvo K 4-5`;
+    }
+  }
+
+  // ---- HIDRATAÇÃO (só aparece se houver ação relevante) ----
+  let hidraTxt = null;
+  if (glicCat === 'refrat' || glicCat === 'lenta') {
+    hidraTxt = `<b>Reavaliar volemia</b> — hidratação inadequada atrapalha a queda da glicemia`;
+  }
+
+  // ---- BICARBONATO (se indicado) ----
+  let bicTxt = null;
+  if (!isNaN(ph) && ph < t.bicPh) {
+    bicTxt = `<b>Bicarbonato:</b> pH < ${t.bicPh} — 100 mL Bic 8,4% + 400 mL AD + 1 amp KCl 19,1%, infundir em 2h`;
+  }
+
+  // ---- DISPLAY DA ANÁLISE (topo) ----
+  let deltaCls, deltaLabel, deltaValue;
+  if (glicCat === 'refrat') {
+    deltaCls = 'refractory';
+    deltaLabel = glic === s.glic ? '🚨 Glicemia ESTÁVEL' : '🚨 Glicemia AUMENTOU';
+    deltaValue = glic === s.glic ? `sem variação em ${hoursSince.toFixed(1)}h` : `+${(glic - s.glic).toFixed(0)} mg/dL`;
+  } else if (glicCat === 'lenta') {
+    deltaCls = 'slow'; deltaLabel = '⚠️ Queda lenta'; deltaValue = `${rate.toFixed(0)} mg/dL/h (meta ${t.targetMin}-${t.targetMax})`;
+  } else if (glicCat === 'rapida') {
+    deltaCls = 'fast'; deltaLabel = '⚠️ Queda rápida'; deltaValue = `${rate.toFixed(0)} mg/dL/h (limite ${t.targetMax})`;
+  } else {
+    deltaCls = 'good'; deltaLabel = '✅ Queda adequada'; deltaValue = `${rate.toFixed(0)} mg/dL/h`;
+  }
+  deltaDisplay.innerHTML = `
+    <div class="glic-delta ${deltaCls}">
+      <div>
+        <div class="glic-delta-label">Análise</div>
+        <div style="font-size:11px; color:var(--text-dim); margin-top:2px;">${deltaLabel}${!isNaN(k) ? ' · K ' + k : ''}${!isNaN(ph) ? ' · pH ' + ph : ''}</div>
+      </div>
+      <div class="glic-delta-value">${deltaValue}</div>
+    </div>
+  `;
+
+  // ====== MONTA A CONDUTA ÚNICA CONSOLIDADA ======
+  const conducts = [];
+
+  if (resolutionMet) {
+    // Desfecho · resolução de CAD — conduta detalhada de alta da bomba
+    const nph = (caseData.peso * 0.1).toFixed(1);
+    const glargina = (caseData.peso * 0.25).toFixed(1);
+    if (kCat === 'critico') conducts.push({ txt: kTxt, cls: 'alert' }); // segurança: K crítico antes
+
+    // ① Cabeçalho de resolução
+    conducts.push({
+      txt: '<b>🎉 CRITÉRIOS DE RESOLUÇÃO ATINGIDOS</b> · CAD compensada',
+      cls: 'ok'
+    });
+    // ② Critérios preenchidos com valores reais
+    const critGlic = `Glicemia ${glic} mg/dL (&lt; 200) ${glic < 200 ? '✓' : ''}`;
+    const critPh = `pH ${ph} (≥ 7,3) ${ph >= 7.3 ? '✓' : ''}`;
+    const critBic = `Bic ${bic} mmol/L (≥ 18) ${bic >= 18 ? '✓' : ''}`;
+    conducts.push({
+      txt: `<b>Critérios preenchidos (ADA 2024):</b><br>· ${critGlic}<br>· ${critPh}<br>· ${critBic}`,
+      cls: 'ok'
+    });
+    // ③ Passo 1 — Liberar dieta
+    conducts.push({
+      txt: '<b>Passo 1 · Liberar dieta VO</b> (pelo menos 1 refeição com cobertura de insulina)'
+    });
+    // ④ Passo 2 — Basal SC
+    conducts.push({
+      txt: `<b>Passo 2 · Aplicar insulina basal SC: NPH ${nph} UI SC</b> (0,1 U/kg) <i>OU</i> <b>Glargina ${glargina} UI SC</b> (0,25 U/kg)<br><span style="font-size:11px;opacity:.85">Se já fazia uso de basal antes da internação · manter a dose habitual</span>`
+    });
+    // ⑤ Passo 3 — Aguardar (alerta destacado)
+    conducts.push({
+      txt: '<b>Passo 3 · Aguardar 1–2h após a SC</b> antes de desligar a bomba EV (sobreposição evita rebote da cetoacidose)',
+      cls: 'warn'
+    });
+    // ⑥ Passo 4 — Esquema basal-bolus
+    conducts.push({
+      txt: '<b>Passo 4 · Esquema basal-bolus pós-alta da bomba:</b><br>· Basal: NPH 2/3 manhã + 1/3 noite OU Glargina dose única<br>· Bolus prandial: insulina regular 0,1 U/kg antes de cada refeição<br>· Correção: escala conforme HGT pré-prandial'
+    });
+    // ⑦ Monitorização
+    conducts.push({
+      txt: '<b>Monitorização pós-resolução:</b> HGT 4/4h × 24h · gaso de controle 6h após desligar bomba · função renal · eletrólitos'
+    });
+    // ⑧ Alta hospitalar
+    conducts.push({
+      txt: '<b>Considerar alta hospitalar quando:</b> paciente alimentando-se · sem cetonas · HGT estável · acompanhamento ambulatorial agendado · educação em DM revisada'
+    });
+
+    reactions.push({
+      cls: 'ok', icon: '✅',
+      title: 'Desfecho · resolução de CAD',
+      source: 'ADA 2024',
+      conducts
+    });
+  } else {
+    // Conduta única integrada — só inclui linha quando há ação
+    if (kCat === 'critico' && bombaTxt) conducts.push({ txt: bombaTxt });      // pausa bomba aparece primeiro
+    else if (bombaTxt) conducts.push({ txt: bombaTxt });
+    if (solTxt) conducts.push({ txt: solTxt });
+    if (kTxt && kCat !== 'critico') conducts.push({ txt: kTxt });
+    if (kCat === 'critico') {
+      // detalhes do K crítico
+      conducts.push({ txt: kTxt });
+      conducts.push({ txt: '<b>Reavaliar K em 1h</b> · ECG (achatamento T, onda U, PR longo)' });
+    }
+    if (hidraTxt) conducts.push({ txt: hidraTxt });
+    if (bicTxt) conducts.push({ txt: bicTxt });
+    conducts.push({ txt: `<b>Próxima gasometria em 2h</b>` });
+
+    // Cor e título do bloco conforme a situação mais crítica
+    let cls = 'ok', icon = '✓', title = 'Conduta — queda na meta';
+    if (kCat === 'critico') { cls = 'alert'; icon = '🛑'; title = `K < ${t.kPause} — PAUSAR BOMBA + repor K`; }
+    else if (glicCat === 'refrat') { cls = 'alert'; icon = '🚨'; title = 'Glicemia refratária — dobrar bomba + investigar'; }
+    else if (glicCat === 'lenta') { cls = 'warn'; icon = '⚠️'; title = 'Queda insuficiente — dobrar bomba'; }
+    else if (glicCat === 'rapida') { cls = 'warn'; icon = '⚠️'; title = 'Queda rápida — reduzir bomba'; }
+
+    reactions.push({ cls, icon, title, source: currentGuideline === 'ada' ? 'ADA 2024' : 'USP', conducts });
+  }
+
+
+  // RENDER
+  if (reactions.length === 0) {
+    document.getElementById('reavalReactions').innerHTML = '';
+  } else {
+    document.getElementById('reavalReactions').innerHTML = '<h3 class="sec" style="margin-top:16px">Condutas sugeridas</h3>' + reactions.map(r => `
+      <div class="pending-card ${r.cls}">
+        <div class="pending-header">
+          <div class="pending-title">${r.icon} ${r.title}</div>
+          <div class="pending-source">${r.source}</div>
+        </div>
+        <div class="conduct-list">
+          ${r.conducts.map((c, ci) => `
+            <div class="conduct-item-plain ${c.cls ? 'ci-' + c.cls : ''}">
+              <div class="conduct-num">${ci + 1}</div>
+              <div class="conduct-text">${c.txt}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // armazena last reactions pra usar no confirmReaval
+  window._lastReactions = reactions;
+  window._lastReavalData = { glic, ph, bic, k, evTime, hoursSince };
+}
+
+function confirmReaval() {
+  if (!caseData) return;
+  const data = window._lastReavalData;
+  if (!data || isNaN(data.glic) || isNaN(data.ph) || isNaN(data.bic) || isNaN(data.k)) {
+    alert('Preencha Glic, pH, Bic e K.');
+    return;
+  }
+
+  const t = getThresholds();
+  const s = caseData.state;
+  // PROTEÇÃO: recalcula bombaMlh se veio zerado (caso antigo)
+  if ((!s.bombaMlh || parseFloat(s.bombaMlh) === 0) && caseData.peso) {
+    s.bombaMlh = (caseData.peso * 0.1).toFixed(1);
+  }
+  const rate = (s.glic - data.glic) / data.hoursSince;
+  const reactions = window._lastReactions || [];
+
+  const resolutionMet = (currentGuideline === 'ada'
+    ? ((data.ph >= 7.3 || data.bic >= 18) && data.glic < 200)
+    : (data.ph >= 7.3 && data.bic >= 18 && data.glic < 200));
+
+  // Determina ação principal da bomba e solução
+  let novaBomba = parseFloat(s.bombaMlh);
+  let acaoBomba = 'manter';
+  if (data.k < t.kPause) { novaBomba = 0; acaoBomba = 'pausar'; }
+  else if (resolutionMet) { acaoBomba = 'manter'; /* resolução: mantém até desligar */ }
+  else if (data.glic >= s.glic) { novaBomba = parseFloat(s.bombaMlh) * 2; acaoBomba = 'refratária'; }
+  else if (rate < t.targetMin) { novaBomba = parseFloat(s.bombaMlh) * 2; acaoBomba = 'dobrar'; }
+  else if (rate > t.targetMax) { novaBomba = parseFloat(s.bombaMlh) / 2; acaoBomba = 'reduzir'; }
+
+  const novaSol = pickSolution(data.glic, s.naCorr || s.na || 138, data.k);
+
+  // Tags pra timeline
+  const tags = [];
+  if (data.glic >= s.glic) tags.push({ txt: '🚨 REFRATÁRIA', cls: 'red' });
+  else if (rate >= t.targetMin && rate <= t.targetMax) tags.push({ txt: '✓ Meta', cls: 'green' });
+  if (acaoBomba === 'pausar') tags.push({ txt: 'BOMBA PAUSADA', cls: 'red' });
+  else if (acaoBomba === 'dobrar' || acaoBomba === 'refratária') tags.push({ txt: 'Bomba ↑', cls: 'amber' });
+  else if (acaoBomba === 'reduzir') tags.push({ txt: 'Bomba ↓', cls: 'amber' });
+  if (novaSol !== s.solNum) tags.push({ txt: `Sol ${s.solNum}→${novaSol}`, cls: '' });
+
+  // Texto da glicemia sem números negativos
+  let glicTxt;
+  if (data.glic > s.glic) glicTxt = `Glicemia <b>${s.glic} → ${data.glic}</b> (subiu +${data.glic - s.glic} em ${data.hoursSince.toFixed(1)}h)`;
+  else if (data.glic === s.glic) glicTxt = `Glicemia <b>${data.glic}</b> (estável em ${data.hoursSince.toFixed(1)}h)`;
+  else glicTxt = `Glicemia <b>${s.glic} → ${data.glic}</b> (queda ${rate.toFixed(0)} mg/dL/h)`;
+
+  // Evento na timeline (guarda as condutas pra mostrar ao clicar)
+  caseData.events.push({
+    time: data.evTime.toISOString(), type: 'reaval',
+    title: `Reavaliação ${formatTime(data.evTime)}`,
+    content: `${glicTxt} · pH <b>${data.ph}</b> · Bic <b>${data.bic}</b> · K <b>${data.k}</b>`,
+    tags,
+    conductsBlocks: reactions.map(r => ({
+      cls: r.cls, icon: r.icon, title: r.title, source: r.source,
+      conducts: r.conducts.map(c => ({ txt: c.txt }))
+    }))
+  });
+
+  // Atualiza estado
+  caseData.state.glic = data.glic;
+  caseData.state.ph = data.ph;
+  caseData.state.bic = data.bic;
+  caseData.state.k = data.k;
+  caseData.state.solNum = novaSol;
+  caseData.state.bombaMlh = novaBomba.toFixed(1);
+
+  // Substitui pendingConducts pelas novas reações
+  caseData.pendingConducts = reactions.map(r => ({
+    cls: r.cls, icon: r.icon, title: r.title, source: r.source,
+    conducts: r.conducts.map(c => ({ ...c, done: false }))
+  }));
+
+  saveCase();
+  closeReaval();
+  renderCase();
+  toast('Reavaliação registrada às ' + formatTime(data.evTime));
+}
+
+/* PRESCRIÇÃO */
+function renderRx() {
+  if (!caseData) {
+    document.getElementById('rxBox').textContent = 'Inicie um caso para gerar prescrição.';
+    return;
+  }
+  const s = caseData.state;
+  const peso = caseData.peso;
+  const inicio = formatTime(caseData.startTime);
+  const sol = solutionText(s.solNum);
+  const t = getThresholds();
+  const acoes = caseData.events.length > 1
+    ? `\n\nHISTÓRICO\n${caseData.events.map(e => `${formatTime(e.time)} · ${e.title.replace(/<[^>]+>/g, '')}`).join('\n')}`
+    : '';
+
+  const rx = `PRESCRIÇÃO — CETOACIDOSE DIABÉTICA
+Caso iniciado às ${inicio} · peso ${peso} kg
+Guideline: ${currentGuideline === 'ada' ? 'ADA 2024' : 'Emergências USP'}
+
+1. Dieta zero (até resolução)
+
+2. Hidratação inicial (1ª hora)
+   SF 0,9% ${(peso * 20).toFixed(0)} mL EV em 1h (20 mL/kg, correr aberto)
+
+3. Solução em curso (atual)
+   Solução ${s.solNum}: ${sol}
+   Correr a 250 mL/h (= 1000 mL em 4h)
+
+4. Bomba de insulina contínua
+   Preparo: insulina regular 100 UI + SF 0,9% 99 mL (= 1 UI/mL)
+   ${parseFloat(s.bombaMlh) === 0 ? `⚠ BOMBA PAUSADA (K < ${t.kPause})` : `Infundir a ${s.bombaMlh} mL/h (= ${s.bombaMlh} UI/h)`}
+${caseData.nphPrecoce ? `
+5. NPH precoce (estratégia ADA 2024)
+   ${(peso * 0.15).toFixed(1)} UI SC (0,15 U/kg)
+   Manter bomba EV normalmente até resolução
+` : ''}
+${s.k < t.kPause ? `5. Reposição URGENTE de potássio
+   KCl ${s.k < 3.0 ? '20-40' : '20-30'} mEq/h em 250 mL SF 0,9%
+   Ampolas: 1 amp KCl 19,1% (10 mL) = 25 mEq OU 2 amp KCl 10% = 26 mEq
+   Acesso ${s.k < 3.0 ? 'central obrigatório' : 'central preferencial'} · monitor cardíaco · nunca em bolus
+   Não reiniciar bomba antes de K > ${t.kPause}` : s.k > t.kHigh ? `5. Sem reposição de K (K > ${t.kHigh})
+   Usar solução SEM KCl (Sol 2, 4, 6 ou 8)
+   Reavaliar K em 2h` : ([1,3,5,7].includes(s.solNum) ? `5. Reposição de K
+   KCl já incluso na Solução ${s.solNum} (≈25 mEq/L) — alvo K 4-5
+   Reavaliar K em 2h` : `5. Reposição de K (adicionar na solução)
+   1 amp KCl 19,1% (25 mEq) por litro OU 2 amp KCl 10% (26 mEq)
+   Alvo K 4-5 · reavaliar em 2h`)}
+
+6. Controle laboratorial
+   • Glicemia capilar 1/1h
+   • Gasometria + Na + K 2/2h
+   • Função renal 6/6h
+   • Cetonemia 4/4h
+
+7. Ajustes conforme queda glicêmica (meta ${t.targetMin}-${t.targetMax} mg/dL/h)
+   • Glicemia estável/aumentando → investigar acesso/equipo/bomba + dobrar
+   • Queda < ${t.targetMin} → dobrar bomba
+   • Queda > ${t.targetMax} → reduzir 50%
+   • Glicemia < ${t.glicThreshold} → trocar para solução com SG (NÃO suspender insulina)
+
+8. Critérios para desligar bomba (${currentGuideline === 'ada' ? 'ADA 2024' : 'USP'})
+   ${currentGuideline === 'ada'
+     ? `• Glicemia < 200 + (pH ≥ 7,3 OU Bic ≥ 18)
+   • AG NÃO é mais critério (consenso 2024 removeu)`
+     : `• Glicemia < 200 + pH ≥ 7,3 + Bic ≥ 18 + AG ≤ 12`}
+   • Aplicar NPH ${(peso * 0.1).toFixed(1)} UI SC (0,1 U/kg)
+   • Aguardar 1-2h ANTES de desligar bomba${acoes}`;
+  document.getElementById('rxBox').textContent = rx;
+}
+
+function copyRx() {
+  const txt = document.getElementById('rxBox').textContent;
+  if (navigator.clipboard) navigator.clipboard.writeText(txt).then(() => toast('Prescrição copiada'));
+  else toast('Selecione manualmente');
+}
+function shareRx() {
+  const txt = document.getElementById('rxBox').textContent;
+  if (navigator.share) navigator.share({ text: txt, title: 'Prescrição CAD' }).catch(()=>{});
+  else copyRx();
+}
+
+function toast(msg) {
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 3000);
+}
+
+setInterval(() => {
+  if (caseData && document.getElementById('panel-caso').classList.contains('active')) {
+    renderNextStep();
+    showCaseUI();
+  }
+}, 30000);
+
+/* ============================================ WELCOME SCREEN ============================================ */
+function showWelcome() {
+  document.getElementById('welcomeScreen').classList.add('show');
+  document.getElementById('appShell').style.display = 'none';
+  document.body.classList.add('welcome-mode');
+  const homeBtn = document.getElementById('homeBtn');
+  if (homeBtn) homeBtn.style.display = 'none';
+}
+function hideWelcome() {
+  document.getElementById('welcomeScreen').classList.remove('show');
+  document.getElementById('appShell').style.display = 'block';
+  document.body.classList.remove('welcome-mode');
+  const homeBtn = document.getElementById('homeBtn');
+  if (homeBtn) homeBtn.style.display = 'grid';
+}
+function welcomeChoose(mode) {
+  hideWelcome();
+  if (mode === 'case') {
+    setMode('case');
+    showTab('dx');
+    // Foca no primeiro input pra o usuário começar a digitar
+    setTimeout(() => {
+      const first = document.getElementById('dx-glic');
+      if (first) first.focus();
+    }, 200);
+  } else {
+    setMode('calc');
+  }
+}
+
+/* ============================================ MODO TOGGLE ============================================ */
+function setMode(m) {
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.mode-section').forEach(s => s.classList.remove('active'));
+  if (m === 'case') {
+    document.getElementById('modeBtnCase').classList.add('active');
+    document.getElementById('modeCase').classList.add('active');
+  } else {
+    document.getElementById('modeBtnCalc').classList.add('active');
+    document.getElementById('modeCalc').classList.add('active');
+  }
+  window.scrollTo(0, 0);
+}
+
+function showCalc(c, btn) {
+  document.querySelectorAll('.ctab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.calc-panel').forEach(p => p.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  else {
+    const b = document.querySelector('.ctab[onclick*="' + c + '"]');
+    if (b) b.classList.add('active');
+  }
+  const panel = document.getElementById('calc-' + c);
+  if (panel) panel.classList.add('active');
+}
+
+/* ============================================ CALCULADORAS ============================================ */
+
+/* Dx — diagnóstico (referência rápida) */
+function calcDxCheck() {
+  const glic = parseFloat(document.getElementById('cdx-glic').value);
+  const ph = parseFloat(document.getElementById('cdx-ph').value);
+  const bic = parseFloat(document.getElementById('cdx-bic').value);
+  const cet = document.getElementById('cdx-cet').value;
+  const result = document.getElementById('cdx-result');
+  updateGravity(glic, ph, bic);
+  if (isNaN(glic) && isNaN(ph) && isNaN(bic) && !cet) { result.innerHTML = ''; return; }
+  let crit = [], pos = 0, tot = 0;
+  if (!isNaN(glic)) { tot++; if (glic > 250) { pos++; crit.push('✓ Glic'); } else crit.push('✗ Glic'); }
+  if (!isNaN(ph)) { tot++; if (ph < 7.3) { pos++; crit.push('✓ pH'); } else crit.push('✗ pH'); }
+  if (!isNaN(bic)) { tot++; if (bic < 15) { pos++; crit.push('✓ Bic'); } else crit.push('✗ Bic'); }
+  if (cet) { tot++; if (cet === 'sim') { pos++; crit.push('✓ Cet'); } else crit.push('✗ Cet'); }
+  let cls = 'amber', title = 'Parcial', msg = pos + '/' + tot + ' critérios.';
+  if (tot === 4) {
+    if (pos === 4) { cls = 'red'; title = 'CAD confirmada'; msg = '4/4 critérios. Iniciar protocolo.'; }
+    else if (pos >= 2) { cls = 'amber'; title = 'CAD provável'; msg = pos + '/4. Considerar EHH ou acidose lática.'; }
+    else { cls = 'green'; title = 'CAD pouco provável'; msg = pos + '/4. Investigar DDx.'; }
+  }
+  result.innerHTML = `<div class="calc-result ${cls}"><div class="cr-label">${title}</div><div class="cr-value">${msg}</div><div class="cr-detail">${crit.join(' · ')}</div></div>`;
+}
+function updateGravity(glic, ph, bic) {
+  const leve = document.getElementById('grav-leve');
+  const mod = document.getElementById('grav-mod');
+  const grave = document.getElementById('grav-grave');
+  const cells = document.querySelectorAll('.gravity-line > div');
+  [leve, mod, grave].forEach(el => el && el.classList.remove('active', 'leve', 'mod', 'grave'));
+  cells.forEach(c => c.classList.remove('col-active', 'leve', 'mod', 'grave'));
+  if (isNaN(glic) || glic <= 250) return;
+  if (isNaN(ph) && isNaN(bic)) return;
+  const phLevel = !isNaN(ph) ? (ph < 7.0 ? 3 : (ph < 7.25 ? 2 : (ph <= 7.3 ? 1 : 0))) : 0;
+  const bicLevel = !isNaN(bic) ? (bic < 10 ? 3 : (bic < 15 ? 2 : (bic <= 18 ? 1 : 0))) : 0;
+  const max = Math.max(phLevel, bicLevel);
+  let nivel = null, col = -1;
+  if (max === 1) { nivel = 'leve'; col = 0; leve.classList.add('active', 'leve'); }
+  else if (max === 2) { nivel = 'mod'; col = 1; mod.classList.add('active', 'mod'); }
+  else if (max === 3) { nivel = 'grave'; col = 2; grave.classList.add('active', 'grave'); }
+  if (col >= 0 && nivel) {
+    cells.forEach((cell, idx) => { if (idx % 3 === col) cell.classList.add('col-active', nivel); });
+  }
+}
+['cdx-glic','cdx-ph','cdx-bic','cdx-cet'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) { el.addEventListener('input', calcDxCheck); el.addEventListener('change', calcDxCheck); }
+});
+
+/* Na corrigido */
+function calcNaCorr() {
+  const na = parseFloat(document.getElementById('cna-medido').value);
+  const glic = parseFloat(document.getElementById('cna-glic').value);
+  const r = document.getElementById('cna-result');
+  if (isNaN(na) || isNaN(glic)) { r.innerHTML = ''; return; }
+  if (glic <= 100) {
+    r.innerHTML = `<div class="calc-result"><div class="cr-label">Na⁺ corrigido</div><div class="cr-value">${na.toFixed(1)} mEq/L</div><div class="cr-detail">Sem correção (Glic ≤ 100).</div></div>`;
+    return;
+  }
+  const c = ((glic - 100) / 100) * 1.6;
+  const nc = na + c;
+  r.innerHTML = `<div class="calc-result"><div class="cr-label">Na⁺ corrigido</div><div class="cr-value">${nc.toFixed(1)} mEq/L</div><div class="cr-detail">${na.toFixed(1)} + ${c.toFixed(1)} (Dx ${glic})</div></div>`;
+}
+['cna-medido','cna-glic'].forEach(id => { const el = document.getElementById(id); if (el) el.addEventListener('input', calcNaCorr); });
+
+/* Bomba */
+function calcBomba() {
+  const peso = parseFloat(document.getElementById('cbomba-peso').value);
+  const r = document.getElementById('cbomba-result');
+  if (isNaN(peso) || peso <= 0) { r.innerHTML = ''; return; }
+  const mlh = (peso * 0.1).toFixed(1);
+  const bolus = (peso * 0.1).toFixed(1);
+  r.innerHTML = `<div class="calc-result green"><div class="cr-label">Velocidade</div><div class="cr-value" style="font-size:24px;">${mlh} mL/h</div><div class="cr-detail">= ${mlh} UI/h · Bolus inicial: ${bolus} UI EV (opcional)</div></div>`;
+}
+const cbp = document.getElementById('cbomba-peso');
+if (cbp) cbp.addEventListener('input', calcBomba);
+
+/* Solução */
+const solutions1000 = {
+  1: 'AD 1000 mL + 1 amp KCl 19,1% + 2 amp NaCl 20%',
+  2: 'AD 1000 mL + 2 amp NaCl 20%',
+  3: 'SF 0,9% 1000 mL + 1 amp KCl 19,1%',
+  4: 'SF 0,9% 1000 mL',
+  5: 'SG 5% 1000 mL + 1 amp KCl 19,1% + 2 amp NaCl 20%',
+  6: 'SG 5% 1000 mL + 2 amp NaCl 20%',
+  7: 'SG 5% 1000 mL + 2 amp KCl 19,1% + 4 amp NaCl 20%',
+  8: 'SG 5% 1000 mL + 4 amp NaCl 20%'
+};
+const solutions500 = {
+  1: 'AD 500 mL + ½ amp KCl 19,1% + 1 amp NaCl 20%',
+  2: 'AD 500 mL + 1 amp NaCl 20%',
+  3: 'SF 0,9% 500 mL + ½ amp KCl 19,1%',
+  4: 'SF 0,9% 500 mL',
+  5: 'SG 5% 500 mL + ½ amp KCl 19,1% + 1 amp NaCl 20%',
+  6: 'SG 5% 500 mL + 1 amp NaCl 20%',
+  7: 'SG 5% 500 mL + 1 amp KCl 19,1% + 2 amp NaCl 20%',
+  8: 'SG 5% 500 mL + 2 amp NaCl 20%'
+};
+let currentVolume = 1000;
+document.querySelectorAll('.vol-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.vol-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentVolume = parseInt(btn.dataset.vol);
+    calcPickSolution();
+  });
+});
+function calcPickSolution() {
+  const dx = parseFloat(document.getElementById('csol-dx').value);
+  const na = parseFloat(document.getElementById('csol-na').value);
+  const k = parseFloat(document.getElementById('csol-k').value);
+  const r = document.getElementById('csol-result');
+  if (isNaN(dx) || isNaN(na) || isNaN(k)) { r.innerHTML = '<div class="empty-tl">Preencha os três valores.</div>'; return; }
+  let n, p1, p2, p3;
+  if (dx > 250) {
+    p1 = 'Dx>250';
+    if (na > 135) { p2 = 'Na>135'; n = k < 5.3 ? 1 : 2; }
+    else { p2 = 'Na<135'; n = k < 5.3 ? 3 : 4; }
+  } else {
+    p1 = 'Dx<250';
+    if (na > 135) { p2 = 'Na>135'; n = k < 5.3 ? 5 : 6; }
+    else { p2 = 'Na<135'; n = k < 5.3 ? 7 : 8; }
+  }
+  p3 = k < 5.3 ? 'K<5,3' : 'K>5,3';
+  const sols = currentVolume === 500 ? solutions500 : solutions1000;
+  const tempo = currentVolume === 500 ? '2h' : '4h';
+  r.innerHTML = `<div class="calc-result green" style="text-align:center;"><div class="cr-label">Solução indicada</div><div style="font-size:42px;font-weight:800;color:var(--green);line-height:1;margin:6px 0;">${n}</div><div style="font-size:13px;font-weight:600;color:var(--text);">${sols[n]}</div><div style="margin-top:8px;padding:5px 10px;background:rgba(29,155,99,.15);border-radius:8px;display:inline-block;font-weight:700;font-size:12px;">Correr 250 mL/h (${tempo})</div><div style="margin-top:8px;font-size:11px;color:var(--text-dim);">${p1} → ${p2} → ${p3}</div></div>`;
+}
+['csol-dx','csol-na','csol-k'].forEach(id => { const el = document.getElementById(id); if (el) el.addEventListener('input', calcPickSolution); });
+
+/* Bicarbonato */
+function calcBicarb() {
+  const ph = parseFloat(document.getElementById('cbicarb-ph').value);
+  const r = document.getElementById('cbicarb-result');
+  if (isNaN(ph)) { r.innerHTML = ''; return; }
+  if (ph < 6.9) {
+    r.innerHTML = `<div class="calc-result red"><div class="cr-label">Repor</div><div class="cr-value">pH ${ph} < 6,9</div><div class="cr-detail">Seguir receita padrão.</div></div>`;
+  } else {
+    r.innerHTML = `<div class="calc-result green"><div class="cr-label">Não repor</div><div class="cr-value">pH ${ph} ≥ 6,9</div></div>`;
+  }
+}
+const cbph = document.getElementById('cbicarb-ph');
+if (cbph) cbph.addEventListener('input', calcBicarb);
+
+/* Off bomba */
+function calcOff() {
+  const glic = parseFloat(document.getElementById('coff-glic').value);
+  const ph = parseFloat(document.getElementById('coff-ph').value);
+  const bic = parseFloat(document.getElementById('coff-bic').value);
+  const ag = parseFloat(document.getElementById('coff-ag').value);
+  const r = document.getElementById('coff-result');
+  if (isNaN(glic) || isNaN(ph) || isNaN(bic) || isNaN(ag)) { r.innerHTML = ''; return; }
+  const c1 = glic < 200, c2 = ph >= 7.3, c3 = bic >= 18, c4 = ag <= 12;
+  const all = c1 && c2 && c3 && c4;
+  const cls = all ? 'green' : 'amber';
+  const title = all ? 'Pode desligar' : 'Manter bomba';
+  r.innerHTML = `<div class="calc-result ${cls}"><div class="cr-label">${title}</div><div class="cr-detail" style="color:var(--text);font-size:12px;line-height:1.7;">
+    ${c1?'✓':'✗'} Glic ${glic}<br>${c2?'✓':'✗'} pH ${ph}<br>${c3?'✓':'✗'} Bic ${bic}<br>${c4?'✓':'✗'} AG ${ag}
+  </div></div>`;
+}
+['coff-glic','coff-ph','coff-bic','coff-ag'].forEach(id => { const el = document.getElementById(id); if (el) el.addEventListener('input', calcOff); });
+
+/* Ânion Gap */
+function calcAG() {
+  const na = parseFloat(document.getElementById('ag-na').value);
+  const cl = parseFloat(document.getElementById('ag-cl').value);
+  const hco3 = parseFloat(document.getElementById('ag-hco3').value);
+  const r = document.getElementById('ag-result');
+  if (isNaN(na) || isNaN(cl) || isNaN(hco3)) { r.innerHTML = ''; return; }
+  const ag = na - (cl + hco3);
+  let cls, label;
+  if (ag <= 12) { cls = 'green'; label = 'AG normal (≤12)'; }
+  else if (ag <= 20) { cls = 'amber'; label = 'AG aumentado'; }
+  else { cls = 'red'; label = 'AG muito aumentado'; }
+  r.innerHTML = `<div class="calc-result ${cls}"><div class="cr-label">${label}</div><div class="cr-value">AG = ${ag.toFixed(1)} mEq/L</div><div class="cr-detail">${na} − (${cl} + ${hco3})</div></div>`;
+}
+['ag-na','ag-cl','ag-hco3'].forEach(id => { const el = document.getElementById(id); if (el) el.addEventListener('input', calcAG); });
+
+/* Osmolaridade */
+function calcOsm() {
+  const na = parseFloat(document.getElementById('osm-na').value);
+  const glic = parseFloat(document.getElementById('osm-glic').value);
+  const r = document.getElementById('osm-result');
+  if (isNaN(na) || isNaN(glic)) { r.innerHTML = ''; return; }
+  const osm = 2 * na + glic / 18;
+  let cls, label;
+  if (osm < 295) { cls = 'green'; label = 'Osm normal'; }
+  else if (osm < 320) { cls = 'amber'; label = 'Osm elevada'; }
+  else { cls = 'red'; label = 'Osm > 320 — risco EHH'; }
+  r.innerHTML = `<div class="calc-result ${cls}"><div class="cr-label">${label}</div><div class="cr-value">Osm = ${osm.toFixed(1)} mOsm/L</div><div class="cr-detail">2 × ${na} + ${glic}/18</div></div>`;
+}
+['osm-na','osm-glic'].forEach(id => { const el = document.getElementById(id); if (el) el.addEventListener('input', calcOsm); });
+
+/* INIT */
+loadGuideline();
+loadCase();
+if (caseData) {
+  // Tem caso ativo → abre direto no app, na aba do caso
+  hideWelcome();
+  showCaseUI();
+  setMode('case');
+  showTab('caso');
+} else {
+  // Sem caso ativo → mostra a welcome screen
+  showWelcome();
+  hideCaseUI();
+}
+</script>
+
+</body>
+</html>

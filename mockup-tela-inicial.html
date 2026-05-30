@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Mockup compacto · iPhone</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    background: #fafbfd;
+    color: #0a1f3d;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* HEADER */
+  .m-header {
+    background: linear-gradient(135deg, #0a1f3d 0%, #14377d 100%);
+    color: #fff;
+    padding: 12px 16px 14px;
+    padding-top: calc(12px + env(safe-area-inset-top));
+    position: relative;
+    flex-shrink: 0;
+  }
+  .m-header::after {
+    content: ""; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px; background: #5a8ae8;
+  }
+  .m-title { font-size: 15px; font-weight: 800; line-height: 1.15; }
+  .m-doctor { font-size: 11.5px; font-weight: 700; opacity: .95; margin-top: 3px; }
+  .m-sub { font-size: 9px; opacity: .7; text-transform: uppercase; letter-spacing: .12em; margin-top: 2px; }
+
+  /* DEMO BAR compacta */
+  .demo-bar {
+    background: linear-gradient(90deg, #c9a961, #14377d);
+    padding: 6px 14px; color: #fff;
+    font-size: 9.5px; font-weight: 700;
+    text-align: center; letter-spacing: .06em; text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  /* WELCOME area FLEX */
+  .welcome {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 16px 14px 14px;
+    padding-bottom: calc(14px + env(safe-area-inset-bottom));
+    min-height: 0;
+  }
+
+  .welcome-greeting {
+    font-size: 11.5px;
+    color: #6b7c93;
+    text-align: center;
+    margin-bottom: 2px;
+  }
+  .welcome-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #0a1f3d;
+    text-align: center;
+    margin-bottom: 14px;
+    line-height: 1.25;
+  }
+
+  /* BTNs em grid pra ocupar o espaço */
+  .btns-grid {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 0;
+  }
+
+  .big-btn {
+    flex: 1;
+    background: #fff;
+    border: 2px solid #e5eaf2;
+    border-radius: 14px;
+    padding: 14px;
+    cursor: pointer;
+    text-align: left;
+    transition: all .2s;
+    font-family: inherit;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 0;
+  }
+  .big-btn:active {
+    transform: scale(.98);
+  }
+  .big-btn.case {
+    background: linear-gradient(135deg, #fff 0%, #f0f4fb 100%);
+  }
+  .big-btn.case::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 4px;
+    background: #14377d;
+  }
+  .big-btn.calc::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 4px;
+    background: #c9a961;
+  }
+
+  .big-btn-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .big-btn-icon {
+    width: 42px;
+    height: 42px;
+    background: #e8edf7;
+    border-radius: 11px;
+    display: grid;
+    place-items: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .big-btn.calc .big-btn-icon {
+    background: #f7f1e0;
+  }
+  .big-btn-title-block {
+    flex: 1;
+    min-width: 0;
+  }
+  .big-btn-title {
+    font-size: 15px;
+    font-weight: 800;
+    color: #0a1f3d;
+    line-height: 1.2;
+  }
+  .big-btn-badge {
+    display: inline-block;
+    background: #14377d;
+    color: #fff;
+    font-size: 8.5px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 100px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+  .big-btn.calc .big-btn-badge {
+    background: #c9a961;
+  }
+  .big-btn-desc {
+    font-size: 12px;
+    color: #6b7c93;
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+  .big-btn-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+  .big-btn-feat {
+    background: #f0f3f9;
+    color: #14377d;
+    font-size: 9.5px;
+    font-weight: 700;
+    padding: 3px 7px;
+    border-radius: 5px;
+  }
+  .big-btn.calc .big-btn-feat {
+    background: #fbf2dc;
+    color: #b07b1a;
+  }
+  .big-btn-action {
+    padding-top: 8px;
+    border-top: 1px dashed #e5eaf2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 800;
+    color: #14377d;
+  }
+  .big-btn.calc .big-btn-action {
+    color: #b07b1a;
+  }
+  .big-btn-arrow {
+    font-size: 18px;
+  }
+
+  .footer-ref {
+    padding-top: 10px;
+    text-align: center;
+    font-size: 9.5px;
+    color: #a5b0c2;
+    line-height: 1.5;
+    flex-shrink: 0;
+  }
+  .footer-ref strong {
+    color: #14377d;
+  }
+</style>
+</head>
+<body>
+
+<div class="m-header">
+  <div class="m-title">Manejo de Cetoacidose Diabética</div>
+  <div class="m-doctor">Dr. Renan Horisawa</div>
+  <div class="m-sub">Calculadora clínica</div>
+</div>
+
+<div class="demo-bar">Condutas validadas · ADA 2024 + Emergências USP</div>
+
+<div class="welcome">
+  <div class="welcome-greeting">Bem-vindo,</div>
+  <div class="welcome-title">como posso te ajudar agora?</div>
+
+  <div class="btns-grid">
+
+    <button class="big-btn case">
+      <div>
+        <div class="big-btn-top">
+          <div class="big-btn-icon">📊</div>
+          <div class="big-btn-title-block">
+            <div class="big-btn-title">Iniciar Caso Ativo</div>
+            <div class="big-btn-badge">Manejo guiado</div>
+          </div>
+        </div>
+        <div class="big-btn-desc">
+          Acompanhe o manejo do paciente do início ao fim. Timeline, reavaliações guiadas e prescrição final.
+        </div>
+        <div class="big-btn-features">
+          <span class="big-btn-feat">⏱ Timeline</span>
+          <span class="big-btn-feat">🔄 Reavaliações</span>
+          <span class="big-btn-feat">📋 Prescrição pronta</span>
+        </div>
+      </div>
+      <div class="big-btn-action">
+        <span>Começar agora</span>
+        <span class="big-btn-arrow">→</span>
+      </div>
+    </button>
+
+    <button class="big-btn calc">
+      <div>
+        <div class="big-btn-top">
+          <div class="big-btn-icon">🧮</div>
+          <div class="big-btn-title-block">
+            <div class="big-btn-title">Calculadoras</div>
+            <div class="big-btn-badge">Consulta rápida</div>
+          </div>
+        </div>
+        <div class="big-btn-desc">
+          Consulta pontual de fórmulas e doses. 9 ferramentas independentes pra usar no plantão.
+        </div>
+        <div class="big-btn-features">
+          <span class="big-btn-feat">Dx · Bomba · Solução</span>
+          <span class="big-btn-feat">Na corr · AG · Osm</span>
+        </div>
+      </div>
+      <div class="big-btn-action">
+        <span>Abrir calculadoras</span>
+        <span class="big-btn-arrow">→</span>
+      </div>
+    </button>
+
+  </div>
+
+  <div class="footer-ref">
+    <strong>Ref:</strong> ADA 2024 · Emergências Clínicas USP
+  </div>
+</div>
+
+</body>
+</html>

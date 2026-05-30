@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Opções de Toggle</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    background: #f0f3f9;
+    padding: 20px 14px;
+    color: #0a1f3d;
+  }
+  h1 { font-size: 18px; margin-bottom: 4px; }
+  .intro { font-size: 13px; color: #6b7c93; margin-bottom: 20px; }
+  .option {
+    background: #fff;
+    border-radius: 16px;
+    padding: 18px 16px;
+    margin-bottom: 18px;
+    box-shadow: 0 4px 12px rgba(10,31,61,.08);
+  }
+  .opt-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #14377d;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    margin-bottom: 6px;
+  }
+  .opt-desc {
+    font-size: 13px;
+    color: #6b7c93;
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+
+  /* MOCKUP COMUM */
+  .mockup {
+    border: 1px solid #e5eaf2;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fafbfd;
+  }
+  .m-header {
+    background: linear-gradient(135deg, #0a1f3d 0%, #14377d 100%);
+    color: #fff;
+    padding: 12px 14px;
+    position: relative;
+  }
+  .m-header::after {
+    content: ""; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px; background: #5a8ae8;
+  }
+  .m-title { font-size: 14px; font-weight: 800; line-height: 1.15; }
+  .m-doctor { font-size: 11px; font-weight: 700; margin-top: 3px; opacity: .95; }
+  .m-sub { font-size: 9px; opacity: .7; text-transform: uppercase; letter-spacing: .12em; margin-top: 1px; }
+
+  .m-body { padding: 12px; min-height: 80px; }
+  .m-placeholder {
+    background: #fff;
+    border: 1px dashed #c9d4e5;
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+    font-size: 12px;
+    color: #a5b0c2;
+    margin-top: 8px;
+  }
+
+  /* OPÇÃO 1: TOGGLE PILL GRANDE */
+  .pill-toggle {
+    display: flex;
+    background: #e5eaf2;
+    border-radius: 12px;
+    padding: 4px;
+    margin: 10px 0 0;
+  }
+  .pill-btn {
+    flex: 1;
+    padding: 10px 12px;
+    border-radius: 9px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #6b7c93;
+    background: transparent;
+    cursor: pointer;
+    transition: all .2s;
+    border: none;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .pill-btn.active {
+    background: #fff;
+    color: #14377d;
+    box-shadow: 0 2px 6px rgba(10,31,61,.1);
+  }
+  .pill-btn .pulse-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 0 2px rgba(74,222,128,.3);
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .6; transform: scale(1.2); }
+  }
+
+  /* OPÇÃO 2: SEGMENTED CONTROL DENTRO DO HEADER */
+  .seg-header {
+    background: linear-gradient(135deg, #0a1f3d 0%, #14377d 100%);
+    color: #fff;
+    padding: 12px 14px 14px;
+    position: relative;
+  }
+  .seg-header::after {
+    content: ""; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px; background: #5a8ae8;
+  }
+  .seg-control {
+    background: rgba(255,255,255,.15);
+    border-radius: 10px;
+    padding: 3px;
+    display: flex;
+    margin-top: 10px;
+  }
+  .seg-btn {
+    flex: 1;
+    padding: 7px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255,255,255,.7);
+    background: transparent;
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+  }
+  .seg-btn.active {
+    background: #fff;
+    color: #14377d;
+  }
+
+  /* OPÇÃO 3: BOTTOM SWITCHER ESTILO STORIES */
+  .stories-bar {
+    display: flex;
+    gap: 8px;
+    padding: 12px 14px 8px;
+    background: #fff;
+    border-bottom: 1px solid #e5eaf2;
+  }
+  .story-item {
+    flex: 1;
+    padding: 10px 8px;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    border: 2px solid #e5eaf2;
+    background: #fafbfd;
+  }
+  .story-item.active {
+    border-color: #14377d;
+    background: linear-gradient(135deg, #fff 0%, #e8edf7 100%);
+  }
+  .story-icon {
+    font-size: 22px;
+    margin-bottom: 4px;
+  }
+  .story-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: #14377d;
+  }
+  .story-status {
+    font-size: 9px;
+    color: #6b7c93;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+  .story-item.active .story-status {
+    color: #4ade80;
+  }
+
+  /* OPÇÃO 4: TAB BAR INFERIOR ESTILO APP NATIVO */
+  .tab-bar {
+    display: flex;
+    background: #fff;
+    border-top: 1px solid #e5eaf2;
+    padding: 6px 0 8px;
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 6px 4px;
+    text-align: center;
+    cursor: pointer;
+    color: #a5b0c2;
+    transition: color .2s;
+    background: none;
+    border: none;
+    font-family: inherit;
+  }
+  .tab-btn.active {
+    color: #14377d;
+  }
+  .tab-icon { font-size: 22px; display: block; }
+  .tab-label {
+    font-size: 10px;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+  .tab-btn.active .tab-icon {
+    transform: scale(1.05);
+  }
+
+  .winner-tag {
+    display: inline-block;
+    background: #fde7c2;
+    color: #b07b1a;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+</style>
+</head>
+<body>
+
+<h1>Onde colocar o toggle Caso Ativo ↔ Calculadoras?</h1>
+<p class="intro">Quatro mockups com a mesma navegação, mas formatos diferentes. Veja qual encaixa melhor pro seu dia a dia.</p>
+
+<!-- OPÇÃO 1 -->
+<div class="option">
+  <div class="opt-label">Opção 1 · Pill toggle abaixo do header</div>
+  <p class="opt-desc">Botão "pílula" estilo iOS, separa claramente os dois modos. Ponto verde pulsa quando tem caso ativo.</p>
+  <div class="mockup">
+    <div class="m-header">
+      <div class="m-title">Manejo de Cetoacidose Diabética</div>
+      <div class="m-doctor">Dr. Renan Horisawa</div>
+      <div class="m-sub">Calculadora clínica</div>
+    </div>
+    <div class="m-body">
+      <div class="pill-toggle">
+        <button class="pill-btn active"><span class="pulse-dot"></span>Caso Ativo</button>
+        <button class="pill-btn">Calculadoras</button>
+      </div>
+      <div class="m-placeholder">conteúdo da seção escolhida</div>
+    </div>
+  </div>
+</div>
+
+<!-- OPÇÃO 2 -->
+<div class="option">
+  <div class="opt-label">Opção 2 · Segmented dentro do header</div>
+  <p class="opt-desc">Compacto, integrado ao header azul. Economiza espaço vertical, fica sempre visível ao rolar.</p>
+  <div class="mockup">
+    <div class="seg-header">
+      <div class="m-title">Manejo de Cetoacidose Diabética</div>
+      <div class="m-doctor">Dr. Renan Horisawa · Calculadora clínica</div>
+      <div class="seg-control">
+        <button class="seg-btn active">Caso Ativo</button>
+        <button class="seg-btn">Calculadoras</button>
+      </div>
+    </div>
+    <div class="m-body">
+      <div class="m-placeholder">conteúdo da seção escolhida</div>
+    </div>
+  </div>
+</div>
+
+<!-- OPÇÃO 3 -->
+<div class="option">
+  <div class="opt-label">Opção 3 · Cards estilo "modos"</div>
+  <p class="opt-desc">Dois cards grandes lado a lado, cada um com ícone. Mais visual, ocupa mais espaço.</p>
+  <div class="mockup">
+    <div class="m-header">
+      <div class="m-title">Manejo de Cetoacidose Diabética</div>
+      <div class="m-doctor">Dr. Renan Horisawa</div>
+      <div class="m-sub">Calculadora clínica</div>
+    </div>
+    <div class="stories-bar">
+      <div class="story-item active">
+        <div class="story-icon">📊</div>
+        <div class="story-name">Caso Ativo</div>
+        <div class="story-status">● em manejo</div>
+      </div>
+      <div class="story-item">
+        <div class="story-icon">🧮</div>
+        <div class="story-name">Calculadoras</div>
+        <div class="story-status">9 ferramentas</div>
+      </div>
+    </div>
+    <div class="m-body">
+      <div class="m-placeholder">conteúdo da seção escolhida</div>
+    </div>
+  </div>
+</div>
+
+<!-- OPÇÃO 4 -->
+<div class="option">
+  <div class="opt-label">Opção 4 · Bottom tab bar (estilo app nativo) <span class="winner-tag">Recomendado</span></div>
+  <p class="opt-desc">Barra fixa embaixo, igual Instagram/WhatsApp. Polegar alcança fácil, padrão universal em apps mobile.</p>
+  <div class="mockup">
+    <div class="m-header">
+      <div class="m-title">Manejo de Cetoacidose Diabética</div>
+      <div class="m-doctor">Dr. Renan Horisawa</div>
+      <div class="m-sub">Calculadora clínica</div>
+    </div>
+    <div class="m-body" style="min-height: 130px;">
+      <div class="m-placeholder">conteúdo da seção escolhida</div>
+    </div>
+    <div class="tab-bar">
+      <button class="tab-btn active">
+        <span class="tab-icon">📊</span>
+        <span class="tab-label">Caso Ativo</span>
+      </button>
+      <button class="tab-btn">
+        <span class="tab-icon">🧮</span>
+        <span class="tab-label">Calculadoras</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div style="text-align: center; margin-top: 20px; padding: 14px; background: #fff; border-radius: 12px; font-size: 12px; color: #6b7c93;">
+  Me responde: <strong style="color: #14377d;">1, 2, 3 ou 4</strong>
+</div>
+
+</body>
+</html>
